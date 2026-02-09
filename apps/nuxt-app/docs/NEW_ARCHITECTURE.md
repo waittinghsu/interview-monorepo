@@ -312,10 +312,10 @@ export function useProductsQuery() {
 
 ### 5. 建立統一入口
 ```typescript
+export * from './queries/product.queries'
 // modules/product/index.ts
 export * from './schemas/product.schema'
 export * from './services/product.service'
-export * from './queries/product.queries'
 ```
 
 ### 6. 在頁面使用
@@ -348,7 +348,8 @@ useQuery({ queryKey: ['user', 'info'] })
 try {
   const response = await api('/userinfo')
   return userInfoResponseSchema.parse(response).data
-} catch (error) {
+}
+catch (error) {
   // 已經在 useApiClient 攔截器中處理
   throw error
 }
@@ -357,9 +358,17 @@ try {
 ### 3. Loading 狀態
 ```vue
 <!-- 使用 Query 提供的狀態 -->
-<div v-if="isPending">載入中...</div>
-<div v-else-if="error">錯誤: {{ error.message }}</div>
-<div v-else>{{ data }}</div>
+<div v-if="isPending">
+載入中...
+</div>
+
+<div v-else-if="error">
+錯誤: {{ error.message }}
+</div>
+
+<div v-else>
+{{ data }}
+</div>
 ```
 
 ### 4. 快取策略
@@ -367,8 +376,8 @@ try {
 useQuery({
   queryKey: userQueryKeys.info(),
   queryFn: () => service.getUserInfo(),
-  staleTime: 1000 * 60 * 5,    // 5 分鐘內不重新請求
-  gcTime: 1000 * 60 * 10,       // 10 分鐘後清除快取
+  staleTime: 1000 * 60 * 5, // 5 分鐘內不重新請求
+  gcTime: 1000 * 60 * 10, // 10 分鐘後清除快取
 })
 ```
 

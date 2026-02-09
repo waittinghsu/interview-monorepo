@@ -32,15 +32,15 @@ interface ApiResponse<T> {
 ### UserInfo
 ```typescript
 interface UserInfo {
-  memberId: number        // 會員編號
-  name: string           // 會員名字
-  nickname: string       // 會員暱稱
-  phone: string          // 會員手機
-  email: string          // 會員信箱
-  balance: string        // 儲值金額
-  level: number          // 會員等級 1~12
-  avatarId: number       // 會員頭像編號 1~30
-  bookmarks: number[]    // 會員書籤收藏清單
+  memberId: number // 會員編號
+  name: string // 會員名字
+  nickname: string // 會員暱稱
+  phone: string // 會員手機
+  email: string // 會員信箱
+  balance: string // 儲值金額
+  level: number // 會員等級 1~12
+  avatarId: number // 會員頭像編號 1~30
+  bookmarks: number[] // 會員書籤收藏清單
 }
 ```
 
@@ -112,13 +112,15 @@ const { getUserInfo } = useUserInfo()
 const userInfo = ref(null)
 const isLoading = ref(false)
 
-const fetchData = async () => {
+async function fetchData() {
   isLoading.value = true
   try {
     userInfo.value = await getUserInfo()
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
-  } finally {
+  }
+  finally {
     isLoading.value = false
   }
 }

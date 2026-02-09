@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRefetchUserInfo, useUpdateUserInfoMutation, useUserInfoQuery, useUserService } from '~/modules/user'
+import { useRefetchUserInfo, useUpdateUserInfoMutation, useUserInfoQuery, useUserService } from '~/features/user'
 
 /**
  * SSR: 使用 useAsyncData 預先取得資料
@@ -52,6 +52,7 @@ const levelColor = computed(() => {
  * 更新會員暱稱範例
  */
 function handleUpdateNickname() {
+  // eslint-disable-next-line no-alert
   const newNickname = prompt('輸入新暱稱')
   if (newNickname) {
     updateMutation.mutate({ nickname: newNickname })

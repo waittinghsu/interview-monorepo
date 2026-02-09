@@ -3,12 +3,13 @@ import { z } from 'zod'
 /**
  * API 通用回應格式 Schema
  */
-export const apiResponseSchema = <T extends z.ZodType>(dataSchema: T) =>
-  z.object({
+export function apiResponseSchema<T extends z.ZodType>(dataSchema: T) {
+  return z.object({
     code: z.number(),
     data: dataSchema,
     message: z.string().optional(),
   })
+}
 
 /**
  * 會員資料 Schema

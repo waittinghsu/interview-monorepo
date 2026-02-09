@@ -3,8 +3,8 @@
  * 會員模組統一入口
  */
 
-// Types
-export * from './types/user.types'
+// Queries
+export * from './queries/user.queries'
 
 // Schemas
 export * from './schemas/user.schema'
@@ -12,5 +12,5 @@ export * from './schemas/user.schema'
 // Services
 export * from './services/user.service'
 
-// Queries
-export * from './queries/user.queries'
+// Types
+export * from './types/user.types'

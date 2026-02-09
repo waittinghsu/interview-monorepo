@@ -28,10 +28,8 @@ export function useApiClient() {
       if (import.meta.client) {
         const token = localStorage.getItem('token')
         if (token) {
-          options.headers = {
-            ...options.headers,
-            Authorization: `Bearer ${token}`,
-          }
+          options.headers = new Headers(options.headers || {})
+          options.headers.set('Authorization', `Bearer ${token}`)
         }
       }
 

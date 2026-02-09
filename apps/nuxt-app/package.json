@@ -11,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "clean": "rm -rf .nuxt .output node_modules"
+    "clean": "rm -rf .nuxt .output node_modules",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "@interview/shared-api": "workspace:*",
@@ -41,5 +42,16 @@
     "sass-embedded": "^1.83.4",
     "typescript": "^5.7.3",
     "vue-tsc": "^2.2.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "eslint --fix"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   }
 }
