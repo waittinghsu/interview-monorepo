@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+.output
+.nuxt
+.nitro
+
+# Cache
+.cache
+.turbo
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+.claude_context
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage
+
+# TypeScript
+*.tsbuildinfo

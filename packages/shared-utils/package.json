@@ -1,0 +1,11 @@
+{
+  "name": "@interview/shared-utils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./format": "./src/format.js"
+  }
+}

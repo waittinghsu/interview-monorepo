@@ -1,0 +1,17 @@
+{
+  "name": "@interview/shared-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./http-client": "./src/http-client/index.js",
+    "./services": "./src/services/index.js",
+    "./schemas": "./src/schemas/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "zod": "^3.24.1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@interview/shared-design-tokens",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./themes": "./src/themes/index.js",
+    "./themes/*": "./src/themes/*.js"
+  }
+}

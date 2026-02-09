@@ -1,0 +1,16 @@
+{
+  "name": "@interview/shared-mocks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./handlers": "./src/handlers/index.js",
+    "./browser": "./src/browser.js",
+    "./server": "./src/server.js"
+  },
+  "dependencies": {
+    "msw": "^2.7.0"
+  }
+}

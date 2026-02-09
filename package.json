@@ -1,0 +1,16 @@
+{
+  "name": "interview-monorepo",
+  "private": true,
+  "scripts": {
+    "dev:vue": "turbo run dev --filter=@interview/vue-app",
+    "dev:nuxt": "turbo run dev --filter=@interview/nuxt-app",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "pnpm@9.15.4"
+}
