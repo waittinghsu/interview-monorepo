@@ -1,4 +1,4 @@
-import type { UserInfo } from '../schemas/user.schema'
+import type { UserInfo } from '~/features/user'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useUserService } from '~/features/user'
 
