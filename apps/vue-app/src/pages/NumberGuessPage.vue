@@ -97,14 +97,16 @@ function resetGame() {
           :disable="isGameOver"
           label="輸入 4 位數字"
           filled
+          dark
           maxlength="4"
           inputmode="numeric"
           class="flex-1"
+          input-class="text-textBrand font-mono tracking-widest text-lg"
           @update:model-value="handleInput"
         />
         <div class="flex gap-2">
-          <q-btn color="primary" label="送出" :disable="isGameOver" @click="submitGuess" />
-          <q-btn outline color="secondary" label="重置" @click="resetGame" />
+          <q-btn unelevated :disable="isGameOver" class="btn-gradient-primary" label="送出" @click="submitGuess" />
+          <q-btn outline color="warning" label="重置" @click="resetGame" />
         </div>
       </div>
 

@@ -42,10 +42,10 @@ export const useThemeStore = defineStore('theme', () => {
     })
 
     // 同步更新 Quasar CSS 變數
-    if (colors.primary)
-      root.style.setProperty('--q-primary', colors.primary)
-    if (colors.secondary)
-      root.style.setProperty('--q-secondary', colors.secondary)
+    if (colors.action)
+      root.style.setProperty('--q-primary', colors.action)
+    if (colors['secondary-500'])
+      root.style.setProperty('--q-secondary', colors['secondary-500'])
     if (colors.success)
       root.style.setProperty('--q-positive', colors.success)
     if (colors.warning)
