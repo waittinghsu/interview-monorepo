@@ -42,10 +42,11 @@ onMounted(() => {
 const actionButtons = ref([
   { id: 1, icon: '/images/home/actionButtons/deposit.png', label: '座位表', routeName: 'SeatGrid' },
   { id: 2, icon: '/images/home/actionButtons/withdraw.png', label: '輪盤', routeName: 'SeatRotate' },
-  { id: 3, icon: '/images/home/actionButtons/bonus.png', label: '抽獎', routeName: 'Home' },
-  { id: 4, icon: '/images/home/actionButtons/promo.png', label: '優惠', routeName: 'Home' },
-  { id: 5, icon: '/images/home/actionButtons/message.png', label: '訊息', routeName: 'Home' },
-  { id: 6, icon: '/images/home/actionButtons/share.png', label: '關於', routeName: 'About' },
+  { id: 3, icon: '/images/home/actionButtons/racing.png', label: '猜數字', routeName: 'NumberGuess' },
+  { id: 4, icon: '/images/home/actionButtons/bonus.png', label: '抽獎', routeName: 'Home' },
+  { id: 5, icon: '/images/home/actionButtons/promo.png', label: '優惠', routeName: 'Home' },
+  { id: 6, icon: '/images/home/actionButtons/message.png', label: '訊息', routeName: 'Home' },
+  { id: 7, icon: '/images/home/actionButtons/share.png', label: '關於', routeName: 'About' },
 ])
 
 // Grid 區塊資料（後期會放隨機圖）
@@ -55,12 +56,12 @@ const gridItems = ref([
   { id: 3, color: 'bg-gradient-to-br from-green-400 to-green-600', label: '關於我們', routeName: 'About' },
   { id: 4, color: 'bg-gradient-to-br from-blue-400 to-blue-600', label: '圈圈叉叉', routeName: 'TicTacToe' },
   { id: 5, color: 'bg-gradient-to-br from-purple-400 to-purple-600', label: '股票圖表', routeName: 'Chart' },
-  { id: 6, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
-  { id: 7, color: 'bg-gradient-to-br from-cyan-400 to-cyan-600', label: '功能四', routeName: 'Home' },
-  { id: 8, color: 'bg-gradient-to-br from-amber-400 to-amber-600', label: '功能五', routeName: 'Home' },
-  { id: 9, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能六', routeName: 'Home' },
-  { id: 10, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能七', routeName: 'Home' },
-  { id: 11, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能八', routeName: 'Home' },
+  { id: 6, color: 'bg-gradient-to-br from-cyan-400 to-cyan-600', label: '猜數字', routeName: 'NumberGuess' },
+  { id: 7, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
+  { id: 8, color: 'bg-gradient-to-br from-amber-400 to-amber-600', label: '功能四', routeName: 'Home' },
+  { id: 9, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能五', routeName: 'Home' },
+  { id: 10, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能六', routeName: 'Home' },
+  { id: 11, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能七', routeName: 'Home' },
 ])
 
 function navigateTo(routeName) {

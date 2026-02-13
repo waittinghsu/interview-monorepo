@@ -35,6 +35,11 @@ const routes = [
         name: 'Chart',
         component: () => import('@/pages/ChartPage.vue'),
       },
+      {
+        path: 'number-guess',
+        name: 'NumberGuess',
+        component: () => import('@/pages/NumberGuessPage.vue'),
+      },
     ],
   },
   {

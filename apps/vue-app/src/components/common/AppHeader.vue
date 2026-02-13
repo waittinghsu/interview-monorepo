@@ -33,6 +33,9 @@ function onThemeChange(value) {
             <q-item v-close-popup clickable to="/seat-rotate">
               <q-item-section>SeatRotate</q-item-section>
             </q-item>
+            <q-item v-close-popup clickable to="/number-guess">
+              <q-item-section>猜數字</q-item-section>
+            </q-item>
           </q-list>
         </q-menu>
       </q-btn>
