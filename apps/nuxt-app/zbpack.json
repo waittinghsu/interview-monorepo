@@ -1,4 +1,0 @@
-{
-  "build_command": "pnpm build:nuxt",
-  "start_command": "node .zeabur/output/functions/__nitro.func/index.mjs"
-}

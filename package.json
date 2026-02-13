@@ -6,8 +6,8 @@
     "dev:nuxt": "turbo run dev --filter=@interview/nuxt-app",
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "build:vue": "turbo run build --filter=@interview/vue-app...",
-    "build:nuxt": "turbo run build --filter=@interview/nuxt-app...",
+    "build:vue": "turbo run build --filter=...@interview/vue-app",
+    "build:nuxt": "turbo run build --filter=...@interview/nuxt-app",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules"
   },
