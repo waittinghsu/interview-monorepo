@@ -1,0 +1,4 @@
+{
+  "build_command": "cd ../.. && pnpm build:nuxt",
+  "start_command": "node .output/server/index.mjs"
+}

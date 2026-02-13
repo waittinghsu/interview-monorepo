@@ -1,0 +1,4 @@
+{
+  "build_command": "cd ../.. && pnpm build:vue",
+  "output_dir": "dist"
+}
