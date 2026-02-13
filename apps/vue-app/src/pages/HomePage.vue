@@ -1,15 +1,18 @@
 <script setup>
 const router = useRouter()
 
-// 輪播圖資料（後期改為 mock API）
-const carouselSlides = ref([
-  { id: 1, image: '/images/home/carousel/one_ok_rock.jpg', title: 'ONE OK ROCK' },
-  { id: 2, image: '/images/home/carousel/fx.jpg', title: 'f(x)' },
-  { id: 3, image: '/images/home/carousel/cxm.jpg', title: 'CXM' },
-  { id: 4, image: '/images/home/carousel/gem.jpg', title: 'G.E.M.' },
-  { id: 5, image: '/images/home/carousel/readom.jpg', title: 'Readom' },
-  { id: 6, image: '/images/home/carousel/zpp.jpg', title: 'ZPP' },
-])
+// 輪播圖：自動讀取 public/images/home/carousel/ 下所有圖片
+const _carouselModules = import.meta.glob('/public/images/home/carousel/*.{jpg,jpeg,png}')
+const carouselSlides = ref(
+  Object.keys(_carouselModules).map((path, index) => {
+    const filename = path.split('/').pop()
+    const title = filename
+      .replace(/\.[^.]+$/, '')
+      .replace(/[_-]/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase())
+    return { id: index + 1, image: `/images/home/carousel/${filename}`, title }
+  }),
+)
 const carouselSlide = ref(1)
 
 // 公告資料（後期改為 mock API）
@@ -38,16 +41,27 @@ onMounted(() => {
   }, 9000)
 })
 
-// Action Buttons 資料
-const actionButtons = ref([
-  { id: 1, icon: '/images/home/actionButtons/deposit.png', label: '座位表', routeName: 'SeatGrid' },
-  { id: 2, icon: '/images/home/actionButtons/withdraw.png', label: '輪盤', routeName: 'SeatRotate' },
-  { id: 3, icon: '/images/home/actionButtons/racing.png', label: '猜數字', routeName: 'NumberGuess' },
-  { id: 4, icon: '/images/home/actionButtons/bonus.png', label: '抽獎', routeName: 'Home' },
-  { id: 5, icon: '/images/home/actionButtons/promo.png', label: '優惠', routeName: 'Home' },
-  { id: 6, icon: '/images/home/actionButtons/message.png', label: '訊息', routeName: 'Home' },
-  { id: 7, icon: '/images/home/actionButtons/share.png', label: '關於', routeName: 'About' },
-])
+// Action Buttons：從 public/images/home/actionButtons/ 隨機不重複選圖
+const _actionButtonModules = import.meta.glob('/public/images/home/actionButtons/*.{jpg,jpeg,png}')
+const _actionButtonImages = Object.keys(_actionButtonModules)
+  .map(path => `/images/home/actionButtons/${path.split('/').pop()}`)
+  .sort(() => Math.random() - 0.5)
+
+const _actionButtonDefs = [
+  { id: 1, label: '座位表', routeName: 'SeatGrid' },
+  { id: 2, label: '輪盤', routeName: 'SeatRotate' },
+  { id: 3, label: '猜數字', routeName: 'NumberGuess' },
+  { id: 4, label: '抽獎', routeName: 'Home' },
+  { id: 5, label: '優惠', routeName: 'Home' },
+  { id: 6, label: '訊息', routeName: 'Home' },
+  { id: 7, label: '關於', routeName: 'About' },
+]
+const actionButtons = ref(
+  _actionButtonDefs.map((btn, i) => ({
+    ...btn,
+    icon: _actionButtonImages[i % _actionButtonImages.length],
+  })),
+)
 
 // Grid 區塊資料（後期會放隨機圖）
 const gridItems = ref([
@@ -58,7 +72,7 @@ const gridItems = ref([
   { id: 5, color: 'bg-gradient-to-br from-purple-400 to-purple-600', label: '股票圖表', routeName: 'Chart' },
   { id: 6, color: 'bg-gradient-to-br from-cyan-400 to-cyan-600', label: '猜數字', routeName: 'NumberGuess' },
   { id: 7, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
-  { id: 8, color: 'bg-gradient-to-br from-amber-400 to-amber-600', label: '功能四', routeName: 'Home' },
+  { id: 8, color: 'bg-gradient-to-br from-teal-400 to-cyan-600', label: 'Portfolio', routeName: 'Portfolio' },
   { id: 9, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能五', routeName: 'Home' },
   { id: 10, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能六', routeName: 'Home' },
   { id: 11, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能七', routeName: 'Home' },
@@ -125,8 +139,8 @@ function navigateTo(routeName) {
             class="flex flex-col items-center cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0 min-w-[56px]"
             @click="navigateTo(btn.routeName)"
           >
-            <div class="w-16 h-16 rounded-full bg-sys-card flex-center overflow-hidden">
-              <img :src="btn.icon" :alt="btn.label" class="w-14 h-14 object-contain">
+            <div class="w-12 h-12 rounded-full bg-sys-card flex-center overflow-hidden">
+              <img :src="btn.icon" :alt="btn.label" class="w-11 h-11 object-contain">
             </div>
             <span class="text-xs text-textSecondary mt-1">{{ btn.label }}</span>
           </div>
