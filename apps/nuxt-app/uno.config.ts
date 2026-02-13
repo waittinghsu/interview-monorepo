@@ -37,13 +37,13 @@ function generateCssVars(colors: Record<string, string>): string {
 // 生成 Quasar CSS 變數
 function generateQuasarVars(colors: Record<string, string>): string {
   const mapping: Record<string, string> = {
-    'primary': '--q-primary',
-    'secondary': '--q-secondary',
+    'action': '--q-primary',
+    'secondary-500': '--q-secondary',
     'success': '--q-positive',
     'warning': '--q-warning',
     'error': '--q-negative',
     'info': '--q-info',
-    'sys-background': '--q-dark',
+    'sys-page': '--q-dark',
   }
   return Object.entries(mapping)
     .filter(([key]) => colors[key])
@@ -91,6 +91,13 @@ export default defineConfig({
   shortcuts: [
     { 'flex-center': 'flex items-center justify-center' },
     { 'flex-between': 'flex items-center justify-between' },
+    // 漸層按鈕（隨主題切換）
+    { 'btn-gradient-base': 'text-white font-semibold rounded-lg px-6 py-3 cursor-pointer transition-all hover:opacity-90 active:scale-95 border-none' },
+    { 'btn-gradient-primary': 'btn-gradient-base [background:linear-gradient(to_bottom_right,var(--color-action),var(--color-secondary-500))]' },
+    { 'btn-gradient-success': 'btn-gradient-base [background:linear-gradient(to_bottom_right,var(--color-successLight),var(--color-successDark))]' },
+    { 'btn-gradient-warning': 'btn-gradient-base [background:linear-gradient(to_bottom_right,var(--color-warningLight),var(--color-warningDark))]' },
+    { 'btn-gradient-error': 'btn-gradient-base [background:linear-gradient(to_bottom_right,var(--color-errorLight),var(--color-errorDark))]' },
+    { 'btn-gradient-info': 'btn-gradient-base [background:linear-gradient(to_bottom_right,var(--color-infoLight),var(--color-infoDark))]' },
     ...mergedShortcuts,
   ],
 
