@@ -21,6 +21,9 @@ const themeStore = useThemeStore()
         <NuxtLink to="/tic-tac-toe" class="text-textSecondary hover:text-primary transition-colors">
           圈圈叉叉
         </NuxtLink>
+        <NuxtLink to="/number-guess" class="text-textSecondary hover:text-primary transition-colors">
+          猜數字
+        </NuxtLink>
         <NuxtLink to="/about" class="text-textSecondary hover:text-primary transition-colors">
           關於
         </NuxtLink>

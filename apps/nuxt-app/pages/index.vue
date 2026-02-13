@@ -12,16 +12,18 @@ const { data: serverTime } = await useAsyncData('serverTime', () => {
 const actionButtons = [
   { id: 1, label: '圖表', icon: 'i-mdi-chart-line', route: '/chart' },
   { id: 2, label: '圈圈叉叉', icon: 'i-mdi-gamepad-variant', route: '/tic-tac-toe' },
-  { id: 3, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info' },
-  { id: 4, label: '關於', icon: 'i-mdi-information', route: '/about' },
+  { id: 3, label: '猜數字', icon: 'i-mdi-numeric-4-box-multiple-outline', route: '/number-guess' },
+  { id: 4, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info' },
+  { id: 5, label: '關於', icon: 'i-mdi-information', route: '/about' },
 ]
 
 // Grid Items
 const gridItems = [
   { id: 1, color: 'bg-gradient-to-br from-blue-400 to-blue-600', label: '股票圖表', route: '/chart' },
   { id: 2, color: 'bg-gradient-to-br from-purple-400 to-purple-600', label: '圈圈叉叉', route: '/tic-tac-toe' },
-  { id: 3, color: 'bg-gradient-to-br from-orange-400 to-orange-600', label: '會員資料', route: '/user-info' },
-  { id: 4, color: 'bg-gradient-to-br from-green-400 to-green-600', label: '關於我們', route: '/about' },
+  { id: 3, color: 'bg-gradient-to-br from-orange-400 to-orange-600', label: '猜數字', route: '/number-guess' },
+  { id: 4, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '會員資料', route: '/user-info' },
+  { id: 5, color: 'bg-gradient-to-br from-green-400 to-green-600', label: '關於我們', route: '/about' },
 ]
 </script>
 

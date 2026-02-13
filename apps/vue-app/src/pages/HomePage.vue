@@ -42,10 +42,11 @@ onMounted(() => {
 const actionButtons = ref([
   { id: 1, icon: '/images/home/actionButtons/deposit.png', label: '座位表', routeName: 'SeatGrid' },
   { id: 2, icon: '/images/home/actionButtons/withdraw.png', label: '輪盤', routeName: 'SeatRotate' },
-  { id: 3, icon: '/images/home/actionButtons/bonus.png', label: '抽獎', routeName: 'Home' },
-  { id: 4, icon: '/images/home/actionButtons/promo.png', label: '優惠', routeName: 'Home' },
-  { id: 5, icon: '/images/home/actionButtons/message.png', label: '訊息', routeName: 'Home' },
-  { id: 6, icon: '/images/home/actionButtons/share.png', label: '關於', routeName: 'About' },
+  { id: 3, icon: '/images/home/actionButtons/racing.png', label: '猜數字', routeName: 'NumberGuess' },
+  { id: 4, icon: '/images/home/actionButtons/bonus.png', label: '抽獎', routeName: 'Home' },
+  { id: 5, icon: '/images/home/actionButtons/promo.png', label: '優惠', routeName: 'Home' },
+  { id: 6, icon: '/images/home/actionButtons/message.png', label: '訊息', routeName: 'Home' },
+  { id: 7, icon: '/images/home/actionButtons/share.png', label: '關於', routeName: 'About' },
 ])
 
 // Grid 區塊資料（後期會放隨機圖）
@@ -55,12 +56,12 @@ const gridItems = ref([
   { id: 3, color: 'bg-gradient-to-br from-green-400 to-green-600', label: '關於我們', routeName: 'About' },
   { id: 4, color: 'bg-gradient-to-br from-blue-400 to-blue-600', label: '圈圈叉叉', routeName: 'TicTacToe' },
   { id: 5, color: 'bg-gradient-to-br from-purple-400 to-purple-600', label: '股票圖表', routeName: 'Chart' },
-  { id: 6, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
-  { id: 7, color: 'bg-gradient-to-br from-cyan-400 to-cyan-600', label: '功能四', routeName: 'Home' },
-  { id: 8, color: 'bg-gradient-to-br from-amber-400 to-amber-600', label: '功能五', routeName: 'Home' },
-  { id: 9, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能六', routeName: 'Home' },
-  { id: 10, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能七', routeName: 'Home' },
-  { id: 11, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能八', routeName: 'Home' },
+  { id: 6, color: 'bg-gradient-to-br from-cyan-400 to-cyan-600', label: '猜數字', routeName: 'NumberGuess' },
+  { id: 7, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
+  { id: 8, color: 'bg-gradient-to-br from-amber-400 to-amber-600', label: '功能四', routeName: 'Home' },
+  { id: 9, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能五', routeName: 'Home' },
+  { id: 10, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能六', routeName: 'Home' },
+  { id: 11, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能七', routeName: 'Home' },
 ])
 
 function navigateTo(routeName) {
@@ -71,7 +72,7 @@ function navigateTo(routeName) {
 <template>
   <!-- 手機模擬容器 -->
   <div class="flex justify-center h-full py-4">
-    <div class="w-[375px] bg-sys-background-light rounded-2xl overflow-hidden shadow-xl">
+    <div class="w-[375px] bg-sys-card rounded-2xl overflow-hidden shadow-xl">
       <!-- 1. 輪播圖 Section -->
       <section class="carousel-section">
         <q-carousel
@@ -93,7 +94,7 @@ function navigateTo(routeName) {
             <img
               :src="slide.image"
               :alt="slide.title"
-              class="w-full h-full object-contain bg-sys-background-light"
+              class="w-full h-full object-contain bg-sys-card"
             >
           </q-carousel-slide>
         </q-carousel>
@@ -107,7 +108,7 @@ function navigateTo(routeName) {
             <div
               ref="noticeEl"
               :key="currentNoticeIndex"
-              class="notice-line whitespace-nowrap text-sm text-textPrimary"
+              class="notice-line whitespace-nowrap text-sm text-textBase"
             >
               {{ notices[currentNoticeIndex] }}
             </div>
@@ -116,16 +117,16 @@ function navigateTo(routeName) {
       </section>
 
       <!-- 3. Action Buttons Section -->
-      <section class="action-buttons-section px-3 py-4">
-        <div class="grid grid-cols-6 gap-2">
+      <section class="action-buttons-section py-4">
+        <div class="flex flex-nowrap gap-4 overflow-x-auto px-3 pb-1 scrollbar-hide">
           <div
             v-for="btn in actionButtons"
             :key="btn.id"
-            class="flex flex-col items-center cursor-pointer hover:opacity-80 transition-opacity"
+            class="flex flex-col items-center cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0 min-w-[56px]"
             @click="navigateTo(btn.routeName)"
           >
-            <div class="w-12 h-12 rounded-full bg-sys-surface flex-center overflow-hidden">
-              <img :src="btn.icon" :alt="btn.label" class="w-8 h-8 object-contain">
+            <div class="w-16 h-16 rounded-full bg-sys-card flex-center overflow-hidden">
+              <img :src="btn.icon" :alt="btn.label" class="w-14 h-14 object-contain">
             </div>
             <span class="text-xs text-textSecondary mt-1">{{ btn.label }}</span>
           </div>
@@ -134,16 +135,18 @@ function navigateTo(routeName) {
 
       <!-- 4. Grid 區塊 Section -->
       <section class="grid-section px-3 pb-4">
-        <div class="grid grid-cols-3 gap-2">
-          <div
-            v-for="item in gridItems"
-            :key="item.id"
-            class="aspect-square rounded-lg cursor-pointer hover:scale-105 transition-transform flex-center" :class="[item.color]"
-            @click="navigateTo(item.routeName)"
-          >
-            <span class="text-white text-sm font-bold text-center px-2">
-              {{ item.label }}
-            </span>
+        <div class="overflow-y-auto max-h-[387px] scrollbar-hide">
+          <div class="grid grid-cols-3 gap-2">
+            <div
+              v-for="item in gridItems"
+              :key="item.id"
+              class="aspect-square rounded-lg cursor-pointer hover:scale-105 transition-transform flex-center" :class="[item.color]"
+              @click="navigateTo(item.routeName)"
+            >
+              <span class="text-white text-sm font-bold text-center px-2">
+                {{ item.label }}
+              </span>
+            </div>
           </div>
         </div>
       </section>

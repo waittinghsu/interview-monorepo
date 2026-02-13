@@ -87,7 +87,7 @@ function getCellClass(index) {
 
 <template>
   <div class="flex flex-col items-center py-8">
-    <h1 class="text-2xl font-bold mb-6 text-textPrimary">
+    <h1 class="text-2xl font-bold mb-6 text-textBase">
       圈圈叉叉
     </h1>
 
@@ -111,7 +111,7 @@ function getCellClass(index) {
       <button
         v-for="(_, index) in 9"
         :key="index"
-        class="w-20 h-20 bg-sys-surface border-2 border-sys-border rounded-lg text-4xl font-bold flex-center hover:bg-sys-surface-light transition-colors"
+        class="w-20 h-20 bg-sys-card border-2 border-sys-border rounded-lg text-4xl font-bold flex-center hover:bg-sys-raised transition-colors"
         :class="getCellClass(index)"
         :disabled="isOccupied(index) || !!winner"
         @click="handleClick(index)"

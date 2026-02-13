@@ -3,6 +3,14 @@ const userStore = useUserStore()
 const themeStore = useThemeStore()
 const router = useRouter()
 
+const menuItems = [
+  { label: '首頁', to: '/' },
+  { label: '關於', to: '/about' },
+  { label: 'SeatGrid', to: '/seat-grid' },
+  { label: 'SeatRotate', to: '/seat-rotate' },
+  { label: '猜數字', to: '/number-guess' },
+]
+
 async function handleLogout() {
   await userStore.logout()
   router.push('/')
@@ -14,24 +22,20 @@ function onThemeChange(value) {
 </script>
 
 <template>
-  <q-header elevated class="bg-sys-background-light">
+  <q-header elevated class="bg-sys-card">
     <q-toolbar>
       <q-btn flat dense round icon="menu" aria-label="Menu">
-        <q-menu>
-          <q-list style="min-width: 150px">
-            <q-item v-close-popup clickable to="/">
-              <q-item-section>
-                <span class="text-primary">首頁</span>
-              </q-item-section>
-            </q-item>
-            <q-item v-close-popup clickable to="/about">
-              <q-item-section>關於</q-item-section>
-            </q-item>
-            <q-item v-close-popup clickable to="/seat-grid">
-              <q-item-section>SeatGrid</q-item-section>
-            </q-item>
-            <q-item v-close-popup clickable to="/seat-rotate">
-              <q-item-section>SeatRotate</q-item-section>
+        <q-menu class="bg-sys-card">
+          <q-list style="min-width: 150px" class="bg-sys-card text-textBase">
+            <q-item
+              v-for="item in menuItems"
+              :key="item.to"
+              v-close-popup
+              clickable
+              :to="item.to"
+              class="text-textBase hover:text-primary"
+            >
+              <q-item-section>{{ item.label }}</q-item-section>
             </q-item>
           </q-list>
         </q-menu>

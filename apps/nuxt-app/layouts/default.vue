@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-sys-background">
+  <div class="min-h-screen flex flex-col bg-sys-page">
     <AppHeader />
     <main class="flex-1">
       <slot />

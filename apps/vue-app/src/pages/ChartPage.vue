@@ -155,13 +155,13 @@ function handleResize() {
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold mb-6 text-textPrimary">
+    <h1 class="text-2xl font-bold mb-6 text-textBase">
       股票圖表展示
     </h1>
 
     <!-- 0050 K線圖 -->
     <div class="mb-8">
-      <h2 class="text-xl font-semibold mb-2 text-textPrimary">
+      <h2 class="text-xl font-semibold mb-2 text-textBase">
         0050 元大台灣50 (K線圖)
       </h2>
       <p class="text-textSecondary mb-4 text-sm">
@@ -169,21 +169,21 @@ function handleResize() {
       </p>
 
       <!-- 載入中 -->
-      <div v-if="loading" class="bg-sys-surface rounded-lg p-8 mb-4 text-center">
+      <div v-if="loading" class="bg-sys-card rounded-lg p-8 mb-4 text-center">
         <p class="text-textSecondary">
           載入中...
         </p>
       </div>
 
       <!-- 錯誤訊息 -->
-      <div v-else-if="error" class="bg-sys-surface rounded-lg p-4 mb-4">
+      <div v-else-if="error" class="bg-sys-card rounded-lg p-4 mb-4">
         <p class="text-red-500">
           {{ error }}
         </p>
       </div>
 
       <!-- K線圖容器 -->
-      <div v-else class="bg-sys-surface rounded-lg p-4 mb-2">
+      <div v-else class="bg-sys-card rounded-lg p-4 mb-2">
         <div ref="candlestickChartContainer" class="w-full" />
       </div>
 
@@ -195,7 +195,7 @@ function handleResize() {
 
     <!-- 比特幣折線圖 -->
     <div class="mb-8">
-      <h2 class="text-xl font-semibold mb-2 text-textPrimary">
+      <h2 class="text-xl font-semibold mb-2 text-textBase">
         Bitcoin (BTC-USD) 折線圖
       </h2>
       <p class="text-textSecondary mb-4 text-sm">
@@ -203,21 +203,21 @@ function handleResize() {
       </p>
 
       <!-- 載入中 -->
-      <div v-if="btcLoading" class="bg-sys-surface rounded-lg p-8 mb-4 text-center">
+      <div v-if="btcLoading" class="bg-sys-card rounded-lg p-8 mb-4 text-center">
         <p class="text-textSecondary">
           載入中...
         </p>
       </div>
 
       <!-- 錯誤訊息 -->
-      <div v-else-if="btcError" class="bg-sys-surface rounded-lg p-4 mb-4">
+      <div v-else-if="btcError" class="bg-sys-card rounded-lg p-4 mb-4">
         <p class="text-red-500">
           {{ btcError }}
         </p>
       </div>
 
       <!-- 折線圖容器 -->
-      <div v-else class="bg-sys-surface rounded-lg p-4 mb-2">
+      <div v-else class="bg-sys-card rounded-lg p-4 mb-2">
         <div ref="lineChartContainer" class="w-full" />
       </div>
 
@@ -228,8 +228,8 @@ function handleResize() {
     </div>
 
     <!-- 資料來源說明 -->
-    <div class="bg-sys-surface rounded-lg p-4 mb-4">
-      <h3 class="font-semibold mb-2 text-textPrimary">
+    <div class="bg-sys-card rounded-lg p-4 mb-4">
+      <h3 class="font-semibold mb-2 text-textBase">
         資料來源
       </h3>
       <p class="text-textMuted text-sm">

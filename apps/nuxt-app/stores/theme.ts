@@ -8,7 +8,7 @@ interface Theme {
   fontFamily?: Record<string, string[]>
   shortcuts?: Array<[string, string]> | Record<string, string>
   // eslint-disable-next-line ts/no-unsafe-function-type
-  rules?: Array<[string, string] | [RegExp, Function]>
+  rules?: Array<[string, string | Record<string, string>] | [RegExp, Function]>
 }
 
 /**
@@ -52,11 +52,11 @@ export const useThemeStore = defineStore('theme', () => {
         root.style.setProperty(`--color-${key}`, value)
       })
 
-      // 同步更新 Quasar CSS 變數
-      if (colors.primary)
-        root.style.setProperty('--q-primary', colors.primary)
-      if (colors.secondary)
-        root.style.setProperty('--q-secondary', colors.secondary)
+      // 同步更新 Quasar CSS 變數（使用新 token 名稱）
+      if (colors.action)
+        root.style.setProperty('--q-primary', colors.action)
+      if (colors['secondary-500'])
+        root.style.setProperty('--q-secondary', colors['secondary-500'])
       if (colors.success)
         root.style.setProperty('--q-positive', colors.success)
       if (colors.warning)
@@ -65,16 +65,14 @@ export const useThemeStore = defineStore('theme', () => {
         root.style.setProperty('--q-negative', colors.error)
       if (colors.info)
         root.style.setProperty('--q-info', colors.info)
-      if (colors['sys-background'])
-        root.style.setProperty('--q-dark', colors['sys-background'])
+      if (colors['sys-page'])
+        root.style.setProperty('--q-dark', colors['sys-page'])
 
-      // 更新 body 背景色
-      if (colors['sys-background']) {
-        document.body.style.backgroundColor = colors['sys-background']
-      }
-      if (colors.textPrimary) {
-        document.body.style.color = colors.textPrimary
-      }
+      // 更新 body 背景色與文字色
+      if (colors['sys-page'])
+        document.body.style.backgroundColor = colors['sys-page']
+      if (colors.textBase)
+        document.body.style.color = colors.textBase
     }
   }
 
