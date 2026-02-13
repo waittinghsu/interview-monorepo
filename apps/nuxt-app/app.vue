@@ -24,8 +24,8 @@ body {
 }
 
 body {
-  background-color: var(--color-sys-background);
-  color: var(--color-textPrimary);
+  background-color: var(--color-sys-page);
+  color: var(--color-textBase);
   font-family: 'Inter', 'Noto Sans TC', sans-serif;
 }
 </style>

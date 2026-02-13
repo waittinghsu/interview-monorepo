@@ -54,15 +54,15 @@ export const useThemeStore = defineStore('theme', () => {
       root.style.setProperty('--q-negative', colors.error)
     if (colors.info)
       root.style.setProperty('--q-info', colors.info)
-    if (colors['sys-background'])
-      root.style.setProperty('--q-dark', colors['sys-background'])
+    if (colors['sys-page'])
+      root.style.setProperty('--q-dark', colors['sys-page'])
 
     // 更新 body 背景色
-    if (colors['sys-background']) {
-      document.body.style.backgroundColor = colors['sys-background']
+    if (colors['sys-page']) {
+      document.body.style.backgroundColor = colors['sys-page']
     }
-    if (colors.textPrimary) {
-      document.body.style.color = colors.textPrimary
+    if (colors.textBase) {
+      document.body.style.color = colors.textBase
     }
   }
 

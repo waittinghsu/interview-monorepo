@@ -51,8 +51,8 @@ function submitGuess() {
 function evaluateGuess(secret, guess) {
   let a = 0
   let b = 0
-  const secretCounts = Array(10).fill(0)
-  const guessCounts = Array(10).fill(0)
+  const secretCounts = Array.from({ length: 10 }).fill(0)
+  const guessCounts = Array.from({ length: 10 }).fill(0)
 
   for (let i = 0; i < ANSWER_LENGTH; i++) {
     if (secret[i] === guess[i]) {
@@ -82,7 +82,7 @@ function resetGame() {
 <template>
   <div class="max-w-xl mx-auto py-8 px-4 space-y-6">
     <div>
-      <h1 class="text-2xl font-bold text-textPrimary mb-2">
+      <h1 class="text-2xl font-bold text-textBase mb-2">
         猜數字遊戲
       </h1>
       <p class="text-textSecondary">
@@ -90,7 +90,7 @@ function resetGame() {
       </p>
     </div>
 
-    <div class="bg-sys-surface border border-sys-border rounded-lg p-4 space-y-3">
+    <div class="bg-sys-card border border-sys-border rounded-lg p-4 space-y-3">
       <div class="flex flex-col gap-3 md:flex-row md:items-end">
         <q-input
           :model-value="currentGuess"
@@ -124,8 +124,8 @@ function resetGame() {
       </q-banner>
     </div>
 
-    <div class="bg-sys-surface border border-sys-border rounded-lg p-4">
-      <h2 class="text-lg font-semibold text-textPrimary mb-3">
+    <div class="bg-sys-card border border-sys-border rounded-lg p-4">
+      <h2 class="text-lg font-semibold text-textBase mb-3">
         猜測紀錄
       </h2>
       <p v-if="history.length === 0" class="text-textSecondary">
@@ -135,7 +135,7 @@ function resetGame() {
         <div
           v-for="record in history"
           :key="record.id"
-          class="flex items-center justify-between rounded-md bg-sys-background p-3"
+          class="flex items-center justify-between rounded-md bg-sys-page p-3"
         >
           <span class="font-mono tracking-widest text-lg">{{ record.guess }}</span>
           <span class="text-primary font-semibold">{{ record.result }}</span>

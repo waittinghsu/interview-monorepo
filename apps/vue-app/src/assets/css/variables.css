@@ -5,8 +5,8 @@
 :root {
   /* Primary */
   --color-primary: initial;
-  --color-primaryLight: initial;
-  --color-primaryDark: initial;
+  --color-primary-400: initial;
+  --color-primary-600: initial;
   --color-primary-50: initial;
   --color-primary-100: initial;
   --color-primary-200: initial;
@@ -31,16 +31,16 @@
   --color-info: initial;
 
   /* System */
-  --color-sys-background: initial;
-  --color-sys-background-light: initial;
-  --color-sys-background-dark: initial;
-  --color-sys-surface: initial;
-  --color-sys-surface-light: initial;
+  --color-sys-page: initial;
+  --color-sys-card: initial;
+  --color-sys-raised: initial;
+  --color-sys-card: initial;
+  --color-sys-raised: initial;
   --color-sys-border: initial;
-  --color-sys-border-light: initial;
+  --color-sys-border-strong: initial;
 
   /* Text */
-  --color-textPrimary: initial;
+  --color-textBase: initial;
   --color-textSecondary: initial;
   --color-textMuted: initial;
   --color-textInverse: initial;

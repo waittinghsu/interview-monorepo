@@ -7,7 +7,7 @@ definePageMeta({
 const ANSWER_LENGTH = 4
 const MAX_ATTEMPTS = 10
 
-type GuessRecord = {
+interface GuessRecord {
   id: number
   guess: string
   result: string
@@ -26,15 +26,15 @@ function generateAnswer(): string {
   return Array.from({ length: ANSWER_LENGTH }, () => Math.floor(Math.random() * 10)).join('')
 }
 
-function handleInput(value: string) {
-  currentGuess.value = value.replace(/\D/g, '').slice(0, ANSWER_LENGTH)
+function handleInput(value: string | number | null) {
+  currentGuess.value = String(value ?? '').replace(/\D/g, '').slice(0, ANSWER_LENGTH)
 }
 
 function evaluateGuess(secret: string, guess: string) {
   let a = 0
   let b = 0
-  const secretCounts = Array(10).fill(0)
-  const guessCounts = Array(10).fill(0)
+  const secretCounts = Array.from<number>({ length: 10 }).fill(0)
+  const guessCounts = Array.from<number>({ length: 10 }).fill(0)
 
   for (let i = 0; i < ANSWER_LENGTH; i++) {
     if (secret[i] === guess[i]) {

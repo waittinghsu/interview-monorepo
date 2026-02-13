@@ -72,7 +72,7 @@ function navigateTo(routeName) {
 <template>
   <!-- 手機模擬容器 -->
   <div class="flex justify-center h-full py-4">
-    <div class="w-[375px] bg-sys-background-light rounded-2xl overflow-hidden shadow-xl">
+    <div class="w-[375px] bg-sys-card rounded-2xl overflow-hidden shadow-xl">
       <!-- 1. 輪播圖 Section -->
       <section class="carousel-section">
         <q-carousel
@@ -94,7 +94,7 @@ function navigateTo(routeName) {
             <img
               :src="slide.image"
               :alt="slide.title"
-              class="w-full h-full object-contain bg-sys-background-light"
+              class="w-full h-full object-contain bg-sys-card"
             >
           </q-carousel-slide>
         </q-carousel>
@@ -108,7 +108,7 @@ function navigateTo(routeName) {
             <div
               ref="noticeEl"
               :key="currentNoticeIndex"
-              class="notice-line whitespace-nowrap text-sm text-textPrimary"
+              class="notice-line whitespace-nowrap text-sm text-textBase"
             >
               {{ notices[currentNoticeIndex] }}
             </div>
@@ -117,16 +117,16 @@ function navigateTo(routeName) {
       </section>
 
       <!-- 3. Action Buttons Section -->
-      <section class="action-buttons-section px-3 py-4">
-        <div class="grid grid-cols-6 gap-2">
+      <section class="action-buttons-section py-4">
+        <div class="flex flex-nowrap gap-4 overflow-x-auto px-3 pb-1 scrollbar-hide">
           <div
             v-for="btn in actionButtons"
             :key="btn.id"
-            class="flex flex-col items-center cursor-pointer hover:opacity-80 transition-opacity"
+            class="flex flex-col items-center cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0 min-w-[56px]"
             @click="navigateTo(btn.routeName)"
           >
-            <div class="w-12 h-12 rounded-full bg-sys-surface flex-center overflow-hidden">
-              <img :src="btn.icon" :alt="btn.label" class="w-8 h-8 object-contain">
+            <div class="w-16 h-16 rounded-full bg-sys-card flex-center overflow-hidden">
+              <img :src="btn.icon" :alt="btn.label" class="w-14 h-14 object-contain">
             </div>
             <span class="text-xs text-textSecondary mt-1">{{ btn.label }}</span>
           </div>
@@ -135,16 +135,18 @@ function navigateTo(routeName) {
 
       <!-- 4. Grid 區塊 Section -->
       <section class="grid-section px-3 pb-4">
-        <div class="grid grid-cols-3 gap-2">
-          <div
-            v-for="item in gridItems"
-            :key="item.id"
-            class="aspect-square rounded-lg cursor-pointer hover:scale-105 transition-transform flex-center" :class="[item.color]"
-            @click="navigateTo(item.routeName)"
-          >
-            <span class="text-white text-sm font-bold text-center px-2">
-              {{ item.label }}
-            </span>
+        <div class="overflow-y-auto max-h-[387px] scrollbar-hide">
+          <div class="grid grid-cols-3 gap-2">
+            <div
+              v-for="item in gridItems"
+              :key="item.id"
+              class="aspect-square rounded-lg cursor-pointer hover:scale-105 transition-transform flex-center" :class="[item.color]"
+              @click="navigateTo(item.routeName)"
+            >
+              <span class="text-white text-sm font-bold text-center px-2">
+                {{ item.label }}
+              </span>
+            </div>
           </div>
         </div>
       </section>

@@ -1,130 +1,128 @@
 import { defineTheme } from './types.js'
 
 /**
- * Blue Navy Theme (深藍主題)
+ * Blue Navy Theme
  *
  * 參考來源：makenewworld/jiefu
  * 風格：深藍暗色主題
+ *
+ * Token 結構：
+ *   Primitive  → primary-50 ~ primary-950 / secondary-50 ~ secondary-950
+ *   Semantic   → sys-* (背景/邊框) / text* (文字) / action* (互動)
+ *
+ * 修正：secondary 色階原本全為 #878787，已重新生成正確橘黃色階
  */
 export default defineTheme({
   name: 'blue-navy',
   description: '深藍暗色主題',
 
-  // 顏色系統
   colors: {
-    // 品牌主色 - 藍色系
-    'primary': '#1181FE',
-    'primaryLight': '#41B3FF',
-    'primaryDark': '#07121E',
+    // =========================================================
+    // Primitive — 原始色階（不帶語意，僅作為數值參照）
+    // =========================================================
 
-    // 完整 Primary 色階 (50-950)
-    'primary-50': '#41B3FF',
-    'primary-100': '#3FA4FC',
-    'primary-200': '#AAC0D2',
-    'primary-300': '#878787',
-    'primary-400': '#0175FF',
-    'primary-500': '#1181FE', // 主色
-    'primary-600': '#005B98',
-    'primary-700': '#1A2E43',
-    'primary-800': '#263343',
-    'primary-900': '#0F1B27',
-    'primary-950': '#07121E', // 最深（背景色）
-    'primary-1000': '#06101C',
+    // Primary 色階：深藍，50=最淺 / 950=最深
+    'primary-50':   '#E8F4FF',
+    'primary-100':  '#C0DFFE',
+    'primary-200':  '#AAC0D2',
+    'primary-300':  '#41B3FF',
+    'primary-400':  '#0175FF',
+    'primary-500':  '#1181FE',
+    'primary-600':  '#005B98',
+    'primary-700':  '#1A2E43',
+    'primary-800':  '#263343',
+    'primary-900':  '#0F1B27',
+    'primary-950':  '#07121E',
 
-    // 次要色 - 橘黃色系
-    'secondary': '#FF9D13',
-    'secondaryLight': '#FFA900',
-    'secondaryDark': '#FDFDE5',
+    // Secondary 色階：橘黃，與深藍形成強對比（修正原本全為灰色的問題）
+    'secondary-50':  '#FFF8EF',
+    'secondary-100': '#FFEBD4',
+    'secondary-200': '#FFD4A0',
+    'secondary-300': '#FFBC6B',
+    'secondary-400': '#FFAB40',
+    'secondary-500': '#FF9D13',
+    'secondary-600': '#E08800',
+    'secondary-700': '#B86E00',
+    'secondary-800': '#8C5300',
+    'secondary-900': '#5E3600',
+    'secondary-950': '#321C00',
 
-    'secondary-50': '#878787',
-    'secondary-100': '#FEEF87',
-    'secondary-200': '#FEEF87',
-    'secondary-300': '#878787',
-    'secondary-400': '#FFA900',
-    'secondary-500': '#FF9D13', // 次色
-    'secondary-600': '#878787',
-    'secondary-700': '#878787',
-    'secondary-800': '#878787',
-    'secondary-900': '#878787',
-    'secondary-950': '#878787',
+    // =========================================================
+    // Semantic — 語意化 Surface（背景層次）
+    // =========================================================
+    'sys-page':   '#07121E', // 最深頁面底色（primary-950）
+    'sys-card':   '#0F1B27', // 卡片 / 區塊背景（primary-900）
+    'sys-raised': '#1A2E43', // 懸浮層：dropdown、tooltip（primary-800 區）
 
-    // 強調色
-    'accent': '#878787',
+    // =========================================================
+    // Semantic — 語意化 Border（邊框）
+    // =========================================================
+    'sys-border':        '#5B6977', // 一般/細邊框（中性藍灰）
+    'sys-border-strong': '#1181FE', // 強調邊框、focus ring（primary-500）
 
-    // 語義化顏色
-    'success': '#27C017',
+    // =========================================================
+    // Semantic — 語意化 Text（文字）
+    // =========================================================
+    'textBase':      '#E8F4FF', // 主要閱讀文字，高對比（primary-50，近白帶藍）
+    'textSecondary': '#AAC0D2', // 次要說明文字（primary-200，柔藍灰）
+    'textMuted':     '#5B6977', // placeholder / disabled（藍灰，與 sys-border 同色）
+    'textBrand':     '#1181FE', // 品牌色強調文字（primary-500）
+    'textInverse':   '#07121E', // 放在亮色按鈕上的深色文字（primary-950）
+
+    // =========================================================
+    // Semantic — 語意化 Action（互動元素）
+    // =========================================================
+    'action':       '#1181FE', // 主要 CTA 按鈕背景（primary-500）
+    'actionHover':  '#0175FF', // hover 狀態（primary-400，更深藍）
+    'actionActive': '#005B98', // pressed 狀態（primary-600）
+
+    // =========================================================
+    // 狀態色（各主題保持一致語意）
+    // =========================================================
+    'success':       '#27C017',
     'success-light': '#3EE17F',
-    'success-dark': '#1A8050',
+    'success-dark':  '#1A8050',
 
-    'warning': '#FF9D13',
-    'warning-light': '#FFA900',
-    'warning-dark': '#CC7A00',
+    'warning':       '#FF9D13',
+    'warning-light': '#FFAB40',
+    'warning-dark':  '#CC7A00',
 
-    'error': '#CA2C2F',
-    'error-light': '#E74C3C',
-    'error-dark': '#A02325',
+    'error':         '#CA2C2F',
+    'error-light':   '#E74C3C',
+    'error-dark':    '#A02325',
 
-    'info': '#1181FE',
-    'info-light': '#41B3FF',
-    'info-dark': '#005B98',
-
-    // 系統顏色
-    'sys-background': '#07121E',
-    'sys-background-light': '#0F1B27',
-    'sys-background-dark': '#06101C',
-    'sys-background-tab': '#0F1B27',
-    'sys-background-table': '#1A2E43',
-    'sys-background-popup': '#0C2136',
-    'sys-background-popup-100': '#0C3259',
-    'sys-surface': '#0F1B27',
-    'sys-surface-light': '#1A2E43',
-    'sys-border': '#5B6977',
-    'sys-border-light': '#1181FE',
-    'sys-tab-text': '#AAC0D2',
-
-    // 背景/表面（別名）
-    'background': '#07121E',
-    'surface': '#0F1B27',
-    'border': '#5B6977',
-
-    // 文字顏色
-    'textPrimary': '#AAC0D2',
-    'textSecondary': '#5B6977',
-    'textMuted': '#AAC0D2',
-    'textInverse': '#07121E',
+    'info':          '#1181FE',
+    'info-light':    '#41B3FF',
+    'info-dark':     '#005B98',
   },
 
-  // 字體配置
   fontFamily: {
     sans: ['Bai Jamjuree', 'Inter', 'Noto Sans TC', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
     serif: ['Georgia', 'Noto Serif TC', 'serif'],
     mono: ['Fira Code', 'Consolas', 'Monaco', 'monospace'],
   },
 
-  // UnoCSS 快捷類
   shortcuts: [
-    // 按鈕樣式
-    ['btn-primary', 'bg-primary text-white font-semibold px-4 py-2 rounded-lg hover:bg-primary-400 active:scale-95 transition-all'],
-    ['btn-secondary', 'bg-secondary text-sys-background font-semibold px-4 py-2 rounded-lg hover:bg-secondary-400 active:scale-95 transition-all'],
-    ['btn-outline', 'border border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white active:scale-95 transition-all'],
-    ['btn-ghost', 'text-primary px-4 py-2 rounded-lg hover:bg-primary-900 active:scale-95 transition-all'],
+    // 按鈕
+    ['btn-primary',  'bg-action text-textInverse font-semibold px-4 py-2 rounded-lg hover:bg-actionHover active:bg-actionActive active:scale-95 transition-all'],
+    ['btn-secondary','bg-secondary-500 text-sys-page font-semibold px-4 py-2 rounded-lg hover:bg-secondary-400 active:scale-95 transition-all'],
+    ['btn-outline',  'border border-sys-border-strong text-textBrand px-4 py-2 rounded-lg hover:bg-action hover:text-textInverse active:scale-95 transition-all'],
+    ['btn-ghost',    'text-textBrand px-4 py-2 rounded-lg hover:bg-sys-raised active:scale-95 transition-all'],
 
-    // 卡片樣式
-    ['card-base', 'bg-sys-surface rounded-lg border border-sys-border'],
-    ['card-elevated', 'bg-sys-surface rounded-lg shadow-lg shadow-primary-950/50'],
+    // 卡片
+    ['card-base',    'bg-sys-card rounded-lg border border-sys-border'],
+    ['card-elevated','bg-sys-card rounded-lg shadow-lg shadow-primary-950/50'],
 
-    // 文字樣式
-    ['text-heading', 'text-textPrimary font-bold'],
-    ['text-body', 'text-textSecondary'],
-    ['text-muted', 'text-textMuted'],
+    // 文字
+    ['text-heading', 'text-textBase font-bold'],
+    ['text-body',    'text-textSecondary'],
+    ['text-muted',   'text-textMuted'],
 
-    // 輸入框樣式
-    ['input-base', 'bg-sys-background border border-sys-border text-textPrimary rounded-lg px-3 py-2 focus:border-primary focus:outline-none'],
+    // 輸入框
+    ['input-base',   'bg-sys-page border border-sys-border text-textBase rounded-lg px-3 py-2 focus:border-sys-border-strong focus:outline-none'],
   ],
 
-  // UnoCSS 規則
   rules: [
-    // 背景漸層
     ['bg-gradient-primary', {
       background: 'linear-gradient(135deg, #07121E, #0F1B27, #1181FE)',
     }],
@@ -134,22 +132,12 @@ export default defineTheme({
     ['bg-gradient-blue-dark', {
       background: 'linear-gradient(135deg, #263343, #1181FE, #41B3FF)',
     }],
-
-    // 文字漸層
     ['text-gradient-primary', {
       'background': 'linear-gradient(135deg, #1181FE, #41B3FF)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       'background-clip': 'text',
     }],
-    ['text-gradient-blue', {
-      'background': 'linear-gradient(135deg, #1181FE, #41B3FF)',
-      '-webkit-background-clip': 'text',
-      '-webkit-text-fill-color': 'transparent',
-      'background-clip': 'text',
-    }],
-
-    // 發光效果
     ['glow-primary', {
       'box-shadow': '0 0 20px rgba(17, 129, 254, 0.3)',
     }],

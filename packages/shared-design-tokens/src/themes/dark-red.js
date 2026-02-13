@@ -1,133 +1,129 @@
 import { defineTheme } from './types.js'
 
 /**
- * Dark Red Theme (深紅主題)
+ * Dark Red Theme
  *
  * 參考來源：101client design-token
  * 風格：深紅暗色主題
+ *
+ * Token 結構：
+ *   Primitive  → primary-50 ~ primary-950 / secondary-50 ~ secondary-900
+ *   Semantic   → sys-* (背景/邊框) / text* (文字) / action* (互動)
+ *
+ * 注意：primary-500 (#751514) 是中間深紅，視覺上的「亮紅」為 primary-300 (#E32724)
+ *       action 使用 primary-300 以確保足夠的視覺對比
  */
 export default defineTheme({
   name: 'dark-red',
   description: '深紅暗色主題',
 
-  // 顏色系統
   colors: {
-    // 品牌主色 - 紅色系
-    'primary': '#751514',
-    'primaryLight': '#E32724',
-    'primaryDark': '#420C0C',
+    // =========================================================
+    // Primitive — 原始色階（不帶語意，僅作為數值參照）
+    // =========================================================
 
-    // 完整 Primary 色階 (50-900)
+    // Primary 色階：深紅，50=最淺粉 / 950=最深暗紅
     'primary-50': '#FFAEAA',
     'primary-100': '#FF8275',
     'primary-200': '#F01C0C',
     'primary-300': '#E32724',
     'primary-400': '#A61F1F',
-    'primary-500': '#751514', // 主色
+    'primary-500': '#751514',
     'primary-600': '#680F10',
     'primary-700': '#560F0F',
     'primary-800': '#420C0C',
     'primary-900': '#260A0C',
-    'primary-950': '#1A0808', // 最深（背景色）
+    'primary-950': '#1A0808',
 
-    // 次要色 - 金黃色系
-    'secondary': '#FFD139',
-    'secondaryLight': '#FFE282',
-    'secondaryDark': '#E6B800',
-
+    // Secondary 色階：金黃，與深紅形成高對比
     'secondary-50': '#FFFBEF',
     'secondary-100': '#FFF8DF',
-    'secondary-150': '#FFED00',
     'secondary-200': '#FFEFBE',
-    'secondary-250': '#FF8D00',
     'secondary-300': '#FFE59D',
     'secondary-400': '#FFDB7B',
-    'secondary-500': '#FFD139', // 次色
+    'secondary-500': '#FFD139',
     'secondary-600': '#FFC400',
     'secondary-700': '#E6AA00',
     'secondary-800': '#CC8800',
     'secondary-900': '#A36300',
 
-    // 語義化顏色
-    'success': '#2AD07E',
-    'success-50': '#BCF25E',
-    'success-100': '#44fa1d',
-    'success-200': '#85DB3A',
-    'success-300': '#54BD20',
+    // =========================================================
+    // Semantic — 語意化 Surface（背景層次）
+    // =========================================================
+    'sys-page':   '#260A0C', // 最深頁面底色（primary-900）
+    'sys-card':   '#420C0C', // 卡片 / 區塊背景（primary-800）
+    'sys-raised': '#560F0F', // 懸浮層：dropdown、tooltip（primary-700）
 
-    'warning': '#FF9800',
-    'warning-50': '#FFF4E0',
-    'warning-100': '#FCAC4A',
-    'warning-200': '#FDB55B',
-    'warning-300': '#FFB347',
-    'warning-400': '#FFA521',
-    'warning-500': '#FF9800',
-    'warning-600': '#F97F00',
-    'warning-700': '#F26705',
-    'warning-800': '#EB4E0D',
-    'warning-900': '#F15710',
+    // =========================================================
+    // Semantic — 語意化 Border（邊框）
+    // =========================================================
+    'sys-border':        '#751514', // 一般/細邊框（primary-500）
+    'sys-border-strong': '#A61F1F', // 強調邊框、focus ring（primary-400）
 
-    'error': '#F01C0C',
-    'error-light': '#FF8275',
-    'error-dark': '#751514',
+    // =========================================================
+    // Semantic — 語意化 Text（文字）
+    // =========================================================
+    'textBase':      '#FFAEAA', // 主要閱讀文字，高對比（primary-50，粉白）
+    'textSecondary': '#BA9396', // 次要說明文字（中性玫瑰灰）
+    'textMuted':     '#7A5456', // placeholder / disabled（暗玫瑰灰）
+    'textBrand':     '#E32724', // 品牌色強調文字（primary-300，亮紅）
+    'textInverse':   '#1A0808', // 放在亮色按鈕上的深色文字（primary-950）
 
-    'info': '#31CCEC',
-    'info-light': '#7DE3F4',
-    'info-dark': '#1A9CB8',
+    // =========================================================
+    // Semantic — 語意化 Action（互動元素）
+    // 使用 primary-300 亮紅而非 primary-500 深紅，確保按鈕有足夠的視覺重量
+    // =========================================================
+    'action':       '#E32724', // 主要 CTA 按鈕背景（primary-300）
+    'actionHover':  '#F01C0C', // hover 狀態（primary-200，更亮）
+    'actionActive': '#A61F1F', // pressed 狀態（primary-400，更深）
 
-    'positive': '#2AD07E',
-    'negative': '#F01C0C',
+    // =========================================================
+    // 狀態色（各主題保持一致語意）
+    // =========================================================
+    'success':       '#2AD07E',
+    'success-light': '#54BD20',
+    'success-dark':  '#1A8050',
 
-    // 中性色
-    'neutral-300': '#BA9396',
+    'warning':       '#FF9800',
+    'warning-light': '#FFB347',
+    'warning-dark':  '#F26705',
 
-    // 系統顏色
-    'sys-background': '#260A0C',
-    'sys-background-light': '#420C0C',
-    'sys-background-dark': '#1A0808',
-    'sys-surface': '#420C0C',
-    'sys-surface-light': '#560F0F',
-    'sys-border': '#751514',
-    'sys-border-light': '#A61F1F',
+    'error':         '#F01C0C',
+    'error-light':   '#FF8275',
+    'error-dark':    '#751514',
 
-    // 文字顏色
-    'textPrimary': '#FFAEAA',
-    'textSecondary': '#FF8275',
-    'textMuted': '#BA9396',
-    'textInverse': '#260A0C',
+    'info':          '#31CCEC',
+    'info-light':    '#7DE3F4',
+    'info-dark':     '#1A9CB8',
   },
 
-  // 字體配置
   fontFamily: {
     sans: ['Inter', 'Noto Sans TC', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
     serif: ['Georgia', 'Noto Serif TC', 'serif'],
     mono: ['Fira Code', 'Consolas', 'Monaco', 'monospace'],
   },
 
-  // UnoCSS 快捷類
   shortcuts: [
-    // 按鈕樣式
-    ['btn-primary', 'bg-primary-300 text-white font-semibold px-4 py-2 rounded-lg hover:bg-primary-200 active:scale-95 transition-all'],
-    ['btn-secondary', 'bg-secondary text-sys-background font-semibold px-4 py-2 rounded-lg hover:bg-secondary-400 active:scale-95 transition-all'],
-    ['btn-outline', 'border border-primary-300 text-primary-300 px-4 py-2 rounded-lg hover:bg-primary-300 hover:text-white active:scale-95 transition-all'],
-    ['btn-ghost', 'text-primary-300 px-4 py-2 rounded-lg hover:bg-primary-900 active:scale-95 transition-all'],
+    // 按鈕
+    ['btn-primary',  'bg-action text-textInverse font-semibold px-4 py-2 rounded-lg hover:bg-actionHover active:bg-actionActive active:scale-95 transition-all'],
+    ['btn-secondary','bg-secondary-500 text-sys-page font-semibold px-4 py-2 rounded-lg hover:bg-secondary-400 active:scale-95 transition-all'],
+    ['btn-outline',  'border border-sys-border-strong text-textBrand px-4 py-2 rounded-lg hover:bg-action hover:text-textInverse active:scale-95 transition-all'],
+    ['btn-ghost',    'text-textBrand px-4 py-2 rounded-lg hover:bg-sys-raised active:scale-95 transition-all'],
 
-    // 卡片樣式
-    ['card-base', 'bg-sys-surface rounded-lg border border-sys-border'],
-    ['card-elevated', 'bg-sys-surface rounded-lg shadow-lg shadow-primary-950/50'],
+    // 卡片
+    ['card-base',    'bg-sys-card rounded-lg border border-sys-border'],
+    ['card-elevated','bg-sys-card rounded-lg shadow-lg shadow-primary-950/50'],
 
-    // 文字樣式
-    ['text-heading', 'text-textPrimary font-bold'],
-    ['text-body', 'text-textSecondary'],
-    ['text-muted', 'text-textMuted'],
+    // 文字
+    ['text-heading', 'text-textBase font-bold'],
+    ['text-body',    'text-textSecondary'],
+    ['text-muted',   'text-textMuted'],
 
-    // 輸入框樣式
-    ['input-base', 'bg-sys-background border border-sys-border text-textPrimary rounded-lg px-3 py-2 focus:border-primary-300 focus:outline-none'],
+    // 輸入框
+    ['input-base',   'bg-sys-page border border-sys-border text-textBase rounded-lg px-3 py-2 focus:border-sys-border-strong focus:outline-none'],
   ],
 
-  // UnoCSS 規則
   rules: [
-    // 背景漸層
     ['bg-gradient-primary', {
       background: 'linear-gradient(135deg, #260A0C, #420C0C, #751514)',
     }],
@@ -137,8 +133,6 @@ export default defineTheme({
     ['bg-gradient-fire', {
       background: 'linear-gradient(135deg, #751514, #E32724, #FFD139)',
     }],
-
-    // 文字漸層
     ['text-gradient-primary', {
       'background': 'linear-gradient(135deg, #E32724, #FF8275)',
       '-webkit-background-clip': 'text',
@@ -146,13 +140,11 @@ export default defineTheme({
       'background-clip': 'text',
     }],
     ['text-gradient-gold', {
-      'background': 'linear-gradient(135deg, #FFD139, #FFE282)',
+      'background': 'linear-gradient(135deg, #FFD139, #FFE59D)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       'background-clip': 'text',
     }],
-
-    // 發光效果
     ['glow-primary', {
       'box-shadow': '0 0 20px rgba(227, 39, 36, 0.3)',
     }],
