@@ -6,6 +6,7 @@ const router = useRouter()
 const menuItems = [
   { label: '首頁', to: '/' },
   { label: '關於', to: '/about' },
+  { label: 'Dashboard', to: '/dashboard' },
   { label: 'SeatGrid', to: '/seat-grid' },
   { label: 'SeatRotate', to: '/seat-rotate' },
   { label: '猜數字', to: '/number-guess' },

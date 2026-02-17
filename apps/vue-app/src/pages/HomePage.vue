@@ -50,11 +50,12 @@ const _actionButtonImages = Object.keys(_actionButtonModules)
 const _actionButtonDefs = [
   { id: 1, label: '座位表', routeName: 'SeatGrid' },
   { id: 2, label: '輪盤', routeName: 'SeatRotate' },
-  { id: 3, label: '猜數字', routeName: 'NumberGuess' },
-  { id: 4, label: '抽獎', routeName: 'Home' },
-  { id: 5, label: '優惠', routeName: 'Home' },
-  { id: 6, label: '訊息', routeName: 'Home' },
-  { id: 7, label: '關於', routeName: 'About' },
+  { id: 3, label: 'Dashboard', routeName: 'Dashboard' },
+  { id: 4, label: '猜數字', routeName: 'NumberGuess' },
+  { id: 5, label: '抽獎', routeName: 'Home' },
+  { id: 6, label: '優惠', routeName: 'Home' },
+  { id: 7, label: '訊息', routeName: 'Home' },
+  { id: 8, label: '關於', routeName: 'About' },
 ]
 const actionButtons = ref(
   _actionButtonDefs.map((btn, i) => ({
@@ -71,11 +72,12 @@ const gridItems = ref([
   { id: 4, color: 'bg-gradient-to-br from-blue-400 to-blue-600', label: '圈圈叉叉', routeName: 'TicTacToe' },
   { id: 5, color: 'bg-gradient-to-br from-purple-400 to-purple-600', label: '股票圖表', routeName: 'Chart' },
   { id: 6, color: 'bg-gradient-to-br from-cyan-400 to-cyan-600', label: '猜數字', routeName: 'NumberGuess' },
-  { id: 7, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
-  { id: 8, color: 'bg-gradient-to-br from-teal-400 to-cyan-600', label: 'Portfolio', routeName: 'Portfolio' },
-  { id: 9, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能五', routeName: 'Home' },
-  { id: 10, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能六', routeName: 'Home' },
-  { id: 11, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能七', routeName: 'Home' },
+  { id: 7, color: 'bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-500', label: 'Dashboard', routeName: 'Dashboard' },
+  { id: 8, color: 'bg-gradient-to-br from-pink-400 to-pink-600', label: '功能三', routeName: 'Home' },
+  { id: 9, color: 'bg-gradient-to-br from-teal-400 to-cyan-600', label: 'Portfolio', routeName: 'Portfolio' },
+  { id: 10, color: 'bg-gradient-to-br from-teal-400 to-teal-600', label: '功能五', routeName: 'Home' },
+  { id: 11, color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', label: '功能六', routeName: 'Home' },
+  { id: 12, color: 'bg-gradient-to-br from-rose-400 to-rose-600', label: '功能七', routeName: 'Home' },
 ])
 
 function navigateTo(routeName) {
