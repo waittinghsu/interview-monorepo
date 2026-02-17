@@ -41,6 +41,11 @@ const routes = [
         component: () => import('@/pages/NumberGuessPage.vue'),
       },
       {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/pages/DashboardPage.vue'),
+      },
+      {
         path: 'portfolio',
         name: 'Portfolio',
         component: () => import('@/pages/PortfolioPage.vue'),
