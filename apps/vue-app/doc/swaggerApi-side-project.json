@@ -1,0 +1,903 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ineterview",
+    "version": "last"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "使用者類",
+      "description": "user"
+    },
+    {
+      "name": "股票類",
+      "description": "stock"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/v1/api/user/info": {
+      "get": {
+        "tags": [
+          "使用者類"
+        ],
+        "summary": "獲取-使用者基本資訊",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "200"
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "OK"
+                  }
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "cvq46bwoi2nd1nnpi"
+                      }
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "@natural"
+                          }
+                        },
+                        "name": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "愛新覺羅"
+                          }
+                        },
+                        "nickname": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "oemga"
+                          }
+                        },
+                        "phone": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "0909000000"
+                          }
+                        },
+                        "email": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "omega@yapi.com"
+                          }
+                        },
+                        "level": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "@natural(1,12)"
+                          }
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "@natural(1,12)"
+                          }
+                        },
+                        "role": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "super"
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nickname",
+                        "phone",
+                        "email",
+                        "level",
+                        "avatar",
+                        "role",
+                        "name"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "token",
+                    "user"
+                  ]
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/user/login": {
+      "post": {
+        "tags": [
+          "使用者類"
+        ],
+        "summary": "登入",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "123456"
+                  }
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "200"
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "OK"
+                  }
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "bcaq23ous2bc1o1"
+                      }
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "5"
+                          }
+                        },
+                        "nickname": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "omega"
+                          }
+                        },
+                        "phone": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "0900000000"
+                          }
+                        },
+                        "email": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "omega@yahoo.com.tw"
+                          }
+                        },
+                        "level": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "@natural(1,12)"
+                          }
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "@natural(1,12)"
+                          }
+                        },
+                        "role": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "super"
+                          }
+                        },
+                        "name": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "老皮"
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nickname",
+                        "phone",
+                        "email",
+                        "level",
+                        "avatar",
+                        "role",
+                        "name"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "token",
+                    "user"
+                  ]
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/user/logout": {
+      "post": {
+        "tags": [
+          "使用者類"
+        ],
+        "summary": "登出",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/v8/finance/chart/0050.TW": {
+      "get": {
+        "tags": [
+          "股票類"
+        ],
+        "summary": "0050",
+        "description": "",
+        "parameters": [
+          {
+            "name": "period1",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "period2",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "chart": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "meta": {
+                            "type": "object",
+                            "properties": {
+                              "currency": {
+                                "type": "string"
+                              },
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "exchangeName": {
+                                "type": "string"
+                              },
+                              "fullExchangeName": {
+                                "type": "string"
+                              },
+                              "instrumentType": {
+                                "type": "string"
+                              },
+                              "firstTradeDate": {
+                                "type": "number"
+                              },
+                              "regularMarketTime": {
+                                "type": "number"
+                              },
+                              "hasPrePostMarketData": {
+                                "type": "boolean"
+                              },
+                              "gmtoffset": {
+                                "type": "number"
+                              },
+                              "timezone": {
+                                "type": "string"
+                              },
+                              "exchangeTimezoneName": {
+                                "type": "string"
+                              },
+                              "regularMarketPrice": {
+                                "type": "number"
+                              },
+                              "fiftyTwoWeekHigh": {
+                                "type": "number"
+                              },
+                              "fiftyTwoWeekLow": {
+                                "type": "number"
+                              },
+                              "regularMarketDayHigh": {
+                                "type": "number"
+                              },
+                              "regularMarketDayLow": {
+                                "type": "number"
+                              },
+                              "regularMarketVolume": {
+                                "type": "number"
+                              },
+                              "longName": {
+                                "type": "string"
+                              },
+                              "shortName": {
+                                "type": "string"
+                              },
+                              "chartPreviousClose": {
+                                "type": "number"
+                              },
+                              "priceHint": {
+                                "type": "number"
+                              },
+                              "currentTradingPeriod": {
+                                "type": "object",
+                                "properties": {
+                                  "pre": {
+                                    "type": "object",
+                                    "properties": {
+                                      "timezone": {
+                                        "type": "string"
+                                      },
+                                      "end": {
+                                        "type": "number"
+                                      },
+                                      "start": {
+                                        "type": "number"
+                                      },
+                                      "gmtoffset": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "timezone",
+                                      "end",
+                                      "start",
+                                      "gmtoffset"
+                                    ]
+                                  },
+                                  "regular": {
+                                    "type": "object",
+                                    "properties": {
+                                      "timezone": {
+                                        "type": "string"
+                                      },
+                                      "end": {
+                                        "type": "number"
+                                      },
+                                      "start": {
+                                        "type": "number"
+                                      },
+                                      "gmtoffset": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "timezone",
+                                      "end",
+                                      "start",
+                                      "gmtoffset"
+                                    ]
+                                  },
+                                  "post": {
+                                    "type": "object",
+                                    "properties": {
+                                      "timezone": {
+                                        "type": "string"
+                                      },
+                                      "end": {
+                                        "type": "number"
+                                      },
+                                      "start": {
+                                        "type": "number"
+                                      },
+                                      "gmtoffset": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "timezone",
+                                      "end",
+                                      "start",
+                                      "gmtoffset"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "pre",
+                                  "regular",
+                                  "post"
+                                ]
+                              },
+                              "dataGranularity": {
+                                "type": "string"
+                              },
+                              "range": {
+                                "type": "string"
+                              },
+                              "validRanges": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "currency",
+                              "symbol",
+                              "exchangeName",
+                              "fullExchangeName",
+                              "instrumentType",
+                              "firstTradeDate",
+                              "regularMarketTime",
+                              "hasPrePostMarketData",
+                              "gmtoffset",
+                              "timezone",
+                              "exchangeTimezoneName",
+                              "regularMarketPrice",
+                              "fiftyTwoWeekHigh",
+                              "fiftyTwoWeekLow",
+                              "regularMarketDayHigh",
+                              "regularMarketDayLow",
+                              "regularMarketVolume",
+                              "longName",
+                              "shortName",
+                              "chartPreviousClose",
+                              "priceHint",
+                              "currentTradingPeriod",
+                              "dataGranularity",
+                              "range",
+                              "validRanges"
+                            ]
+                          },
+                          "timestamp": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "indicators": {
+                            "type": "object",
+                            "properties": {
+                              "quote": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "volume": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "close": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "high": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "open": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "low": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "volume",
+                                    "close",
+                                    "high",
+                                    "open",
+                                    "low"
+                                  ]
+                                }
+                              },
+                              "adjclose": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "adjclose": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "adjclose"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "quote",
+                              "adjclose"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "meta",
+                          "timestamp",
+                          "indicators"
+                        ]
+                      }
+                    },
+                    "error": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "result",
+                    "error"
+                  ]
+                }
+              },
+              "required": [
+                "chart"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/v8/finance/chart/BTC-USD": {
+      "get": {
+        "tags": [
+          "股票類"
+        ],
+        "summary": "BTC-USD",
+        "description": "",
+        "parameters": [
+          {
+            "name": "period1",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "period2",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "chart": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "meta": {
+                            "type": "object",
+                            "properties": {
+                              "currency": {
+                                "type": "string"
+                              },
+                              "symbol": {
+                                "type": "string"
+                              },
+                              "exchangeName": {
+                                "type": "string"
+                              },
+                              "fullExchangeName": {
+                                "type": "string"
+                              },
+                              "instrumentType": {
+                                "type": "string"
+                              },
+                              "firstTradeDate": {
+                                "type": "number"
+                              },
+                              "regularMarketTime": {
+                                "type": "number"
+                              },
+                              "hasPrePostMarketData": {
+                                "type": "boolean"
+                              },
+                              "gmtoffset": {
+                                "type": "number"
+                              },
+                              "timezone": {
+                                "type": "string"
+                              },
+                              "exchangeTimezoneName": {
+                                "type": "string"
+                              },
+                              "regularMarketPrice": {
+                                "type": "number"
+                              },
+                              "fiftyTwoWeekHigh": {
+                                "type": "number"
+                              },
+                              "fiftyTwoWeekLow": {
+                                "type": "number"
+                              },
+                              "regularMarketDayHigh": {
+                                "type": "number"
+                              },
+                              "regularMarketDayLow": {
+                                "type": "number"
+                              },
+                              "regularMarketVolume": {
+                                "type": "number"
+                              },
+                              "longName": {
+                                "type": "string"
+                              },
+                              "shortName": {
+                                "type": "string"
+                              },
+                              "chartPreviousClose": {
+                                "type": "number"
+                              },
+                              "priceHint": {
+                                "type": "number"
+                              },
+                              "currentTradingPeriod": {
+                                "type": "object",
+                                "properties": {
+                                  "pre": {
+                                    "type": "object",
+                                    "properties": {
+                                      "timezone": {
+                                        "type": "string"
+                                      },
+                                      "start": {
+                                        "type": "number"
+                                      },
+                                      "end": {
+                                        "type": "number"
+                                      },
+                                      "gmtoffset": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "regular": {
+                                    "type": "object",
+                                    "properties": {
+                                      "timezone": {
+                                        "type": "string"
+                                      },
+                                      "start": {
+                                        "type": "number"
+                                      },
+                                      "end": {
+                                        "type": "number"
+                                      },
+                                      "gmtoffset": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "post": {
+                                    "type": "object",
+                                    "properties": {
+                                      "timezone": {
+                                        "type": "string"
+                                      },
+                                      "start": {
+                                        "type": "number"
+                                      },
+                                      "end": {
+                                        "type": "number"
+                                      },
+                                      "gmtoffset": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "dataGranularity": {
+                                "type": "string"
+                              },
+                              "range": {
+                                "type": "string"
+                              },
+                              "validRanges": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "timestamp": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "indicators": {
+                            "type": "object",
+                            "properties": {
+                              "quote": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "open": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "high": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "low": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "volume": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "close": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "adjclose": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "adjclose": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
+  // 登入頁面（不使用 DefaultLayout）
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/pages/LoginPage.vue'),
+  },
   {
     path: '/',
     component: () => import('@/layouts/DefaultLayout.vue'),
@@ -49,6 +55,11 @@ const routes = [
         path: 'portfolio',
         name: 'Portfolio',
         component: () => import('@/pages/PortfolioPage.vue'),
+      },
+      {
+        path: 'api-test',
+        name: 'ApiTest',
+        component: () => import('@/pages/ApiTestPage.vue'),
       },
     ],
   },

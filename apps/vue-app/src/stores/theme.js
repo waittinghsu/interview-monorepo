@@ -1,4 +1,4 @@
-import { blueNavyTheme, darkGreenTheme, darkRedTheme } from '@interview/shared-design-tokens'
+import { blueNavyTheme, cyberpunkTheme, darkGreenTheme, darkRedTheme } from '@interview/shared-design-tokens'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -12,6 +12,7 @@ export const useThemeStore = defineStore('theme', () => {
     'dark-green': darkGreenTheme,
     'dark-red': darkRedTheme,
     'blue-navy': blueNavyTheme,
+    'cyberpunk': cyberpunkTheme,
   }
 
   // 當前主題名稱
@@ -25,6 +26,7 @@ export const useThemeStore = defineStore('theme', () => {
     { label: '深綠主題', value: 'dark-green' },
     { label: '深紅主題', value: 'dark-red' },
     { label: '深藍主題', value: 'blue-navy' },
+    { label: 'cyberpunk', value: 'cyberpunk' },
   ])
 
   // 套用 CSS 變數到 :root

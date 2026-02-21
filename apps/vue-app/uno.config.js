@@ -1,5 +1,6 @@
 import {
   blueNavyTheme,
+  cyberpunkTheme,
   darkGreenTheme,
   darkRedTheme,
   defaultTheme,
@@ -14,7 +15,7 @@ import {
 } from 'unocss'
 
 // 合併所有主題的 shortcuts 和 rules
-const allThemes = [darkGreenTheme, darkRedTheme, blueNavyTheme]
+const allThemes = [darkGreenTheme, darkRedTheme, blueNavyTheme, cyberpunkTheme]
 const mergedShortcuts = allThemes.flatMap(t => t.shortcuts ?? [])
 const mergedRules = allThemes.flatMap(t => t.rules ?? [])
 

@@ -12,8 +12,8 @@ function generateToken(userId) {
 }
 
 export const userHandlers = [
-  // 登入
-  http.post('/api/auth/login', async ({ request }) => {
+  // 登入（Swagger 規格：POST /v1/api/user/login）
+  http.post('/v1/api/user/login', async ({ request }) => {
     await delay(500) // 模擬網路延遲
 
     const body = await request.json()
@@ -22,17 +22,23 @@ export const userHandlers = [
     const user = users.find(u => u.email === email && u.password === password)
 
     if (!user) {
-      return HttpResponse.json(
-        { message: '帳號或密碼錯誤' },
-        { status: 401 },
-      )
+      return HttpResponse.json({
+        code: '401',
+        msg: '帳號或密碼錯誤',
+        data: null,
+      }, { status: 200 }) // Business error 仍然回 200
     }
 
     const { password: _, ...userWithoutPassword } = user
 
+    // Business response format
     return HttpResponse.json({
-      token: generateToken(user.id),
-      user: userWithoutPassword,
+      code: '200',
+      msg: 'OK',
+      data: {
+        token: generateToken(user.id),
+        user: userWithoutPassword,
+      },
     })
   }),
 
@@ -68,8 +74,8 @@ export const userHandlers = [
     })
   }),
 
-  // 取得用戶資料
-  http.get('/api/user/profile', async ({ request }) => {
+  // 取得用戶資料（Swagger 規格：GET /v1/api/user/info）
+  http.get('/v1/api/user/info', async ({ request }) => {
     await delay(300)
 
     const authHeader = request.headers.get('Authorization')
@@ -93,14 +99,19 @@ export const userHandlers = [
     const user = users.find(u => u.id === userId)
 
     if (!user) {
-      return HttpResponse.json(
-        { message: '用戶不存在' },
-        { status: 404 },
-      )
+      return HttpResponse.json({
+        code: '404',
+        msg: '用戶不存在',
+        data: null,
+      }, { status: 200 })
     }
 
     const { password: _, ...userWithoutPassword } = user
-    return HttpResponse.json(userWithoutPassword)
+    return HttpResponse.json({
+      code: '200',
+      msg: 'OK',
+      data: userWithoutPassword,
+    })
   }),
 
   // 更新用戶資料
@@ -133,9 +144,13 @@ export const userHandlers = [
     return HttpResponse.json(userWithoutPassword)
   }),
 
-  // 登出
-  http.post('/api/auth/logout', async () => {
+  // 登出（Swagger 規格：POST /v1/api/user/logout）
+  http.post('/v1/api/user/logout', async () => {
     await delay(200)
-    return HttpResponse.json({ message: '登出成功' })
+    return HttpResponse.json({
+      code: '200',
+      msg: '登出成功',
+      data: null,
+    })
   }),
 ]

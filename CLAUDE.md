@@ -13,6 +13,34 @@ pnpm + Turborepo monorepo，包含兩個前端 App 與共用套件。
 
 ---
 
+## Shared Packages 設計原則
+
+### `packages/shared-api`
+
+**只包含通用工具**，不包含業務邏輯：
+
+✅ **應該有的**：
+- `createHttpClient` - HTTP client 工廠函數
+- `createRequestInterceptor` / `createResponseInterceptor` - 攔截器
+- Zod schemas（可選，各 app 可自行定義）
+
+❌ **不應該有的**：
+- ~~`createUserService`~~ - 業務 service（URL、端點定義）
+- ~~`createStockService`~~ - 各 app 的後端結構不同
+
+**原因**：不同 app 可能有完全不同的 API 結構
+- vue-app: `/v1/api/user/login`
+- nuxt-app: `/api/v2/auth/login`
+- other-app: `/users/authenticate`
+
+### `packages/shared-design-tokens`
+
+**只包含設計 token**，不包含組件實作：
+- 顏色變數、主題定義
+- 型別定義（TypeScript）
+
+---
+
 ## 常用指令
 
 ```bash
@@ -119,9 +147,18 @@ src/
 ├── components/common/  # 共用元件
 ├── stores/         # Pinia stores（.js）
 ├── composables/    # 可重用邏輯
-├── api/            # API 呼叫
+├── api/
+│   ├── index.js        # httpClient 實例、callbacks 配置
+│   ├── loading.js      # loadingBus（純 JS）
+│   └── services/       # API services（本地定義，不在 shared-api）
+│       ├── user.js     # createUserService
+│       └── stock.js    # createStockService
 └── router/index.js # 路由設定
 ```
+
+**重要**：API services 在各 app 本地定義，不放在 shared-api
+- `shared-api` 只提供通用的 `createHttpClient` 和攔截器
+- 各 app 根據自己的後端 API 結構定義 service
 
 ### 新增頁面步驟
 
@@ -145,6 +182,45 @@ const router = useRouter()
 - 顏色一律用設計 token class（見上方）
 - 捲軸隱藏：`scrollbar-hide`（presetUno 內建）
 - Quasar 元件搭配設計 token：`q-menu` 加 `class="bg-sys-card"`
+
+### API 調用規則
+
+**重要**：攔截器會自動解包 `response.data`，所以：
+
+```javascript
+// ❌ 錯誤（多了一層 .data）
+const response = await userApi.login(credentials)
+const token = response.data.token  // undefined！
+
+// ✅ 正確（攔截器已經返回 data 了）
+const response = await userApi.login(credentials)
+const token = response.token  // ✓
+```
+
+**Business Response Format（httpClient）**：
+```javascript
+// 後端回傳：{ code: '200', msg: 'OK', data: { token, user } }
+// 攔截器解包後：{ token, user }
+const data = await userApi.login(credentials)
+```
+
+**外部 API（externalHttpClient）**：
+```javascript
+// 外部 API 回傳：{ chart: { result: [...] } }
+// 攔截器不解包（responseFormat.enabled = false）
+const response = await stockApi.get0050(params)
+const result = response.chart.result[0]  // 直接訪問
+```
+
+**Per-request 選項**：
+```javascript
+// 跳過 loading、靜默錯誤、原始回應
+await userApi.login(credentials, {
+  skipLoading: true,   // 不顯示 loading bar
+  silentError: true,   // 錯誤不觸發 callback
+  rawResponse: true,   // 回傳完整 { code, msg, data }
+})
+```
 
 ---
 
@@ -235,3 +311,76 @@ cd apps/nuxt-app && npx eslint --fix .
 - `.nuxt/` 和 `dist/` 不要 commit
 - Quasar 元件（`q-*`）已全域註冊，不需 import
 - UnoCSS class 若無效果，先確認 token 名稱是否用新版（見上方禁止清單）
+
+---
+
+## Multi-Agent 架構
+
+### Agent 清單
+
+| Agent | 檔案 | 職責 |
+|-------|------|------|
+| 研究員 | `.claude/agents/researcher.md` | 需求分析、Figma 調查、產出 plan.json |
+| 執行者 | `.claude/agents/executor.md` | 依 plan.json 執行程式碼修改 |
+| API Agent | `.claude/agents/api-agent.md` | 讀 Swagger、產生 API functions、維護 api-spec.md |
+
+### App Context 規範速查
+
+| 檔案 | 對應 App |
+|------|---------|
+| `.claude/context/vue-app.md` | Vue 3 + Vite SPA（JavaScript） |
+| `.claude/context/nuxt-app.md` | Nuxt 3 SSR（TypeScript 嚴格模式） |
+
+**所有 agent 開始工作前，必須先確認 `target_app` 並讀取對應 context。**
+
+### Context 流向
+
+```
+Swagger ──→ API Agent ──→ shared/api-spec.md
+                                   │
+Figma ──→ 研究員 ──→ shared/plan.json ──→ 執行者
+           │  (含 target_app)              │
+           ↑                               ↓
+  .claude/context/{app}.md ←── 兩者都需讀取
+```
+
+### 日常模式（預設，循序執行）
+
+```
+API Agent（若需要更新）→ 研究員 → 你確認 → 執行者
+```
+
+每個階段完成後**暫停回報**，等待確認後才繼續。
+
+### 高強度模式
+
+使用者說「**高強度模式**」觸發。API Agent、研究員、前置調查**平行跑**，產出計畫書後你確認，再呼叫執行者。
+
+### 通用規則（所有 Agent 遵守）
+
+- **修改任何檔案前**：說明影響範圍
+- **計畫書未涵蓋的情況**：停下來問，不自行判斷
+- **每階段完成後**：暫停回報，不一次跑完
+- **禁止修改**：`nuxt.config.ts` / `quasar.config.ts` / `uno.config.ts` / `capacitor.config.ts`
+
+### 共用檔案路徑
+
+| 檔案 | 用途 |
+|------|------|
+| `shared/plan.json` | 當前任務計畫書（執行者必讀） |
+| `shared/plans/{日期}_{任務}.json` | 計畫書備份 |
+| `shared/api-spec.md` | API function 規格（研究員與執行者參考） |
+| `shared/research.md` | 研究員的調查中間產物 |
+
+### 呼叫 Agent 的方式
+
+```
+# 呼叫研究員
+Task: researcher — {任務描述}
+
+# 呼叫執行者（研究員完成並確認後）
+Task: executor — 依照 shared/plan.json 執行
+
+# 呼叫 API Agent
+Task: api-agent — 更新 API spec（Swagger URL: {url}）
+```
