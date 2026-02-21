@@ -11,11 +11,12 @@ export const useUserStore = defineStore('user', () => {
   async function login(credentials) {
     loading.value = true
     try {
-      const response = await userApi.login(credentials)
-      token.value = response.token
-      user.value = response.user
-      localStorage.setItem('token', response.token)
-      return response
+      // business code 解包後，response 即 data 欄位的內容 { token, user }
+      const data = await userApi.login(credentials, { useYApiMock: true })
+      token.value = data.token
+      user.value = data.user
+      localStorage.setItem('token', data.token)
+      return data
     }
     finally {
       loading.value = false
@@ -23,9 +24,17 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function logout() {
-    token.value = ''
-    user.value = null
-    localStorage.removeItem('token')
+    try {
+      await userApi.logout({ silentError: true, useYApiMock: true })
+    }
+    catch {
+      // silentError = true，登出失敗時仍清除本地狀態
+    }
+    finally {
+      token.value = ''
+      user.value = null
+      localStorage.removeItem('token')
+    }
   }
 
   async function fetchUser() {
@@ -33,8 +42,8 @@ export const useUserStore = defineStore('user', () => {
       return
     loading.value = true
     try {
-      const response = await userApi.getProfile()
-      user.value = response
+      const data = await userApi.getUserInfo({ useYApiMock: true })
+      user.value = data
     }
     finally {
       loading.value = false

@@ -73,25 +73,29 @@ const btcResponse = {
 }
 
 export const stockHandlers = [
-  // YAPI Mock - 0050.TW
-  http.get('https://yapi.zeabur.app/mock/27/v8/finance/chart/0050.TW', ({ request }) => {
+  // Stock API - 通用路徑參數模式
+  http.get('/v8/finance/chart/:symbol', ({ params, request }) => {
+    const { symbol } = params
     const url = new URL(request.url)
     const range = url.searchParams.get('range')
     const interval = url.searchParams.get('interval')
 
-    console.log('Mock YAPI - 0050.TW called:', { range, interval })
+    console.log('[MSW] Stock API called:', { symbol, range, interval })
 
-    return HttpResponse.json(yahooFinanceResponse)
-  }),
+    // 根據 symbol 回傳對應資料
+    if (symbol === '0050.TW') {
+      return HttpResponse.json(yahooFinanceResponse)
+    }
+    else if (symbol === 'BTC-USD') {
+      return HttpResponse.json(btcResponse)
+    }
 
-  // YAPI Mock - BTC-USD
-  http.get('https://yapi.zeabur.app/mock/27/v8/finance/chart/BTC-USD', ({ request }) => {
-    const url = new URL(request.url)
-    const range = url.searchParams.get('range')
-    const interval = url.searchParams.get('interval')
-
-    console.log('Mock YAPI - BTC-USD called:', { range, interval })
-
-    return HttpResponse.json(btcResponse)
+    // 未知 symbol，回傳錯誤
+    return HttpResponse.json({
+      chart: {
+        result: null,
+        error: { code: 'Not Found', description: `Unknown symbol: ${symbol}` },
+      },
+    }, { status: 404 })
   }),
 ]

@@ -4,7 +4,7 @@ export default antfu({
   vue: true,
   javascript: {
     overrides: {
-      'no-console': 'warn',
+      'no-console': 'off', // 允許 console（用於埋點 stub、debug）
       'no-unused-vars': 'warn',
     },
   },

@@ -10,6 +10,7 @@ const menuItems = [
   { label: 'SeatGrid', to: '/seat-grid' },
   { label: 'SeatRotate', to: '/seat-rotate' },
   { label: '猜數字', to: '/number-guess' },
+  { label: 'API 測試', to: '/api-test' },
 ]
 
 async function handleLogout() {

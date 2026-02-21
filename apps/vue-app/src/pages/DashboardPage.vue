@@ -2,10 +2,10 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 const summaryStats = [
-  { label: '共線人數', value: '5', suffix: '/ 10', icon: 'i-mdi-account-group', accent: 'text-cyan-300' },
-  { label: '今日訊息', value: '91,015', suffix: '', icon: 'i-mdi-message-processing', accent: 'text-amber-300' },
-  { label: '平均互動', value: '325.9', suffix: '', icon: 'i-mdi-chart-line', accent: 'text-purple-300' },
-  { label: '活躍平台', value: '7', suffix: '', icon: 'i-mdi-lan-connect', accent: 'text-emerald-300' },
+  { label: '共線人數', value: '5', suffix: '/ 10', icon: 'i-mdi-account-group', accent: 'text-cyber-cyan' },
+  { label: '今日訊息', value: '91,015', suffix: '', icon: 'i-mdi-message-processing', accent: 'text-cyber-amber' },
+  { label: '平均互動', value: '325.9', suffix: '', icon: 'i-mdi-chart-line', accent: 'text-cyber-purple' },
+  { label: '活躍平台', value: '7', suffix: '', icon: 'i-mdi-lan-connect', accent: 'text-cyber-emerald' },
 ]
 
 const personas = [
@@ -20,10 +20,10 @@ const personas = [
 ]
 
 const systemMetrics = [
-  { label: 'CPU UPTIME', value: 92, color: 'cyan-4', tint: 'text-cyan-3', uptime: '4h 17m' },
-  { label: 'RAM', value: 50, color: 'blue-5', tint: 'text-blue-3', uptime: '4h 17m' },
-  { label: 'PTY', value: 8, color: 'green-5', tint: 'text-emerald-3', uptime: '4h 17m' },
-  { label: 'WS', value: 0, color: 'orange-5', tint: 'text-amber-3', uptime: '4h 17m' },
+  { label: 'CPU UPTIME', value: 92, color: 'cyan-4', tint: 'text-cyber-cyan', uptime: '4h 17m' },
+  { label: 'RAM', value: 50, color: 'blue-5', tint: 'text-cyber-blue', uptime: '4h 17m' },
+  { label: 'PTY', value: 8, color: 'green-5', tint: 'text-cyber-emerald', uptime: '4h 17m' },
+  { label: 'WS', value: 0, color: 'orange-5', tint: 'text-cyber-amber', uptime: '4h 17m' },
 ]
 
 const aiUsages = [
@@ -66,24 +66,24 @@ const aiUsages = [
 ]
 
 const eventLogs = [
-  { time: '12:53:21', message: 'Proxy test passed — Latency: 120ms', color: 'text-cyan-3' },
-  { time: '12:51:36', message: 'Persona luna_kdrama posted × 12 (450 total)', color: 'text-purple-3' },
-  { time: '12:49:20', message: 'Chrome profile Persona-007 launched (CDP)', color: 'text-amber-3' },
-  { time: '12:46:33', message: 'WebSocket client connected (192.168.1.5)', color: 'text-emerald-3' },
-  { time: '12:43:15', message: 'Scheduler triggered: 3 tasks queued (fast lane)', color: 'text-cyan-3' },
-  { time: '12:39:08', message: 'PTY session started • OpenAI Dev [codex]', color: 'text-purple-3' },
-  { time: '12:27:55', message: 'Account ace-801 activated', color: 'text-emerald-3' },
-  { time: '12:25:10', message: 'System initialized • AISocial v0.10.0', color: 'text-blue-3' },
+  { time: '12:53:21', message: 'Proxy test passed — Latency: 120ms', color: 'text-cyber-cyan' },
+  { time: '12:51:36', message: 'Persona luna_kdrama posted × 12 (450 total)', color: 'text-cyber-purple' },
+  { time: '12:49:20', message: 'Chrome profile Persona-007 launched (CDP)', color: 'text-cyber-amber' },
+  { time: '12:46:33', message: 'WebSocket client connected (192.168.1.5)', color: 'text-cyber-emerald' },
+  { time: '12:43:15', message: 'Scheduler triggered: 3 tasks queued (fast lane)', color: 'text-cyber-cyan' },
+  { time: '12:39:08', message: 'PTY session started • OpenAI Dev [codex]', color: 'text-cyber-purple' },
+  { time: '12:27:55', message: 'Account ace-801 activated', color: 'text-cyber-emerald' },
+  { time: '12:25:10', message: 'System initialized • AISocial v0.10.0', color: 'text-cyber-blue' },
 ]
 
 const platformStats = [
-  { name: 'X Twitter', icon: 'i-mdi-twitter', posts: 1613, reach: '48,320', delta: '+0.5%', orgs: 43, color: 'text-cyan-3' },
-  { name: 'GitHub', icon: 'i-mdi-github', posts: 418, reach: '1,105', delta: '+0.3%', orgs: 12, color: 'text-emerald-3' },
-  { name: 'Discord', icon: 'i-mdi-discord', posts: 1990, reach: '9,320', delta: '+1.8%', orgs: 33, color: 'text-purple-3' },
-  { name: 'Instagram', icon: 'i-mdi-instagram', posts: 503, reach: '26,450', delta: '+2.1%', orgs: 18, color: 'text-pink-3' },
-  { name: 'Telegram', icon: 'i-mdi-telegram', posts: 179, reach: '3,215', delta: '+0.9%', orgs: 7, color: 'text-cyan-3' },
-  { name: 'YouTube', icon: 'i-mdi-youtube', posts: 108, reach: '19,700', delta: '+3.4%', orgs: 5, color: 'text-red-4' },
-  { name: 'LinkedIn', icon: 'i-mdi-linkedin', posts: 96, reach: '9,980', delta: '+0.8%', orgs: 9, color: 'text-blue-3' },
+  { name: 'X Twitter', icon: 'i-mdi-twitter', posts: 1613, reach: '48,320', delta: '+0.5%', orgs: 43, color: 'text-cyber-cyan' },
+  { name: 'GitHub', icon: 'i-mdi-github', posts: 418, reach: '1,105', delta: '+0.3%', orgs: 12, color: 'text-cyber-emerald' },
+  { name: 'Discord', icon: 'i-mdi-discord', posts: 1990, reach: '9,320', delta: '+1.8%', orgs: 33, color: 'text-cyber-purple' },
+  { name: 'Instagram', icon: 'i-mdi-instagram', posts: 503, reach: '26,450', delta: '+2.1%', orgs: 18, color: 'text-cyber-pink' },
+  { name: 'Telegram', icon: 'i-mdi-telegram', posts: 179, reach: '3,215', delta: '+0.9%', orgs: 7, color: 'text-cyber-cyan' },
+  { name: 'YouTube', icon: 'i-mdi-youtube', posts: 108, reach: '19,700', delta: '+3.4%', orgs: 5, color: 'text-error' },
+  { name: 'LinkedIn', icon: 'i-mdi-linkedin', posts: 96, reach: '9,980', delta: '+0.8%', orgs: 9, color: 'text-cyber-blue' },
 ]
 
 const quickActions = [
@@ -112,32 +112,32 @@ const formattedTime = computed(() => {
 </script>
 
 <template>
-  <div class="dashboard-wrapper text-gray-100">
+  <div class="dashboard-wrapper text-textBase">
     <div class="space-y-6">
       <!-- Page Header / Navigation mimic -->
       <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div class="flex flex-wrap items-center gap-3">
           <div class="flex items-baseline gap-2">
-            <span class="text-xl font-semibold tracking-[0.3em] text-cyan-300">AISOCIAL</span>
+            <span class="text-xl font-semibold tracking-[0.3em] text-cyber-cyan">AISOCIAL</span>
             <q-badge color="primary" class="bg-primary/10 text-primary" label="v0.10" />
           </div>
-          <div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.3em] text-gray-300">
+          <div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.3em] text-textSecondary">
             <span>Dashboard</span>
           </div>
         </div>
-        <div class="flex flex-wrap items-center gap-3 text-sm text-gray-300">
-          <div class="flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1">
-            <i class="i-mdi-translate text-cyan-300" />
+        <div class="flex flex-wrap items-center gap-3 text-sm text-textSecondary">
+          <div class="flex items-center gap-2 rounded-full border border-cyber-cyan/40 bg-cyber-cyan/10 px-3 py-1">
+            <i class="i-mdi-translate text-cyber-cyan" />
             <span>EN</span>
           </div>
-          <div class="flex items-center gap-2 rounded-full border border-purple-400/40 bg-purple-400/10 px-3 py-1">
-            <i class="i-mdi-clock-outline text-purple-300" />
+          <div class="flex items-center gap-2 rounded-full border border-cyber-purple/40 bg-cyber-purple/10 px-3 py-1">
+            <i class="i-mdi-clock-outline text-cyber-purple" />
             <span>{{ formattedTime }}</span>
           </div>
-          <div class="flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3 py-1">
+          <div class="flex items-center gap-2 rounded-full border border-cyber-emerald/40 bg-cyber-emerald/10 px-3 py-1">
             <span class="relative mr-1 inline-flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyber-emerald opacity-75" />
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-cyber-emerald" />
             </span>
             <span>ONLINE</span>
           </div>
@@ -149,12 +149,12 @@ const formattedTime = computed(() => {
         <q-card v-for="stat in summaryStats" :key="stat.label" class="cyber-card">
           <q-card-section class="flex items-center gap-4">
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/5">
-              <i :class="[stat.icon, stat.accent, 'text-2xl']" />
+              <i class="text-2xl" :class="[stat.icon, stat.accent]" />
             </div>
             <div>
-              <div class="text-sm text-gray-400">{{ stat.label }}</div>
-              <div class="text-2xl font-bold text-gray-100">
-                {{ stat.value }}<span class="text-sm text-gray-400"> {{ stat.suffix }}</span>
+              <div class="text-sm text-textSecondary">{{ stat.label }}</div>
+              <div class="text-2xl font-bold text-textBase">
+                {{ stat.value }}<span class="text-sm text-textSecondary"> {{ stat.suffix }}</span>
               </div>
             </div>
           </q-card-section>
@@ -167,8 +167,8 @@ const formattedTime = computed(() => {
           <q-card class="cyber-card">
             <q-card-section class="flex items-center justify-between">
               <div>
-                <div class="text-lg font-semibold text-gray-100">人格快覽</div>
-                <div class="text-xs text-gray-400">目前 8 / 10 名人格在線</div>
+                <div class="text-lg font-semibold text-textBase">人格快覽</div>
+                <div class="text-xs text-textSecondary">目前 8 / 10 名人格在線</div>
               </div>
               <q-chip color="primary" class="bg-primary/10 text-primary" icon="person">
                 Active
@@ -179,23 +179,23 @@ const formattedTime = computed(() => {
               <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                 <div v-for="persona in personas" :key="persona.name" class="rounded-xl border border-white/10 bg-white/5 p-4">
                   <div class="mb-3 flex items-center gap-3">
-                    <q-avatar size="38px" class="bg-cyan-500/10">
+                    <q-avatar size="38px" class="bg-cyber-cyan/10">
                       <i class="i-mdi-account text-cyan-200 text-xl" />
-                      <span :class="['status-dot', persona.status]" />
+                      <span class="status-dot" :class="persona.status" />
                     </q-avatar>
                     <div>
-                      <div class="text-sm font-semibold text-gray-100">{{ persona.name }}</div>
-                      <div class="text-xs text-gray-400">{{ persona.role }}</div>
+                      <div class="text-sm font-semibold text-textBase">{{ persona.name }}</div>
+                      <div class="text-xs text-textSecondary">{{ persona.role }}</div>
                     </div>
                   </div>
                   <div class="mb-3 flex flex-wrap gap-2">
-                    <q-badge v-for="tag in persona.tags" :key="tag" class="bg-white/10 text-[11px] uppercase tracking-wide text-gray-300" rounded>
+                    <q-badge v-for="tag in persona.tags" :key="tag" class="bg-white/10 text-[11px] uppercase tracking-wide text-textSecondary" rounded>
                       {{ tag }}
                     </q-badge>
                   </div>
-                  <div class="flex items-center justify-between text-xs text-gray-400">
+                  <div class="flex items-center justify-between text-xs text-textSecondary">
                     <span class="flex items-center gap-1">
-                      <i class="i-mdi-clipboard-text-outline text-cyan-300" />
+                      <i class="i-mdi-clipboard-text-outline text-cyber-cyan" />
                       {{ persona.tasks }} 任務
                     </span>
                     <span>{{ persona.lastActive }}</span>
@@ -208,24 +208,24 @@ const formattedTime = computed(() => {
           <q-card class="cyber-card">
             <q-card-section class="flex items-center justify-between">
               <div>
-                <div class="text-lg font-semibold text-gray-100">AI Usage</div>
-                <div class="text-xs text-gray-400">追蹤 Claude / OpenAI 帳號使用量</div>
+                <div class="text-lg font-semibold text-textBase">AI Usage</div>
+                <div class="text-xs text-textSecondary">追蹤 Claude / OpenAI 帳號使用量</div>
               </div>
-              <q-btn flat dense icon="i-mdi-refresh" class="text-cyan-300" round />
+              <q-btn flat dense icon="i-mdi-refresh" class="text-cyber-cyan" round />
             </q-card-section>
             <q-separator dark class="opacity-20" />
             <q-card-section class="space-y-4">
               <div v-for="account in aiUsages" :key="account.name" class="rounded-xl border border-white/10 bg-white/5">
                 <div class="flex items-center justify-between border-b border-white/10 px-4 py-3">
                   <div>
-                    <div class="text-sm font-semibold text-gray-100">{{ account.name }}</div>
-                    <div class="text-xs text-gray-500">{{ account.provider }}</div>
+                    <div class="text-sm font-semibold text-textBase">{{ account.name }}</div>
+                    <div class="text-xs text-textMuted">{{ account.provider }}</div>
                   </div>
                   <q-badge color="primary" class="bg-primary/10 text-primary" label="monitoring" />
                 </div>
                 <div class="space-y-3 px-4 py-3">
                   <div v-for="model in account.models" :key="model.name" class="space-y-1">
-                    <div class="flex items-center justify-between text-xs text-gray-400">
+                    <div class="flex items-center justify-between text-xs text-textSecondary">
                       <span>{{ model.name }}</span>
                       <span>{{ model.time }} • {{ model.percent }}%</span>
                     </div>
@@ -242,16 +242,16 @@ const formattedTime = computed(() => {
           <q-card class="cyber-card">
             <q-card-section>
               <div class="mb-4 flex items-center justify-between">
-                <div class="text-lg font-semibold text-gray-100">系統狀態</div>
-                <q-badge class="bg-emerald-400/10 text-emerald-300" label="Uptime" />
+                <div class="text-lg font-semibold text-textBase">系統狀態</div>
+                <q-badge class="bg-cyber-emerald/10 text-cyber-emerald" label="Uptime" />
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div v-for="metric in systemMetrics" :key="metric.label" class="flex flex-col items-center gap-3 rounded-xl bg-white/5 p-4 text-center">
                   <q-circular-progress :value="metric.value" :thickness="0.18" size="90px" :color="metric.color" track-color="grey-10" show-value>
-                    <div class="text-xl font-semibold text-gray-100">{{ metric.value }}%</div>
+                    <div class="text-xl font-semibold text-textBase">{{ metric.value }}%</div>
                   </q-circular-progress>
-                  <div class="text-xs uppercase tracking-[0.3em] text-gray-400">{{ metric.label }}</div>
-                  <div :class="['text-xs font-semibold', metric.tint]">{{ metric.uptime }}</div>
+                  <div class="text-xs uppercase tracking-[0.3em] text-textSecondary">{{ metric.label }}</div>
+                  <div class="text-xs font-semibold" :class="metric.tint">{{ metric.uptime }}</div>
                 </div>
               </div>
             </q-card-section>
@@ -259,12 +259,12 @@ const formattedTime = computed(() => {
 
           <q-card class="cyber-card">
             <q-card-section>
-              <div class="text-lg font-semibold text-gray-100">事件日誌</div>
+              <div class="text-lg font-semibold text-textBase">事件日誌</div>
             </q-card-section>
             <q-separator dark class="opacity-20" />
             <q-card-section class="max-h-64 space-y-3 overflow-auto pr-1">
               <div v-for="log in eventLogs" :key="log.time + log.message" class="flex items-start gap-3 rounded-lg border border-white/5 bg-white/5 px-3 py-2 text-xs">
-                <span class="text-gray-500">[{{ log.time }}]</span>
+                <span class="text-textMuted">[{{ log.time }}]</span>
                 <span :class="log.color">{{ log.message }}</span>
               </div>
             </q-card-section>
@@ -272,22 +272,22 @@ const formattedTime = computed(() => {
 
           <q-card class="cyber-card">
             <q-card-section class="flex items-center justify-between">
-              <div class="text-lg font-semibold text-gray-100">平台分布</div>
-              <q-btn flat dense icon="i-mdi-tune" class="text-gray-400" round />
+              <div class="text-lg font-semibold text-textBase">平台分布</div>
+              <q-btn flat dense icon="i-mdi-tune" class="text-textSecondary" round />
             </q-card-section>
             <q-separator dark class="opacity-20" />
             <q-card-section class="space-y-3">
               <div v-for="platform in platformStats" :key="platform.name" class="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2">
                 <div class="flex items-center gap-3">
                   <q-avatar size="32px" class="bg-white/10">
-                    <i :class="[platform.icon, platform.color, 'text-xl']" />
+                    <i class="text-xl" :class="[platform.icon, platform.color]" />
                   </q-avatar>
                   <div>
-                    <div class="text-sm font-semibold text-gray-100">{{ platform.name }}</div>
-                    <div class="text-xs text-gray-400">貼文 {{ platform.posts }} • 組織 {{ platform.orgs }}</div>
+                    <div class="text-sm font-semibold text-textBase">{{ platform.name }}</div>
+                    <div class="text-xs text-textSecondary">貼文 {{ platform.posts }} • 組織 {{ platform.orgs }}</div>
                   </div>
                 </div>
-                <div class="text-right text-xs text-gray-300">
+                <div class="text-right text-xs text-textSecondary">
                   <div>觸及 {{ platform.reach }}</div>
                   <div :class="platform.color">{{ platform.delta }}</div>
                 </div>
@@ -297,19 +297,18 @@ const formattedTime = computed(() => {
 
           <q-card class="cyber-card">
             <q-card-section>
-              <div class="text-lg font-semibold text-gray-100">快速操作</div>
+              <div class="text-lg font-semibold text-textBase">快速操作</div>
             </q-card-section>
             <q-card-section>
               <div class="grid grid-cols-2 gap-3">
                 <q-btn
                   v-for="action in quickActions"
                   :key="action.label"
-                  class="cyber-button"
+                  class="cyber-button text-textBase"
                   glossy
                   unelevated
                   :label="action.label"
                   :icon="action.icon"
-                  text-color="gray-200"
                 />
               </div>
             </q-card-section>
@@ -323,16 +322,16 @@ const formattedTime = computed(() => {
 <style scoped>
 .dashboard-wrapper {
   min-height: calc(100vh - 140px);
-  background: linear-gradient(180deg, #0a0e27 0%, #131829 100%);
+  background: linear-gradient(180deg, var(--color-sys-page) 0%, var(--color-sys-card) 100%);
   padding: 1.5rem;
   border-radius: 1.25rem;
-  border: 1px solid rgba(60, 72, 115, 0.35);
+  border: 1px solid color-mix(in srgb, var(--color-sys-border) 35%, transparent);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
 .cyber-card {
-  background: rgba(18, 24, 46, 0.88);
-  border: 1px solid rgba(65, 76, 118, 0.45);
+  background: color-mix(in srgb, var(--color-sys-card) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-sys-border) 45%, transparent);
   border-radius: 20px;
   backdrop-filter: blur(12px);
   box-shadow: 0 18px 45px rgba(5, 11, 30, 0.55);
@@ -349,15 +348,15 @@ const formattedTime = computed(() => {
 }
 
 .status-dot.online {
-  background: #34d399;
+  background: var(--color-cyber-emerald);
 }
 
 .status-dot.away {
-  background: #fbbf24;
+  background: var(--color-cyber-amber);
 }
 
 .status-dot.offline {
-  background: #f87171;
+  background: var(--color-error);
 }
 
 .progress-bar {
@@ -367,8 +366,8 @@ const formattedTime = computed(() => {
 }
 
 .cyber-button {
-  background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(90, 51, 255, 0.15));
-  border: 1px solid rgba(97, 125, 255, 0.35);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-cyber-cyan) 15%, transparent), color-mix(in srgb, var(--color-cyber-purple) 15%, transparent));
+  border: 1px solid color-mix(in srgb, var(--color-sys-border) 35%, transparent);
   border-radius: 14px;
   text-transform: none;
   font-size: 0.85rem;
@@ -382,7 +381,7 @@ const formattedTime = computed(() => {
 
 .cyber-button:hover {
   transform: translateY(-2px);
-  border-color: rgba(0, 255, 222, 0.6);
+  border-color: color-mix(in srgb, var(--color-cyber-cyan) 60%, transparent);
 }
 
 @media (max-width: 1024px) {

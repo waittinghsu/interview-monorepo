@@ -21,7 +21,7 @@ async function fetchStockData() {
 
     const response = await stockApi.get0050({ range: '1mo', interval: '1d' })
 
-    const result = response.data.chart.result[0]
+    const result = response.chart.result[0]
     const timestamps = result.timestamp
     const quotes = result.indicators.quote[0]
 
@@ -51,7 +51,7 @@ async function fetchBTCData() {
 
     const response = await stockApi.getBTC({ range: '1mo', interval: '1d' })
 
-    const result = response.data.chart.result[0]
+    const result = response.chart.result[0]
     const timestamps = result.timestamp
     const quotes = result.indicators.quote[0]
 
