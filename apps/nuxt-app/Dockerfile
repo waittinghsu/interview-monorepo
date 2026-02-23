@@ -53,4 +53,5 @@ EXPOSE 3000
 ENV PORT=3000
 
 # Start Nuxt server with debug script
-CMD ["sh", "start.sh"]
+# Temporary: Test if container can run at all
+CMD ["sh", "-c", "echo '=== Container Started ===' && sleep 60 && echo 'Still alive' && exec sh start.sh"]
