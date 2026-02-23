@@ -14,6 +14,15 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
+  // Nitro 設定（用於生產環境）
+  nitro: {
+    preset: process.env.NITRO_PRESET || 'node-server',
+    // 確保使用環境變數的端口
+    experimental: {
+      openAPI: false,
+    },
+  },
+
   // 開發伺服器設定
   devServer: {
     port: 30678,

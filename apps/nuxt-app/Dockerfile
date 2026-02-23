@@ -41,6 +41,10 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built output from builder
 COPY --from=builder /build/apps/nuxt-app/.output ./apps/nuxt-app/.output
 
+# Copy start script
+COPY --from=builder /build/apps/nuxt-app/start.sh ./apps/nuxt-app/
+RUN chmod +x ./apps/nuxt-app/start.sh
+
 # Set working directory to nuxt-app
 WORKDIR /app/apps/nuxt-app
 
@@ -48,5 +52,5 @@ WORKDIR /app/apps/nuxt-app
 EXPOSE 3000
 ENV PORT=3000
 
-# Start Nuxt server
-CMD ["node", ".output/server/index.mjs"]
+# Start Nuxt server with debug script
+CMD ["sh", "start.sh"]
