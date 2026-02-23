@@ -41,8 +41,8 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built output from builder
 COPY --from=builder /build/apps/nuxt-app/.output ./apps/nuxt-app/.output
 
-# Copy start script
-COPY --from=builder /build/apps/nuxt-app/start.sh ./apps/nuxt-app/
+# Copy start script from local (not from builder)
+COPY apps/nuxt-app/start.sh ./apps/nuxt-app/
 RUN chmod +x ./apps/nuxt-app/start.sh
 
 # Set working directory to nuxt-app
