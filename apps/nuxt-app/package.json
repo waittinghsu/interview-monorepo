@@ -11,8 +11,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "clean": "rm -rf .nuxt .output node_modules",
-    "prepare": "simple-git-hooks"
+    "clean": "rm -rf .nuxt .output node_modules"
   },
   "dependencies": {
     "@interview/shared-api": "workspace:*",
