@@ -1,5 +1,6 @@
-import { createUserService, userSchema } from '@interview/shared-api'
+import { userSchema } from '@interview/shared-api'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
+import { createUserService } from '~/services/user'
 import { useHttpClient } from './useHttpClient'
 
 /**
