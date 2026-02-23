@@ -1,5 +1,5 @@
 {
   "build_command": "cd ../.. && pnpm install && pnpm build:nuxt",
-  "start_command": "node .output/server/index.mjs",
-  "output_dir": ".output"
+  "start_command": "node apps/nuxt-app/.output/server/index.mjs",
+  "output_dir": "apps/nuxt-app/.output"
 }
