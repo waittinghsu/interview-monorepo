@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 
   // Nitro 設定（用於生產環境）
   nitro: {
-    preset: process.env.NITRO_PRESET || 'node-server',
+    preset: 'zeabur',
     // 確保使用環境變數的端口
     experimental: {
       openAPI: false,
