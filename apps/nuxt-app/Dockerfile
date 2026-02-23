@@ -1,21 +1,19 @@
-# Dockerfile for nuxt-app in monorepo
-FROM node:22-alpine
+# Multi-stage build for nuxt-app in monorepo
 
-WORKDIR /app
+# Stage 1: Build
+FROM node:22-alpine AS builder
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-COPY apps/nuxt-app/package.json ./apps/nuxt-app/
-COPY packages/shared-api/package.json ./packages/shared-api/
-COPY packages/shared-design-tokens/package.json ./packages/shared-design-tokens/
-COPY packages/shared-mocks/package.json ./packages/shared-mocks/
-COPY packages/shared-utils/package.json ./packages/shared-utils/
+WORKDIR /build
 
 # Install pnpm
 RUN npm install -g pnpm@9.15.4
 
-# Install dependencies
-COPY pnpm-workspace.yaml ./
+# Copy package files for dependency installation
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/nuxt-app/package.json ./apps/nuxt-app/
+COPY packages/ ./packages/
+
+# Install all dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
@@ -24,9 +22,17 @@ COPY . .
 # Build nuxt-app
 RUN pnpm build:nuxt
 
-# Expose port
-EXPOSE 3000
+# Stage 2: Production
+FROM node:22-alpine
 
-# Start command
-WORKDIR /app/apps/nuxt-app
+WORKDIR /app
+
+# Copy built output from builder
+COPY --from=builder /build/apps/nuxt-app/.output ./.output
+
+# Expose port (Zeabur will set PORT env var)
+EXPOSE 3000
+ENV PORT=3000
+
+# Start Nuxt server
 CMD ["node", ".output/server/index.mjs"]
