@@ -1,5 +1,5 @@
-import { userSchema } from '@interview/shared-api'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
+import { userInfoSchema } from '~/features/user/schemas/user.schema'
 import { createUserService } from '~/services/user'
 import { useHttpClient } from './useHttpClient'
 
@@ -25,7 +25,7 @@ export function useUserProfileQuery() {
     queryKey: userKeys.profile(),
     queryFn: async () => {
       const data = await userService.getProfile()
-      return userSchema.parse(data)
+      return userInfoSchema.parse(data)
     },
     enabled: false, // 預設不啟用，需要登入後才啟用
   })

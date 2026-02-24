@@ -1,4 +1,4 @@
-import { blueNavyTheme, darkGreenTheme, darkRedTheme } from '@interview/shared-design-tokens'
+import { blueNavyTheme, cyberpunkTheme, darkGreenTheme, darkRedTheme, quasarLightTheme } from '@interview/shared-design-tokens'
 import { defineStore } from 'pinia'
 
 interface Theme {
@@ -21,16 +21,20 @@ export const useThemeStore = defineStore('theme', () => {
     'dark-green': darkGreenTheme,
     'dark-red': darkRedTheme,
     'blue-navy': blueNavyTheme,
+    'cyberpunk': cyberpunkTheme,
+    'quasar-light': quasarLightTheme,
   }
 
   // 當前主題名稱
-  const currentThemeName = ref<string>('dark-green')
+  const currentThemeName = ref<string>('cyberpunk')
 
   // 當前主題物件
-  const currentTheme = computed(() => themes[currentThemeName.value] || themes['dark-green'])
+  const currentTheme = computed(() => themes[currentThemeName.value] || themes.cyberpunk)
 
   // 主題選項（用於下拉選單）
   const themeOptions = computed(() => [
+    { label: 'Quasar 亮色', value: 'quasar-light' },
+    { label: 'Cyberpunk 暗色', value: 'cyberpunk' },
     { label: '深綠主題', value: 'dark-green' },
     { label: '深紅主題', value: 'dark-red' },
     { label: '深藍主題', value: 'blue-navy' },
@@ -73,6 +77,14 @@ export const useThemeStore = defineStore('theme', () => {
         document.body.style.backgroundColor = colors['sys-page']
       if (colors.textBase)
         document.body.style.color = colors.textBase
+
+      // 🌓 自動設置 Quasar Dark Mode
+      // 判斷是否為暗色主題（除了 quasar-light 都是暗色）
+      const isDarkTheme = themeName !== 'quasar-light'
+      const { $q } = useNuxtApp()
+      if ($q?.dark) {
+        $q.dark.set(isDarkTheme)
+      }
     }
   }
 

@@ -1,8 +1,9 @@
 import {
   blueNavyTheme,
+  cyberpunkTheme,
   darkGreenTheme,
   darkRedTheme,
-  defaultTheme,
+  quasarLightTheme,
 } from '@interview/shared-design-tokens'
 import {
   defineConfig,
@@ -14,7 +15,7 @@ import {
 } from 'unocss'
 
 // 合併所有主題的 shortcuts 和 rules
-const allThemes = [darkGreenTheme, darkRedTheme, blueNavyTheme]
+const allThemes = [darkGreenTheme, darkRedTheme, blueNavyTheme, cyberpunkTheme, quasarLightTheme]
 const mergedShortcuts = allThemes.flatMap((t: any) => t.shortcuts ?? [])
 const mergedRules = allThemes.flatMap((t: any) => t.rules ?? [])
 
@@ -74,8 +75,8 @@ export default defineConfig({
     {
       getCSS: () => `
         :root {
-          ${generateCssVars(defaultTheme.colors ?? {})}
-          ${generateQuasarVars(defaultTheme.colors ?? {})}
+          ${generateCssVars(cyberpunkTheme.colors ?? {})}
+          ${generateQuasarVars(cyberpunkTheme.colors ?? {})}
         }
       `,
     },
@@ -83,8 +84,8 @@ export default defineConfig({
 
   // Design Token: 使用 CSS 變數實現動態主題
   theme: {
-    colors: colorsToVars(defaultTheme.colors ?? {}),
-    fontFamily: defaultTheme.fontFamily ?? {},
+    colors: colorsToVars(cyberpunkTheme.colors ?? {}),
+    fontFamily: cyberpunkTheme.fontFamily ?? {},
   },
 
   // Design Token: 快捷類

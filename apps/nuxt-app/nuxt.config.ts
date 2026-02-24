@@ -72,7 +72,7 @@ export default defineNuxtConfig({
 
   // Quasar 設定
   quasar: {
-    plugins: ['Notify', 'Loading'],
+    plugins: ['Notify', 'Loading', 'Dark'],
     extras: {
       fontIcons: ['material-icons'],
     },
@@ -89,6 +89,18 @@ export default defineNuxtConfig({
       apiBaseUrl: '/api',
     },
   },
+
+  // 組件自動導入設定
+  components: [
+    {
+      path: '~/components/common',
+      pathPrefix: false, // 不使用目錄名作為前綴
+    },
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
 
   // 應用程式設定
   app: {
