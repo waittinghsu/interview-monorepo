@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const drawerOpen = ref(true)
+const drawerOpen = ref(false)
 </script>
 
 <template>

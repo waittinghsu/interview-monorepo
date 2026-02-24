@@ -23,7 +23,7 @@ const themeStore = useThemeStore()
       <!-- Logo -->
       <NuxtLink to="/" class="flex items-center gap-2 no-underline">
         <div class="i-mdi-lightning-bolt text-2xl text-textBrand" />
-        <span class="text-xl font-bold text-textBase">Cyberpunk Studio</span>
+        <span class="text-xl font-bold text-textBase gt-xs">Cyberpunk Studio</span>
       </NuxtLink>
 
       <q-space />
@@ -38,7 +38,7 @@ const themeStore = useThemeStore()
         map-options
         dense
         outlined
-        class="w-40"
+        class="w-28 sm:w-40"
         @update:model-value="themeStore.setTheme"
       />
     </q-toolbar>
