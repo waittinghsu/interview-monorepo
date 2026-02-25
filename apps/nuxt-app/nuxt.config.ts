@@ -56,6 +56,11 @@ export default defineNuxtConfig({
   // SSR 設定
   ssr: true,
 
+  // 路由規則：禁用特定路由的 SSR
+  routeRules: {
+    '/loading': { ssr: false }, // Loading 頁面完全不進行 SSR
+  },
+
   // TypeScript 設定
   typescript: {
     strict: true,

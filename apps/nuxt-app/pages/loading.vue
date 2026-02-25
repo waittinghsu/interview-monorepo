@@ -2,8 +2,9 @@
 import { gsap } from 'gsap'
 
 definePageMeta({
-  layout: 'splash',
+  layout: false, // ✅ 不使用任何 layout
   title: 'Loading...',
+  ssr: false, // ✅ 整個頁面不進行 SSR
 })
 
 const router = useRouter()

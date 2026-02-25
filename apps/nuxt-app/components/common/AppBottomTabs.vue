@@ -6,10 +6,6 @@ interface BottomTab {
   route: string
 }
 
-const route = useRoute()
-
-const activeTab = computed(() => route.path)
-
 const bottomTabs: BottomTab[] = [
   { value: '/', label: 'Home', icon: 'home', route: '/' },
   { value: '/mail', label: 'Mail', icon: 'email', route: '/mail' },
@@ -21,7 +17,6 @@ const bottomTabs: BottomTab[] = [
 
 <template>
   <q-tabs
-    v-model="activeTab"
     dense
     active-color="textBrand"
     indicator-color="textBrand"
