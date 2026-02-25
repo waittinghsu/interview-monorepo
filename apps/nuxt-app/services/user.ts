@@ -1,4 +1,34 @@
-import type { AxiosInstance } from 'axios'
+import { useBusinessApiFetchClient } from '~/composables/api/fetchClient'
+import type { RequestMeta } from '~/composables/createFetchClient'
+
+export interface LoginCredentials {
+  email: string
+  password: string
+}
+
+export interface LoginResponse {
+  token: string
+  user: {
+    id: string
+    name: string
+    email: string
+    avatar?: string
+  }
+}
+
+export interface UserInfo {
+  id: string
+  name: string
+  email: string
+  avatar?: string
+  phone?: string
+  balance?: number
+  level?: number
+  memberId?: string
+  nickname?: string
+  avatarId?: string
+  bookmarks?: string[]
+}
 
 /**
  * User Service（nuxt-app 本地定義）
@@ -6,41 +36,54 @@ import type { AxiosInstance } from 'axios'
  * 根據 CLAUDE.md 設計原則：
  * - shared-api 只包含通用工具（createHttpClient 等）
  * - 業務 service 在各 app 本地定義
- *
- * @param httpClient - Axios instance from useHttpClient()
  */
-export function createUserService(httpClient: AxiosInstance) {
+export function createUserService() {
+  const apiFetchClient = useBusinessApiFetchClient()
+
   return {
     /**
      * 登入
-     * POST /v1/api/user/login
      */
-    login(credentials: { email: string, password: string }) {
-      return httpClient.post('/v1/api/user/login', credentials)
+    async login(credentials: LoginCredentials, options: RequestMeta = {}) {
+      return apiFetchClient<LoginResponse>('/v1/api/user/login', {
+        method: 'POST',
+        body: credentials,
+        _meta: options,
+      })
     },
 
     /**
      * 登出
-     * POST /v1/api/user/logout
      */
-    logout() {
-      return httpClient.post('/v1/api/user/logout', {})
+    async logout(options: RequestMeta = {}) {
+      return apiFetchClient('/v1/api/user/logout', {
+        method: 'POST',
+        _meta: options,
+      })
     },
 
     /**
-     * 取得用戶資料
-     * GET /v1/api/user/profile
+     * 獲取用戶資料
      */
-    getProfile() {
-      return httpClient.get('/v1/api/user/profile')
+    async getUserInfo(options: RequestMeta = {}) {
+      return apiFetchClient<UserInfo>('/api/userinfo', {
+        method: 'POST',
+        _meta: options,
+      })
     },
 
     /**
      * 更新用戶資料
-     * PUT /v1/api/user/profile
      */
-    updateProfile(data: { name?: string, email?: string }) {
-      return httpClient.put('/v1/api/user/profile', data)
+    async updateProfile(data: { name?: string, email?: string }, options: RequestMeta = {}) {
+      return apiFetchClient('/v1/api/user/profile', {
+        method: 'PUT',
+        body: data,
+        _meta: options,
+      })
     },
   }
 }
+
+// 單例
+export const userService = createUserService()

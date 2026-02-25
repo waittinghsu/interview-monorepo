@@ -202,11 +202,13 @@ function clearLogs() {
                 />
                 <span class="text-textMuted">{{ log.time }}</span>
               </div>
-              <div :class="{
-                'text-error': log.type === 'error',
-                'text-success': log.type === 'success',
-                'text-textBase': log.type === 'info',
-              }">
+              <div
+                :class="{
+                  'text-error': log.type === 'error',
+                  'text-success': log.type === 'success',
+                  'text-textBase': log.type === 'info',
+                }"
+              >
                 {{ log.message }}
               </div>
             </div>

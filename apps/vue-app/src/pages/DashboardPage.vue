@@ -152,7 +152,9 @@ const formattedTime = computed(() => {
               <i class="text-2xl" :class="[stat.icon, stat.accent]" />
             </div>
             <div>
-              <div class="text-sm text-textSecondary">{{ stat.label }}</div>
+              <div class="text-sm text-textSecondary">
+                {{ stat.label }}
+              </div>
               <div class="text-2xl font-bold text-textBase">
                 {{ stat.value }}<span class="text-sm text-textSecondary"> {{ stat.suffix }}</span>
               </div>
@@ -167,8 +169,12 @@ const formattedTime = computed(() => {
           <q-card class="cyber-card">
             <q-card-section class="flex items-center justify-between">
               <div>
-                <div class="text-lg font-semibold text-textBase">人格快覽</div>
-                <div class="text-xs text-textSecondary">目前 8 / 10 名人格在線</div>
+                <div class="text-lg font-semibold text-textBase">
+                  人格快覽
+                </div>
+                <div class="text-xs text-textSecondary">
+                  目前 8 / 10 名人格在線
+                </div>
               </div>
               <q-chip color="primary" class="bg-primary/10 text-primary" icon="person">
                 Active
@@ -184,8 +190,12 @@ const formattedTime = computed(() => {
                       <span class="status-dot" :class="persona.status" />
                     </q-avatar>
                     <div>
-                      <div class="text-sm font-semibold text-textBase">{{ persona.name }}</div>
-                      <div class="text-xs text-textSecondary">{{ persona.role }}</div>
+                      <div class="text-sm font-semibold text-textBase">
+                        {{ persona.name }}
+                      </div>
+                      <div class="text-xs text-textSecondary">
+                        {{ persona.role }}
+                      </div>
                     </div>
                   </div>
                   <div class="mb-3 flex flex-wrap gap-2">
@@ -208,8 +218,12 @@ const formattedTime = computed(() => {
           <q-card class="cyber-card">
             <q-card-section class="flex items-center justify-between">
               <div>
-                <div class="text-lg font-semibold text-textBase">AI Usage</div>
-                <div class="text-xs text-textSecondary">追蹤 Claude / OpenAI 帳號使用量</div>
+                <div class="text-lg font-semibold text-textBase">
+                  AI Usage
+                </div>
+                <div class="text-xs text-textSecondary">
+                  追蹤 Claude / OpenAI 帳號使用量
+                </div>
               </div>
               <q-btn flat dense icon="i-mdi-refresh" class="text-cyber-cyan" round />
             </q-card-section>
@@ -218,8 +232,12 @@ const formattedTime = computed(() => {
               <div v-for="account in aiUsages" :key="account.name" class="rounded-xl border border-white/10 bg-white/5">
                 <div class="flex items-center justify-between border-b border-white/10 px-4 py-3">
                   <div>
-                    <div class="text-sm font-semibold text-textBase">{{ account.name }}</div>
-                    <div class="text-xs text-textMuted">{{ account.provider }}</div>
+                    <div class="text-sm font-semibold text-textBase">
+                      {{ account.name }}
+                    </div>
+                    <div class="text-xs text-textMuted">
+                      {{ account.provider }}
+                    </div>
                   </div>
                   <q-badge color="primary" class="bg-primary/10 text-primary" label="monitoring" />
                 </div>
@@ -242,16 +260,24 @@ const formattedTime = computed(() => {
           <q-card class="cyber-card">
             <q-card-section>
               <div class="mb-4 flex items-center justify-between">
-                <div class="text-lg font-semibold text-textBase">系統狀態</div>
+                <div class="text-lg font-semibold text-textBase">
+                  系統狀態
+                </div>
                 <q-badge class="bg-cyber-emerald/10 text-cyber-emerald" label="Uptime" />
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div v-for="metric in systemMetrics" :key="metric.label" class="flex flex-col items-center gap-3 rounded-xl bg-white/5 p-4 text-center">
                   <q-circular-progress :value="metric.value" :thickness="0.18" size="90px" :color="metric.color" track-color="grey-10" show-value>
-                    <div class="text-xl font-semibold text-textBase">{{ metric.value }}%</div>
+                    <div class="text-xl font-semibold text-textBase">
+                      {{ metric.value }}%
+                    </div>
                   </q-circular-progress>
-                  <div class="text-xs uppercase tracking-[0.3em] text-textSecondary">{{ metric.label }}</div>
-                  <div class="text-xs font-semibold" :class="metric.tint">{{ metric.uptime }}</div>
+                  <div class="text-xs uppercase tracking-[0.3em] text-textSecondary">
+                    {{ metric.label }}
+                  </div>
+                  <div class="text-xs font-semibold" :class="metric.tint">
+                    {{ metric.uptime }}
+                  </div>
                 </div>
               </div>
             </q-card-section>
@@ -259,7 +285,9 @@ const formattedTime = computed(() => {
 
           <q-card class="cyber-card">
             <q-card-section>
-              <div class="text-lg font-semibold text-textBase">事件日誌</div>
+              <div class="text-lg font-semibold text-textBase">
+                事件日誌
+              </div>
             </q-card-section>
             <q-separator dark class="opacity-20" />
             <q-card-section class="max-h-64 space-y-3 overflow-auto pr-1">
@@ -272,7 +300,9 @@ const formattedTime = computed(() => {
 
           <q-card class="cyber-card">
             <q-card-section class="flex items-center justify-between">
-              <div class="text-lg font-semibold text-textBase">平台分布</div>
+              <div class="text-lg font-semibold text-textBase">
+                平台分布
+              </div>
               <q-btn flat dense icon="i-mdi-tune" class="text-textSecondary" round />
             </q-card-section>
             <q-separator dark class="opacity-20" />
@@ -283,13 +313,19 @@ const formattedTime = computed(() => {
                     <i class="text-xl" :class="[platform.icon, platform.color]" />
                   </q-avatar>
                   <div>
-                    <div class="text-sm font-semibold text-textBase">{{ platform.name }}</div>
-                    <div class="text-xs text-textSecondary">貼文 {{ platform.posts }} • 組織 {{ platform.orgs }}</div>
+                    <div class="text-sm font-semibold text-textBase">
+                      {{ platform.name }}
+                    </div>
+                    <div class="text-xs text-textSecondary">
+                      貼文 {{ platform.posts }} • 組織 {{ platform.orgs }}
+                    </div>
                   </div>
                 </div>
                 <div class="text-right text-xs text-textSecondary">
                   <div>觸及 {{ platform.reach }}</div>
-                  <div :class="platform.color">{{ platform.delta }}</div>
+                  <div :class="platform.color">
+                    {{ platform.delta }}
+                  </div>
                 </div>
               </div>
             </q-card-section>
@@ -297,7 +333,9 @@ const formattedTime = computed(() => {
 
           <q-card class="cyber-card">
             <q-card-section>
-              <div class="text-lg font-semibold text-textBase">快速操作</div>
+              <div class="text-lg font-semibold text-textBase">
+                快速操作
+              </div>
             </q-card-section>
             <q-card-section>
               <div class="grid grid-cols-2 gap-3">

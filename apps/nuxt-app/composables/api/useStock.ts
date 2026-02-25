@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/vue-query'
-import { createStockService } from '~/services/stock'
-import { useHttpClient } from './useHttpClient'
+import { stockService } from '~/services/stock'
 
 /**
  * Stock Composable - TanStack Query hooks
  * Composable 層：封裝 Service 並提供 Query hooks
+ *
+ * 資料來源：YAPI Mock（Yahoo Finance 格式）
+ * - 回傳格式：{ chart: { result: [...], error: null } }
+ * - 需要手動解析 Yahoo Finance 格式
  */
 
 // Query Keys
@@ -36,33 +39,16 @@ interface LineChartData {
  * 取得股票圖表資料 Query
  */
 export function useStockChartQuery(symbol: string, params: StockParams = {}) {
-  const httpClient = useHttpClient()
-  const stockService = createStockService(httpClient)
-
   return useQuery({
     queryKey: stockKeys.chart(symbol, params),
     queryFn: async () => {
-      const response = await stockService.getChart(symbol, {
-        range: params.range || '1mo',
-        interval: params.interval || '1d',
-      })
-      const result = response.data.chart.result[0]
-      const timestamps = result.timestamp
-      const quotes = result.indicators.quote[0]
-
-      // 轉換成 lightweight-charts 格式
-      const chartData: ChartData[] = timestamps
-        .map((timestamp: number, index: number) => ({
-          time: new Date(timestamp * 1000).toISOString().split('T')[0],
-          open: quotes.open[index],
-          high: quotes.high[index],
-          low: quotes.low[index],
-          close: quotes.close[index],
-        }))
-        .filter((item: ChartData) => item.open !== null)
-
-      return chartData
+      // yapimock 會返回已解包的 data（陣列格式）
+      // 格式：[{ time, open, high, low, close, volume }, ...]
+      return await stockService.getChart(symbol, params)
     },
+    // ✅ SSR 優化：只在客戶端執行
+    enabled: import.meta.client,
+    staleTime: 1000 * 60 * 5, // 5分鐘內不重新獲取
   })
 }
 
@@ -70,14 +56,12 @@ export function useStockChartQuery(symbol: string, params: StockParams = {}) {
  * 取得 0050 資料 Query
  */
 export function use0050Query(params: StockParams = { range: '1mo', interval: '1d' }) {
-  const httpClient = useHttpClient()
-  const stockService = createStockService(httpClient)
-
   return useQuery({
     queryKey: stockKeys.chart('0050.TW', params),
     queryFn: async () => {
+      // Yahoo Finance 格式：{ chart: { result: [...], error: null } }
       const response = await stockService.get0050(params)
-      const result = response.data.chart.result[0]
+      const result = response.chart.result[0]
       const timestamps = result.timestamp
       const quotes = result.indicators.quote[0]
 
@@ -94,6 +78,8 @@ export function use0050Query(params: StockParams = { range: '1mo', interval: '1d
 
       return chartData
     },
+    enabled: import.meta.client,
+    staleTime: 1000 * 60 * 5,
   })
 }
 
@@ -101,14 +87,12 @@ export function use0050Query(params: StockParams = { range: '1mo', interval: '1d
  * 取得比特幣資料 Query
  */
 export function useBTCQuery(params: StockParams = { range: '1mo', interval: '1d' }) {
-  const httpClient = useHttpClient()
-  const stockService = createStockService(httpClient)
-
   return useQuery({
     queryKey: stockKeys.chart('BTC-USD', params),
     queryFn: async () => {
+      // Yahoo Finance 格式：{ chart: { result: [...], error: null } }
       const response = await stockService.getBTC(params)
-      const result = response.data.chart.result[0]
+      const result = response.chart.result[0]
       const timestamps = result.timestamp
       const quotes = result.indicators.quote[0]
 
@@ -122,5 +106,7 @@ export function useBTCQuery(params: StockParams = { range: '1mo', interval: '1d'
 
       return chartData
     },
+    enabled: import.meta.client,
+    staleTime: 1000 * 60 * 5,
   })
 }
