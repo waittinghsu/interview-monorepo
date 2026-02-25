@@ -34,11 +34,23 @@ onMounted(() => {
     })
   }
 
-  // 進度條動畫
+  // 進度條初始動畫
   if (circleRef.value) {
     gsap.from(circleRef.value, {
       strokeDashoffset: circumference.value,
       duration: 2,
+      ease: 'power2.out',
+    })
+  }
+})
+
+// 監聽 progress 變化，動態更新動畫
+watch(() => props.progress, (newProgress) => {
+  if (circleRef.value) {
+    const newOffset = circumference.value - (newProgress / 100) * circumference.value
+    gsap.to(circleRef.value, {
+      strokeDashoffset: newOffset,
+      duration: 0.5,
       ease: 'power2.out',
     })
   }
