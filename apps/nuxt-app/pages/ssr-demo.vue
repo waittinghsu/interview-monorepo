@@ -51,8 +51,8 @@ const currentTime = new Date().toISOString()
         </div>
 
         <div
-          v-else
           v-for="post in posts"
+          v-else
           :key="post.id"
           class="bg-sys-card rounded-lg p-6 border border-sys-border hover:border-textBrand transition-all"
         >
@@ -72,7 +72,9 @@ const currentTime = new Date().toISOString()
         </h2>
         <div class="grid md:grid-cols-2 gap-6">
           <div>
-            <h3 class="font-bold text-textBase mb-2">✅ 此頁面（SSR）</h3>
+            <h3 class="font-bold text-textBase mb-2">
+              ✅ 此頁面（SSR）
+            </h3>
             <ul class="text-textSecondary text-sm space-y-1">
               <li>• 查看源碼能看到內容</li>
               <li>• 搜索引擎可索引</li>
@@ -81,7 +83,9 @@ const currentTime = new Date().toISOString()
             </ul>
           </div>
           <div>
-            <h3 class="font-bold text-textBase mb-2">❌ 其他頁面（CSR）</h3>
+            <h3 class="font-bold text-textBase mb-2">
+              ❌ 其他頁面（CSR）
+            </h3>
             <ul class="text-textSecondary text-sm space-y-1">
               <li>• 查看源碼只有空白</li>
               <li>• 搜索引擎看不到內容</li>

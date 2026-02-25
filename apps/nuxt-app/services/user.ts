@@ -1,5 +1,5 @@
-import { useBusinessApiFetchClient } from '~/composables/api/fetchClient'
 import type { RequestMeta } from '~/composables/createFetchClient'
+import { useBusinessApiFetchClient } from '~/composables/api/fetchClient'
 
 export interface LoginCredentials {
   email: string
