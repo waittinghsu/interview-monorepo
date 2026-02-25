@@ -1,14 +1,76 @@
-<script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+<script setup lang="ts">
+definePageMeta({
+  layout: 'default',
+  title: 'AI Social Dashboard',
+})
 
-const summaryStats = [
+interface SummaryStat {
+  label: string
+  value: string
+  suffix: string
+  icon: string
+  accent: string
+}
+
+interface Persona {
+  name: string
+  role: string
+  tags: string[]
+  tasks: number
+  status: 'online' | 'away' | 'offline'
+  lastActive: string
+}
+
+interface SystemMetric {
+  label: string
+  value: number
+  color: string
+  tint: string
+  uptime: string
+}
+
+interface AIModel {
+  name: string
+  percent: number
+  time: string
+  color: string
+}
+
+interface AIUsage {
+  name: string
+  provider: string
+  models: AIModel[]
+}
+
+interface EventLog {
+  time: string
+  message: string
+  color: string
+}
+
+interface PlatformStat {
+  name: string
+  icon: string
+  posts: number
+  reach: string
+  delta: string
+  orgs: number
+  color: string
+}
+
+interface QuickAction {
+  label: string
+  icon: string
+}
+
+const summaryStats: SummaryStat[] = [
   { label: '共線人數', value: '5', suffix: '/ 10', icon: 'i-mdi-account-group', accent: 'text-cyber-cyan' },
   { label: '今日訊息', value: '91,015', suffix: '', icon: 'i-mdi-message-processing', accent: 'text-cyber-amber' },
   { label: '平均互動', value: '325.9', suffix: '', icon: 'i-mdi-chart-line', accent: 'text-cyber-purple' },
   { label: '活躍平台', value: '7', suffix: '', icon: 'i-mdi-lan-connect', accent: 'text-cyber-emerald' },
 ]
 
-const personas = [
+const personas: Persona[] = [
   { name: 'Alex Chen', role: 'Alex | AI Builder', tags: ['任務', '執行'], tasks: 4, status: 'online', lastActive: '2 min ago' },
   { name: 'Sophie Lin', role: 'Sophia | Crypto', tags: ['洞察', '分析'], tasks: 3, status: 'online', lastActive: '5 min ago' },
   { name: 'Jake Morrison', role: 'Jake | Gaming', tags: ['活動', '直播'], tasks: 2, status: 'away', lastActive: '12 min ago' },
@@ -19,14 +81,14 @@ const personas = [
   { name: 'Yuki Tanaka', role: 'Yuki | Art & Tech', tags: ['藝術', '互動'], tasks: 2, status: 'away', lastActive: '45 min ago' },
 ]
 
-const systemMetrics = [
+const systemMetrics: SystemMetric[] = [
   { label: 'CPU UPTIME', value: 92, color: 'cyan-4', tint: 'text-cyber-cyan', uptime: '4h 17m' },
   { label: 'RAM', value: 50, color: 'blue-5', tint: 'text-cyber-blue', uptime: '4h 17m' },
   { label: 'PTY', value: 8, color: 'green-5', tint: 'text-cyber-emerald', uptime: '4h 17m' },
   { label: 'WS', value: 0, color: 'orange-5', tint: 'text-cyber-amber', uptime: '4h 17m' },
 ]
 
-const aiUsages = [
+const aiUsages: AIUsage[] = [
   {
     name: 'test-pty-account',
     provider: 'claude-code',
@@ -65,7 +127,7 @@ const aiUsages = [
   },
 ]
 
-const eventLogs = [
+const eventLogs: EventLog[] = [
   { time: '12:53:21', message: 'Proxy test passed — Latency: 120ms', color: 'text-cyber-cyan' },
   { time: '12:51:36', message: 'Persona luna_kdrama posted × 12 (450 total)', color: 'text-cyber-purple' },
   { time: '12:49:20', message: 'Chrome profile Persona-007 launched (CDP)', color: 'text-cyber-amber' },
@@ -76,7 +138,7 @@ const eventLogs = [
   { time: '12:25:10', message: 'System initialized • AISocial v0.10.0', color: 'text-cyber-blue' },
 ]
 
-const platformStats = [
+const platformStats: PlatformStat[] = [
   { name: 'X Twitter', icon: 'i-mdi-twitter', posts: 1613, reach: '48,320', delta: '+0.5%', orgs: 43, color: 'text-cyber-cyan' },
   { name: 'GitHub', icon: 'i-mdi-github', posts: 418, reach: '1,105', delta: '+0.3%', orgs: 12, color: 'text-cyber-emerald' },
   { name: 'Discord', icon: 'i-mdi-discord', posts: 1990, reach: '9,320', delta: '+1.8%', orgs: 33, color: 'text-cyber-purple' },
@@ -86,7 +148,7 @@ const platformStats = [
   { name: 'LinkedIn', icon: 'i-mdi-linkedin', posts: 96, reach: '9,980', delta: '+0.8%', orgs: 9, color: 'text-cyber-blue' },
 ]
 
-const quickActions = [
+const quickActions: QuickAction[] = [
   { label: '新增人格', icon: 'i-mdi-account-plus-outline' },
   { label: '啟動 CHROME', icon: 'i-mdi-google-chrome' },
   { label: '派發任務', icon: 'i-mdi-rocket-launch-outline' },
@@ -94,7 +156,7 @@ const quickActions = [
 ]
 
 const now = ref(new Date())
-let timerId
+let timerId: number | undefined
 
 onMounted(() => {
   timerId = window.setInterval(() => {
@@ -103,7 +165,9 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.clearInterval(timerId)
+  if (timerId !== undefined) {
+    window.clearInterval(timerId)
+  }
 })
 
 const formattedTime = computed(() => {

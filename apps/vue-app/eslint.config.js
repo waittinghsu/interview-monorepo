@@ -13,5 +13,6 @@ export default antfu({
     'node_modules',
     'src/auto-imports.d.ts',
     'src/components.d.ts',
+    '**/*.md',
   ],
 })

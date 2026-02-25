@@ -22,16 +22,20 @@ pnpm + Turborepo monorepo，包含兩個前端 App 與共用套件。
 ✅ **應該有的**：
 - `createHttpClient` - HTTP client 工廠函數
 - `createRequestInterceptor` / `createResponseInterceptor` - 攔截器
-- Zod schemas（可選，各 app 可自行定義）
 
 ❌ **不應該有的**：
 - ~~`createUserService`~~ - 業務 service（URL、端點定義）
 - ~~`createStockService`~~ - 各 app 的後端結構不同
+- ~~Zod schemas~~ - 各 app 的資料結構不同，應在本地定義
 
-**原因**：不同 app 可能有完全不同的 API 結構
-- vue-app: `/v1/api/user/login`
-- nuxt-app: `/api/v2/auth/login`
-- other-app: `/users/authenticate`
+**原因**：不同 app 可能有完全不同的 API 結構與資料格式
+- vue-app: `/v1/api/user/login`（返回 `{ id, name, email, avatar }`）
+- nuxt-app: `/api/userinfo`（返回 `{ memberId, name, nickname, phone, email, balance, level, avatarId, bookmarks }`）
+- other-app: `/users/authenticate`（結構完全不同）
+
+**實作方式**：
+- **vue-app**：在 `src/api/services/` 定義業務 service
+- **nuxt-app**：在 `features/{domain}/schemas/` 定義 Zod schemas，在 `features/{domain}/services/` 或 `services/` 定義業務 service
 
 ### `packages/shared-design-tokens`
 
@@ -233,15 +237,51 @@ pages/          # Nuxt 自動路由（.vue）
 layouts/        # default.vue
 stores/         # Pinia（.ts，TypeScript）
 composables/    # useXxx.ts
-  api/          # API composables（TanStack Query）
-features/       # Domain-driven design
+  api/          # API composables（使用 services/ 層，Axios + TanStack Query）
+features/       # Domain-driven design（建議用於新功能）
   user/
     types/      # TypeScript 型別
-    schemas/    # Zod schemas
-    services/   # API services
+    schemas/    # Zod schemas（本地定義，不在 shared-api）
+    services/   # API services（使用 Nuxt $fetch）
     queries/    # TanStack Query hooks
+    index.ts    # 統一導出
+services/       # 業務 service 層（使用 Axios，搭配 composables/api/）
+  user.ts       # createUserService（返回 Axios instance methods）
+  stock.ts      # createStockService
 components/common/
 ```
+
+### API 架構說明
+
+**nuxt-app 有兩種 API 架構並存**：
+
+1. **Domain-Driven Design (DDD)** - `features/{domain}/`
+   - 適用：新功能、複雜業務領域
+   - 優點：高內聚、易維護、完整的型別安全
+   - HTTP Client：Nuxt `$fetch` / `useApiClient()`
+   - 範例：`features/user/`
+   ```typescript
+   // 使用方式
+   import { useUserService, useUserInfoQuery } from '~/features/user'
+   const { getUserInfo } = useUserService()
+   const { data } = useUserInfoQuery()
+   ```
+
+2. **Services + Composables** - `services/` + `composables/api/`
+   - 適用：外部 API、簡單資料獲取
+   - HTTP Client：Axios（來自 shared-api 的 `createHttpClient`）
+   - 範例：`services/stock.ts` + `composables/api/useStock.ts`
+   ```typescript
+   // 使用方式
+   import { useStockChartQuery } from '~/composables/api/useStock'
+   const { data } = useStockChartQuery('0050.TW')
+   ```
+
+**重要規則**：
+- ❌ **禁止**在 `packages/shared-api` 定義業務 service 或 schemas
+- ✅ Schemas 定義在 `features/{domain}/schemas/`，不要建立根目錄 `schemas/`
+- ✅ 新功能優先使用 DDD 結構（`features/`）
+- ✅ 兩種架構可共存，根據需求選擇
 
 ### 語言：TypeScript（嚴格模式）
 
