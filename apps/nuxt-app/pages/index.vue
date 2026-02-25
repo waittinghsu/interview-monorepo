@@ -86,7 +86,7 @@ const actionCards: ActionCard[] = [
 
         <!-- 右：圖表佔位符 -->
         <div class="bg-sys-card rounded-lg p-6 border border-sys-border flex-center flex-col gap-4">
-          <div class="i-mdi-chart-areaspline text-6xl text-textBrand" />
+          <CyberCircle :size="140" color="#f97316" :progress="85" />
           <p class="text-textMuted">
             圖表佔位符
           </p>
@@ -110,7 +110,8 @@ const actionCards: ActionCard[] = [
           class="action-card no-underline"
         >
           <div class="card-content">
-            <div :class="card.icon" class="text-5xl text-textBrand mb-4" />
+            <CyberRadar :size="250" color="#22d3ee" />
+            <!--            <div :class="card.icon" class="text-5xl text-textBrand mb-4" /> -->
             <h3 class="text-xl font-bold text-textBase mb-2">
               {{ card.label }}
             </h3>

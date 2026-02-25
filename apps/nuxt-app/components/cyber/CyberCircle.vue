@@ -125,7 +125,7 @@ watch(() => props.progress, (newProgress) => {
       <circle
         r="3"
         :fill="color"
-        opacity="0.6"
+        opacity="0.1"
       />
     </g>
   </svg>
