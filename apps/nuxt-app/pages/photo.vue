@@ -45,7 +45,9 @@ const photos: Photo[] = Array.from({ length: 12 }, (_, i) => ({
         </div>
         <div class="bg-sys-card rounded-lg overflow-hidden border border-sys-border hover:border-textBrand transition-all cursor-pointer group">
           <div class="aspect-[4/3] overflow-hidden flex justify-center items-center">
-            <CyberRadar :size="200" color="#22d3ee" />
+            <ClientOnly>
+              <CyberRadar :size="200" color="#22d3ee" />
+            </ClientOnly>
           </div>
           <div class="p-3 bg-sys-raised">
             <p class="text-textSecondary text-sm">

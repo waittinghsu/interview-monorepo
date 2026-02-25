@@ -26,9 +26,13 @@ const navigationItems: NavigationItem[] = [
   { id: 4, label: '猜數字', icon: 'i-mdi-numeric-4-box-multiple-outline', route: '/number-guess' },
   { id: 5, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info' },
   { id: 6, label: '關於', icon: 'i-mdi-information', route: '/about' },
-  { id: 7, label: '郵件', icon: 'i-mdi-email', route: '/mail' },
-  { id: 8, label: '相簿', icon: 'i-mdi-image-multiple', route: '/photo' },
-  { id: 9, label: '書籍', icon: 'i-mdi-book-open-page-variant', route: '/book' },
+  { id: 7, label: 'SSR 示範', icon: 'i-mdi-server', route: '/ssr-demo' },
+  { id: 8, label: '郵件', icon: 'i-mdi-email', route: '/mail' },
+  { id: 9, label: '相簿', icon: 'i-mdi-image-multiple', route: '/photo' },
+  { id: 10, label: '書籍', icon: 'i-mdi-book-open-page-variant', route: '/book' },
+  { id: 11, label: '座位距離', icon: 'i-mdi-grid', route: '/seat-grid' },
+  { id: 12, label: '陣列旋轉', icon: 'i-mdi-rotate-right', route: '/seat-rotate' },
+  { id: 13, label: 'AI Social', icon: 'i-mdi-view-dashboard', route: '/dashboard' },
 ]
 </script>
 

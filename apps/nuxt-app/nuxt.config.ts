@@ -54,12 +54,29 @@ export default defineNuxtConfig({
   },
 
   // SSR 設定
-  ssr: true,
+  ssr: true, // ✅ 全局開啟 SSR
 
-  // 路由規則：禁用特定路由的 SSR
+  // 路由規則：為不需要 SSR 的頁面關閉
   routeRules: {
-    '/loading': { ssr: false }, // Loading 頁面完全不進行 SSR
-    '/': { ssr: false }, // Loading 頁面完全不進行 SSR
+    // 動畫/互動頁面關閉 SSR
+    '/loading': { ssr: false },
+    '/chart': { ssr: false },
+    '/tic-tac-toe': { ssr: false },
+    '/number-guess': { ssr: false },
+    '/photo': { ssr: false },
+    '/mail': { ssr: false },
+    '/book': { ssr: false },
+    '/about': { ssr: false },
+    '/': { ssr: false }, // 首頁（如果有動畫）
+    '/seat-grid': { ssr: false }, // 座位距離（互動遊戲）
+    '/seat-rotate': { ssr: false }, // 陣列旋轉（互動遊戲）
+    '/dashboard': { ssr: false }, // AI Social Dashboard（即時更新）
+
+    // 以下頁面保持 SSR（可以不寫，因為全局已開啟）
+    // '/about': { ssr: true },
+    // '/ssr-demo': { ssr: true },
+    // '/ssr-test': { ssr: true },
+    // '/user-info': { ssr: true },
   },
 
   // TypeScript 設定
