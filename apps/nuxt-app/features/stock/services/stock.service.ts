@@ -1,5 +1,6 @@
-import type { RequestMeta } from '~/composables/createFetchClient'
-import { useStockApiFetchClient } from '~/composables/api/fetchClient'
+import type { StockParams, YahooFinanceResponse } from '../types/stock.types'
+import type { RequestMeta } from '~/lib/api/createFetchClient'
+import { useStockApiClient } from '~/lib/api/clients'
 
 /**
  * Stock Service（nuxt-app 本地定義）
@@ -13,8 +14,8 @@ import { useStockApiFetchClient } from '~/composables/api/fetchClient'
  * - 回應：{ chart: { result: [...], error: null } }
  * - 直接返回原始格式，不需要解包
  */
-export function createStockService() {
-  const stockFetchClient = useStockApiFetchClient()
+export function useStockService() {
+  const stockApiClient = useStockApiClient()
 
   return {
     /**
@@ -22,54 +23,39 @@ export function createStockService() {
      * @param symbol - 股票代號（例如：0050.TW、BTC-USD）
      * @param params - 查詢參數
      * @param options - 請求選項（skipLoading、silentError 等）
-     * @returns Promise<{ chart: { result: [...], error: null } }>
+     * @returns Promise<YahooFinanceResponse>
      */
     async getChart(
       symbol: string,
-      params: {
-        range?: '1d' | '5d' | '1mo' | '3mo' | '6mo' | '1y' | '2y' | '5y' | 'max'
-        interval?: '1m' | '5m' | '15m' | '1h' | '1d' | '1wk' | '1mo'
-      } = {},
+      params: StockParams = {},
       options: RequestMeta = {},
-    ) {
+    ): Promise<YahooFinanceResponse> {
       // 調用 yapimock API（Yahoo Finance 格式）
       // 回傳：{ chart: { result: [...], error: null } }
-      return stockFetchClient(`/v8/finance/chart/${symbol}`, {
+      return stockApiClient(`/v8/finance/chart/${symbol}`, {
         query: {
           range: params.range || '1mo',
           interval: params.interval || '1d',
         },
-        _meta: options,
+        _meta: {
+          useYApiMock: true, // 使用 YAPI Mock
+          ...options,
+        },
       })
     },
 
     /**
      * 獲取 0050（元大台灣50）資料
      */
-    get0050(
-      params?: {
-        range?: '1d' | '5d' | '1mo' | '3mo' | '6mo' | '1y' | '2y' | '5y' | 'max'
-        interval?: '1m' | '5m' | '15m' | '1h' | '1d' | '1wk' | '1mo'
-      },
-      options?: RequestMeta,
-    ) {
+    get0050(params?: StockParams, options?: RequestMeta) {
       return this.getChart('0050.TW', params, options)
     },
 
     /**
      * 獲取 BTC（比特幣）資料
      */
-    getBTC(
-      params?: {
-        range?: '1d' | '5d' | '1mo' | '3mo' | '6mo' | '1y' | '2y' | '5y' | 'max'
-        interval?: '1m' | '5m' | '15m' | '1h' | '1d' | '1wk' | '1mo'
-      },
-      options?: RequestMeta,
-    ) {
+    getBTC(params?: StockParams, options?: RequestMeta) {
       return this.getChart('BTC-USD', params, options)
     },
   }
 }
-
-// 單例
-export const stockService = createStockService()

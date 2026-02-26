@@ -1,5 +1,6 @@
+import type { ChartData, LineChartData, StockParams } from '../types/stock.types'
 import { useQuery } from '@tanstack/vue-query'
-import { stockService } from '~/services/stock'
+import { useStockService } from '../services/stock.service'
 
 /**
  * Stock Composable - TanStack Query hooks
@@ -17,28 +18,12 @@ export const stockKeys = {
     [...stockKeys.all, 'chart', symbol, params] as const,
 }
 
-interface StockParams {
-  range?: '1d' | '5d' | '1mo' | '3mo' | '6mo' | '1y' | '2y' | '5y' | 'max'
-  interval?: '1m' | '5m' | '15m' | '1h' | '1d' | '1wk' | '1mo'
-}
-
-interface ChartData {
-  time: string
-  open: number
-  high: number
-  low: number
-  close: number
-}
-
-interface LineChartData {
-  time: string
-  value: number
-}
-
 /**
  * 取得股票圖表資料 Query
  */
 export function useStockChartQuery(symbol: string, params: StockParams = {}) {
+  const stockService = useStockService()
+
   return useQuery({
     queryKey: stockKeys.chart(symbol, params),
     queryFn: async () => {
@@ -56,6 +41,8 @@ export function useStockChartQuery(symbol: string, params: StockParams = {}) {
  * 取得 0050 資料 Query
  */
 export function use0050Query(params: StockParams = { range: '1mo', interval: '1d' }) {
+  const stockService = useStockService()
+
   return useQuery({
     queryKey: stockKeys.chart('0050.TW', params),
     queryFn: async () => {
@@ -87,6 +74,8 @@ export function use0050Query(params: StockParams = { range: '1mo', interval: '1d
  * 取得比特幣資料 Query
  */
 export function useBTCQuery(params: StockParams = { range: '1mo', interval: '1d' }) {
+  const stockService = useStockService()
+
   return useQuery({
     queryKey: stockKeys.chart('BTC-USD', params),
     queryFn: async () => {

@@ -33,24 +33,6 @@ export default defineNuxtConfig({
     server: {
       open: true, // 不自動開啟瀏覽器
     },
-    plugins: [
-      // 自定義插件：注入 git commit hash 到 HTML meta
-      {
-        name: 'html-transform',
-        transformIndexHtml() {
-          return [
-            {
-              tag: 'meta',
-              attrs: {
-                name: 'git-commit-hash',
-                content: getGitCommitHash(),
-              },
-              injectTo: 'head',
-            },
-          ]
-        },
-      },
-    ],
   },
 
   // SSR 設定
@@ -132,6 +114,10 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'git-commit-hash', content: getGitCommitHash() },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/vite.svg' },
       ],
     },
   },

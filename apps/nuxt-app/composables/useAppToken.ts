@@ -4,8 +4,8 @@
  * - CSR：從 localStorage 讀取（優先）+ cookie 同步
  */
 export function useAppToken() {
-  const TOKEN_KEY = 'token'
-  const COOKIE_NAME = 'auth-token'
+  const TOKEN_KEY = 'KKTIX-SSID-TOKEN'
+  const COOKIE_NAME = 'KKTIX-SSID-TOKEN'
 
   const getToken = (): string | null => {
     if (import.meta.server) {

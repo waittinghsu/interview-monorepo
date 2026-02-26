@@ -97,7 +97,7 @@ onMounted(() => {
 
       <!-- 特效組件展示區 -->
       <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-8">
-        <CyberCircle :size="180" color="#22d3ee" :progress="progress" />
+        <CyberCircle :size="120" color="#22d3ee" :progress="progress" />
         <CyberCircle :size="120" color="#f97316" :progress="85" />
         <CyberCircle :size="120" color="#a855f7" :progress="60" />
       </div>
