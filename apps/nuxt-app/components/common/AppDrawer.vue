@@ -1,9 +1,10 @@
 <script setup lang="ts">
-interface NavigationItem {
+interface MenuItem {
   id: number
   label: string
   icon: string
-  route: string
+  route?: string
+  children?: MenuItem[]
 }
 
 const props = defineProps<{
@@ -19,20 +20,51 @@ const isOpen = computed({
   set: value => emit('update:modelValue', value),
 })
 
-const navigationItems: NavigationItem[] = [
+const route = useRoute()
+
+// 判斷是否為當前路由或子路由
+function isActiveGroup(children?: MenuItem[]) {
+  if (!children)
+    return false
+  return children.some(child => child.route === route.path)
+}
+
+const menuItems: MenuItem[] = [
   { id: 1, label: '首頁', icon: 'i-mdi-home', route: '/' },
-  { id: 2, label: '圖表', icon: 'i-mdi-chart-line', route: '/chart' },
-  { id: 3, label: '圈圈叉叉', icon: 'i-mdi-gamepad-variant', route: '/tic-tac-toe' },
-  { id: 4, label: '猜數字', icon: 'i-mdi-numeric-4-box-multiple-outline', route: '/number-guess' },
-  { id: 5, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info' },
-  { id: 6, label: '關於', icon: 'i-mdi-information', route: '/about' },
-  { id: 7, label: 'SSR 示範', icon: 'i-mdi-server', route: '/ssr-demo' },
-  { id: 8, label: '郵件', icon: 'i-mdi-email', route: '/mail' },
-  { id: 9, label: '相簿', icon: 'i-mdi-image-multiple', route: '/photo' },
-  { id: 10, label: '書籍', icon: 'i-mdi-book-open-page-variant', route: '/book' },
-  { id: 11, label: '座位距離', icon: 'i-mdi-grid', route: '/seat-grid' },
-  { id: 12, label: '陣列旋轉', icon: 'i-mdi-rotate-right', route: '/seat-rotate' },
-  { id: 13, label: 'AI Social', icon: 'i-mdi-view-dashboard', route: '/dashboard' },
+  { id: 2, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info' },
+  { id: 3, label: '郵件', icon: 'i-mdi-email', route: '/mail' },
+  { id: 4, label: '相簿', icon: 'i-mdi-image-multiple', route: '/photo' },
+  { id: 5, label: '書籍', icon: 'i-mdi-book-open-page-variant', route: '/book' },
+  {
+    id: 6,
+    label: '開發工具',
+    icon: 'i-mdi-tools',
+    children: [
+      { id: 61, label: 'SSR 示範', icon: 'i-mdi-server', route: '/ssr-demo' },
+      { id: 62, label: 'API 測試', icon: 'i-mdi-api', route: '/api-demo' },
+    ],
+  },
+  {
+    id: 7,
+    label: '算法演示',
+    icon: 'i-mdi-brain',
+    children: [
+      { id: 71, label: '猜數字', icon: 'i-mdi-numeric-4-box-multiple-outline', route: '/number-guess' },
+      { id: 72, label: '圈圈叉叉', icon: 'i-mdi-gamepad-variant', route: '/tic-tac-toe' },
+      { id: 73, label: '座位距離', icon: 'i-mdi-grid', route: '/seat-grid' },
+      { id: 74, label: '陣列旋轉', icon: 'i-mdi-rotate-right', route: '/seat-rotate' },
+    ],
+  },
+  {
+    id: 8,
+    label: '視覺展示',
+    icon: 'i-mdi-palette',
+    children: [
+      { id: 81, label: '圖表', icon: 'i-mdi-chart-line', route: '/chart' },
+      { id: 82, label: 'AI Social', icon: 'i-mdi-view-dashboard', route: '/dashboard' },
+    ],
+  },
+  { id: 9, label: '關於', icon: 'i-mdi-information', route: '/about' },
 ]
 </script>
 
@@ -46,24 +78,58 @@ const navigationItems: NavigationItem[] = [
   >
     <q-scroll-area class="fit">
       <q-list padding>
-        <q-item
-          v-for="item in navigationItems"
-          :key="item.id"
-          v-ripple
-          clickable
-          :to="item.route"
-          active-class="text-textBrand bg-sys-page border-l-4 border-textBrand"
-          class="rounded-lg my-1 transition-all hover:bg-sys-page"
-        >
-          <q-item-section avatar>
-            <div class="text-2xl" :class="[item.icon]" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="font-medium">
-              {{ item.label }}
-            </q-item-label>
-          </q-item-section>
-        </q-item>
+        <template v-for="item in menuItems" :key="item.id">
+          <!-- 有子選單的項目 -->
+          <q-expansion-item
+            v-if="item.children"
+            :default-opened="isActiveGroup(item.children)"
+            :icon="item.icon"
+            :label="item.label"
+            class="menu-expansion rounded-lg my-1"
+            header-class="text-textBase hover:bg-sys-page transition-all"
+            expand-icon-class="text-textSecondary"
+          >
+            <q-list padding class="pl-4">
+              <q-item
+                v-for="child in item.children"
+                :key="child.id"
+                v-ripple
+                clickable
+                :to="child.route"
+                active-class="text-textBrand bg-sys-page border-l-4 border-textBrand"
+                class="rounded-lg my-1 transition-all hover:bg-sys-page"
+              >
+                <q-item-section avatar>
+                  <div class="text-xl" :class="[child.icon]" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label class="font-medium">
+                    {{ child.label }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-expansion-item>
+
+          <!-- 一般項目（無子選單） -->
+          <q-item
+            v-else
+            v-ripple
+            clickable
+            :to="item.route"
+            active-class="text-textBrand bg-sys-page border-l-4 border-textBrand"
+            class="rounded-lg my-1 transition-all hover:bg-sys-page"
+          >
+            <q-item-section avatar>
+              <div class="text-2xl" :class="[item.icon]" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="font-medium">
+                {{ item.label }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
       </q-list>
     </q-scroll-area>
   </q-drawer>
