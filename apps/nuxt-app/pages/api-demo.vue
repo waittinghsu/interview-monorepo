@@ -331,7 +331,7 @@ const allUseYApiMock = import.meta.env.VITE_ALL_USE_YAPI_MOCK || 'false'
 
     <!-- Result Dialog -->
     <q-dialog v-model="showDialog">
-      <q-card class="bg-sys-card" style="min-width: 600px; max-width: 800px">
+      <q-card class="bg-sys-card w-full max-w-2xl mx-4">
         <q-card-section class="bg-primary text-white">
           <div class="text-h6">
             API 回應結果
