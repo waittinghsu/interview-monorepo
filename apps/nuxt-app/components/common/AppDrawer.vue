@@ -63,6 +63,7 @@ const menuItems: MenuItem[] = [
     children: [
       { id: 91, label: '圖表', icon: 'i-mdi-chart-line', route: '/chart' },
       { id: 92, label: 'AI Social', icon: 'i-mdi-view-dashboard', route: '/dashboard' },
+      { id: 93, label: 'Transition Effects', icon: 'i-mdi-shimmer', route: '/transition-effects' },
     ],
   },
   { id: 10, label: '關於', icon: 'i-mdi-information', route: '/about' },

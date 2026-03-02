@@ -228,95 +228,47 @@ const achievements: Achievement[] = [
 
 // Animation setup
 onMounted(() => {
-  // Register ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger)
 
-  // Helper function to create particle-gathering animation
-  const createParticleAnimation = (elements: Element | Element[], options: {
-    trigger?: Element | string
-    stagger?: number
-    delay?: number
-    useScrollTrigger?: boolean
-  } = {}) => {
-    const {
-      trigger,
-      stagger = 0,
-      delay = 0,
-      useScrollTrigger = true,
-    } = options
+  // 簡單的淡入動畫函數
+  const createFadeIn = (selector: string, options: { delay?: number, stagger?: number } = {}) => {
+    const elements = document.querySelectorAll(selector)
+    if (elements.length === 0)
+      return
 
-    const animationProps = {
-      opacity: 0,
-      filter: 'blur(30px)', // 增加模糊度讓粒子效果更明顯
-      scale: 0.7, // 更小的初始縮放
-      y: 80, // 更大的位移
-      rotationX: 15, // 添加 3D 旋轉效果
-      duration: 2,
-      stagger,
-      ease: 'power3.out',
-      delay,
-      clearProps: 'all', // 動畫完成後清除所有屬性
-    }
-
-    if (useScrollTrigger && trigger) {
-      return gsap.from(elements, {
-        ...animationProps,
+    elements.forEach((element, index) => {
+      gsap.from(element, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: options.delay || 0 + (index * (options.stagger || 0)),
+        ease: 'power2.out',
         scrollTrigger: {
-          trigger,
-          start: 'top 80%',
-          once: true, // 只播放一次，不會重複觸發
+          trigger: element,
+          start: 'top 85%',
+          once: true,
         },
       })
-    }
-    else {
-      return gsap.from(elements, animationProps)
-    }
-  }
-
-  // 1. Hero Section - Auto-play on page load (no ScrollTrigger)
-  const heroSection = document.querySelector('.hero-section')
-  if (heroSection) {
-    createParticleAnimation(heroSection, {
-      useScrollTrigger: false,
-      delay: 0.2,
     })
   }
 
-  // 2. Work Experience - Each card has its own ScrollTrigger
-  const workCards = document.querySelectorAll('.work-card')
-  workCards.forEach((card, index) => {
-    createParticleAnimation(card, {
-      trigger: card,
-      delay: index * 0.15, // 錯時進入效果
-    })
+  // 1. Hero Section - 自動淡入
+  gsap.from('.hero-section', {
+    opacity: 0,
+    y: 20,
+    duration: 1,
+    delay: 0.2,
+    ease: 'power2.out',
   })
 
-  // 3. Education & Skills Grid - 2 sections with stagger
-  const educationSkillsGrid = document.querySelector('.mb-8.grid.gap-6.md\\:mb-12.md\\:grid-cols-2')
-  if (educationSkillsGrid) {
-    const sections = Array.from(educationSkillsGrid.children)
-    sections.forEach((section, index) => {
-      createParticleAnimation(section, {
-        trigger: educationSkillsGrid,
-        delay: index * 0.15,
-      })
-    })
-  }
+  // 2. Work Experience 卡片
+  createFadeIn('.work-card', { stagger: 0.15 })
 
-  // 4. Achievements - 4 cards with stagger
-  const headings = Array.from(document.querySelectorAll('h2'))
-  const achievementsHeading = headings.find(h2 => h2.textContent?.includes('Notable Achievements'))
-  const achievementsSection = achievementsHeading?.closest('section')
+  // 3. Education & Skills
+  createFadeIn('.education-card, .skills-card', { stagger: 0.15 })
 
-  if (achievementsSection) {
-    const cards = Array.from(achievementsSection.querySelectorAll('.cyber-card'))
-    cards.forEach((card, index) => {
-      createParticleAnimation(card, {
-        trigger: achievementsSection,
-        delay: index * 0.15,
-      })
-    })
-  }
+  // 4. Achievements
+  createFadeIn('.achievement-card', { stagger: 0.1 })
 })
 
 // Cleanup ScrollTrigger instances on unmount
@@ -442,8 +394,8 @@ onBeforeUnmount(() => {
               <!-- Duties List -->
               <div class="ml-0 space-y-2 md:ml-16">
                 <div
-                  v-for="(duty, index) in work.duties"
-                  :key="index"
+                  v-for="(duty, dutyIndex) in work.duties"
+                  :key="dutyIndex"
                   class="flex items-start gap-3 text-textSecondary"
                 >
                   <i class="i-mdi-chevron-right mt-1 shrink-0 text-primary" />
@@ -458,7 +410,7 @@ onBeforeUnmount(() => {
       <!-- Education & Skills Grid -->
       <div class="mb-8 grid gap-6 md:mb-12 md:grid-cols-2 md:gap-8">
         <!-- Education -->
-        <section class="min-w-0">
+        <section class="education-card min-w-0">
           <q-card class="cyber-card h-full overflow-hidden">
             <q-card-section class="overflow-hidden">
               <h2 class="mb-6 text-2xl font-bold text-textBase">
@@ -485,7 +437,7 @@ onBeforeUnmount(() => {
         </section>
 
         <!-- Skills -->
-        <section class="min-w-0">
+        <section class="skills-card min-w-0">
           <q-card class="cyber-card h-full overflow-hidden">
             <q-card-section class="overflow-hidden">
               <h2 class="mb-6 text-2xl font-bold text-textBase">
@@ -521,7 +473,7 @@ onBeforeUnmount(() => {
           <q-card
             v-for="achievement in achievements"
             :key="achievement.id"
-            class="cyber-card text-center transition-transform hover:scale-105"
+            class="achievement-card cyber-card text-center transition-transform hover:scale-105"
           >
             <q-card-section>
               <div class="mb-4 flex justify-center">

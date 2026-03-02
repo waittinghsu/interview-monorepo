@@ -73,7 +73,15 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     'nuxt-quasar-ui',
+    '@nuxtjs/i18n',
   ],
+
+  // i18n 設定
+  i18n: {
+    locales: ['en', 'zh'],
+    defaultLocale: 'zh',
+    vueI18n: './i18n/i18n.config.ts',
+  },
 
   // Quasar 設定
   quasar: {
