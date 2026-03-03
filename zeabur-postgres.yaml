@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://schema.zeabur.app/template.json
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Interview PostgreSQL
+spec:
+  description: PostgreSQL database for interview monorepo api-server
+  tags:
+    - Database
+  services:
+    - name: postgresql
+      icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg
+      template: PREBUILT_V2
+      spec:
+        source:
+          image: postgres:16-alpine
+        ports:
+          - id: database
+            port: 5432
+            type: TCP
+        volumes:
+          - id: data
+            dir: /var/lib/postgresql/data
+        env:
+          POSTGRES_USER:
+            default: postgres
+            expose: true
+          POSTGRES_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          POSTGRES_DB:
+            default: interview_db
+            expose: true
+          POSTGRES_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+            readonly: true
+          POSTGRES_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+            readonly: true
+          DATABASE_URL:
+            default: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+            expose: true
+            readonly: true
