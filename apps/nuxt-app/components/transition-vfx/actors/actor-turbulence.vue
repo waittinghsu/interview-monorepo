@@ -323,8 +323,8 @@ function updateQuadForImage(
 const {
   progressRate,
   image,
-  elRect,
-  pixelRatio,
+  elRect: _elRect,
+  pixelRatio: _pixelRatio,
   canvasAttrs,
   updateImage,
   play,

@@ -313,7 +313,7 @@ async function init(el: HTMLElement) {
 
   // 靜態 uniform
   gl.useProgram(program!)
-  gl.uniform1i(u_image as any, 0)
+  gl.uniform1i(u_image as WebGLUniformLocation, 0)
   gl.uniform2f(u_resolution, canvasW, canvasH)
   gl.uniform4f(u_imgRect, imgX, imgY, imgW, imgH)
   gl.uniform2f(u_imgSize, imgW, imgH)

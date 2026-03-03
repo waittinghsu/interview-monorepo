@@ -39,7 +39,7 @@ const emit = defineEmits<{
 // #endregion Emits
 
 // #region Slots
-const slots = defineSlots<{
+defineSlots<{
   default?: () => unknown
 }>()
 // #endregion Slots
@@ -215,8 +215,8 @@ const anchorName = ref(`--${useId()}`)
 <style lang="sass">
 .actor
   position-anchor: v-bind(anchorName)
-  top: anchor(center) !important
-  left: anchor(center) !important
+  top: anchor(50%) !important
+  left: anchor(50%) !important
   transform: translate(-50%, -50%)
 
 .anchor

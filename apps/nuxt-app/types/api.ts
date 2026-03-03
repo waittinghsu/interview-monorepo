@@ -1,7 +1,7 @@
 /**
  * API 通用回應格式
  */
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   code: number
   data: T
   message?: string
