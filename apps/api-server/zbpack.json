@@ -1,4 +1,4 @@
 {
-  "build_command": "pnpm install --filter @interview/api-server && cd apps/api-server && npx prisma generate && npx tsc",
-  "start_command": "cd /src/apps/api-server && node dist/index.js"
+  "build_command": "npm install && npx prisma generate && npx tsc",
+  "start_command": "node dist/index.js"
 }
