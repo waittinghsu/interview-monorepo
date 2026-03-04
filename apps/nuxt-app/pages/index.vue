@@ -27,6 +27,8 @@ const actionCards: ActionCard[] = [
   { id: 4, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info', description: '管理個人資料' },
   { id: 5, label: '關於我們', icon: 'i-mdi-information', route: '/about', description: '了解本專案' },
   { id: 6, label: '郵件中心', icon: 'i-mdi-email', route: '/mail', description: '訊息管理' },
+  { id: 7, label: 'API 測試', icon: 'i-mdi-api', route: '/api-demo', description: '測試三種 API 調用方式' },
+  { id: 8, label: 'Transition Effects', icon: 'i-mdi-shimmer', route: '/transition-effects', description: '視覺過渡特效展示' },
 ]
 </script>
 

@@ -1,0 +1,4 @@
+{
+  "build_command": "npm install && npx prisma generate && npx tsc",
+  "start_command": "node dist/index.js"
+}

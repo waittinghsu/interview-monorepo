@@ -35,7 +35,7 @@
               "title": "title",
               "properties": {
                 "code": {
-                  "type": "string",
+                  "type": "number",
                   "mock": {
                     "mock": "200"
                   }
@@ -58,7 +58,7 @@
                     "user": {
                       "type": "object",
                       "properties": {
-                        "id": {
+                        "memberId": {
                           "type": "string",
                           "mock": {
                             "mock": "@natural"
@@ -89,13 +89,13 @@
                           }
                         },
                         "level": {
-                          "type": "string",
+                          "type": "number",
                           "mock": {
                             "mock": "@natural(1,12)"
                           }
                         },
-                        "avatar": {
-                          "type": "string",
+                        "avatarId": {
+                          "type": "number",
                           "mock": {
                             "mock": "@natural(1,12)"
                           }
@@ -105,23 +105,193 @@
                           "mock": {
                             "mock": "super"
                           }
+                        },
+                        "bookmarks": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "mock": {
+                              "mock": "@natural(1,999)"
+                            }
+                          }
+                        },
+                        "balance": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "345679.00"
+                          }
                         }
                       },
                       "required": [
-                        "id",
+                        "memberId",
                         "nickname",
                         "phone",
                         "email",
                         "level",
-                        "avatar",
+                        "avatarId",
                         "role",
-                        "name"
+                        "name",
+                        "bookmarks",
+                        "balance"
                       ]
                     }
                   },
                   "required": [
                     "token",
                     "user"
+                  ]
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ]
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "使用者類"
+        ],
+        "summary": "更新-使用者資訊",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {
+                "nickname": {
+                  "type": "string"
+                },
+                "bookmarks": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "mock": {
+                      "mock": "@natural(123,12391293)"
+                    }
+                  }
+                },
+                "email": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "kira@yamato.com"
+                  }
+                }
+              },
+              "required": [
+                "nickname",
+                "bookmarks",
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "mock": {
+                    "mock": "200"
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "OK"
+                  }
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "memberId": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "@natural(1231,28282828)"
+                      }
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "omega"
+                      }
+                    },
+                    "phone": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "0999991191"
+                      }
+                    },
+                    "email": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "omega@yapi.com"
+                      }
+                    },
+                    "level": {
+                      "type": "number",
+                      "mock": {
+                        "mock": "@natural(1,12)"
+                      }
+                    },
+                    "avatarId": {
+                      "type": "number",
+                      "mock": {
+                        "mock": "@natural(1,12)"
+                      }
+                    },
+                    "role": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "super"
+                      }
+                    },
+                    "name": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "我愛羅"
+                      }
+                    },
+                    "bookmarks": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "mock": {
+                          "mock": "@natural(1,999)"
+                        }
+                      }
+                    },
+                    "balance": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "258147.39"
+                      }
+                    }
+                  },
+                  "required": [
+                    "memberId",
+                    "nickname",
+                    "phone",
+                    "email",
+                    "level",
+                    "avatarId",
+                    "role",
+                    "name",
+                    "bookmarks",
+                    "balance"
                   ]
                 }
               },
@@ -178,7 +348,7 @@
               "type": "object",
               "properties": {
                 "code": {
-                  "type": "string",
+                  "type": "number",
                   "mock": {
                     "mock": "200"
                   }
@@ -195,16 +365,16 @@
                     "token": {
                       "type": "string",
                       "mock": {
-                        "mock": "bcaq23ous2bc1o1"
+                        "mock": "@string"
                       }
                     },
                     "user": {
                       "type": "object",
                       "properties": {
-                        "id": {
+                        "memberId": {
                           "type": "string",
                           "mock": {
-                            "mock": "5"
+                            "mock": "38"
                           }
                         },
                         "nickname": {
@@ -216,25 +386,25 @@
                         "phone": {
                           "type": "string",
                           "mock": {
-                            "mock": "0900000000"
+                            "mock": "0909002222"
                           }
                         },
                         "email": {
                           "type": "string",
                           "mock": {
-                            "mock": "omega@yahoo.com.tw"
+                            "mock": "omega@yapi.com"
                           }
                         },
                         "level": {
-                          "type": "string",
+                          "type": "number",
                           "mock": {
-                            "mock": "@natural(1,12)"
+                            "mock": "6"
                           }
                         },
-                        "avatar": {
-                          "type": "string",
+                        "avatarId": {
+                          "type": "number",
                           "mock": {
-                            "mock": "@natural(1,12)"
+                            "mock": "5"
                           }
                         },
                         "role": {
@@ -248,17 +418,34 @@
                           "mock": {
                             "mock": "老皮"
                           }
+                        },
+                        "bookmarks": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "mock": {
+                              "mock": "@natural(12312,3123)"
+                            }
+                          }
+                        },
+                        "balance": {
+                          "type": "string",
+                          "mock": {
+                            "mock": "578184.22"
+                          }
                         }
                       },
                       "required": [
-                        "id",
+                        "memberId",
                         "nickname",
                         "phone",
                         "email",
                         "level",
-                        "avatar",
+                        "avatarId",
                         "role",
-                        "name"
+                        "name",
+                        "bookmarks",
+                        "balance"
                       ]
                     }
                   },

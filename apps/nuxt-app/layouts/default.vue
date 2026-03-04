@@ -3,7 +3,7 @@ const drawerOpen = ref(false)
 </script>
 
 <template>
-  <q-layout view="hHh lpR fFf" class="bg-sys-page">
+  <q-layout view="hHh LpR fFf" class="bg-sys-page">
     <AppHeader @toggle-drawer="drawerOpen = !drawerOpen" />
 
     <AppDrawer v-model="drawerOpen" />

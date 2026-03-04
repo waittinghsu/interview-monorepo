@@ -28,6 +28,11 @@ pnpm-debug.log*
 *.swo
 .claude_context
 
+# Claude (keep agents & context, ignore local settings)
+.claude/settings.local.json
+.claude/worktrees/
+.claude/plans/
+
 # OS
 .DS_Store
 Thumbs.db

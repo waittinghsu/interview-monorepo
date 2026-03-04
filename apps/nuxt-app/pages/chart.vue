@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { CandlestickSeries, createChart, LineSeries } from 'lightweight-charts'
-import { use0050Query, useBTCQuery } from '~/composables/api/useStock'
+import { use0050Query, useBTCQuery } from '~/features/stock'
 
 definePageMeta({
   layout: 'default',
 })
 
-const candlestickChartContainer = ref<HTMLDivElement | null>(null)
-const lineChartContainer = ref<HTMLDivElement | null>(null)
+const candlestickChartContainer = shallowRef<HTMLDivElement | null>(null)
+const lineChartContainer = shallowRef<HTMLDivElement | null>(null)
 let candlestickChart: ReturnType<typeof createChart> | null = null
 let lineChart: ReturnType<typeof createChart> | null = null
 

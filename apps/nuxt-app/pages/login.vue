@@ -10,8 +10,8 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const form = ref({
-  email: '',
-  password: '',
+  email: 'omega@yaapi.com',
+  password: '123456',
 })
 
 const loading = ref(false)
@@ -30,8 +30,8 @@ async function handleLogin() {
     // 登入成功，跳轉到首頁
     router.push('/')
   }
-  catch (err: any) {
-    error.value = err.message || '登入失敗'
+  catch (err: unknown) {
+    error.value = err instanceof Error ? err.message : '登入失敗'
   }
   finally {
     loading.value = false

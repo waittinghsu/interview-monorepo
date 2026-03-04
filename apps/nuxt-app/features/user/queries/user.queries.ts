@@ -14,8 +14,9 @@ export const userQueryKeys = {
 /**
  * 取得會員資料 Query
  * 用於 CSR（客戶端渲染）
+ * @param initialData - SSR 預取的資料，避免客戶端重複請求
  */
-export function useUserInfoQuery() {
+export function useUserInfoQuery(initialData?: UserInfo | null) {
   const service = useUserService()
 
   return useQuery({
@@ -23,6 +24,7 @@ export function useUserInfoQuery() {
     queryFn: () => service.getUserInfo(),
     staleTime: 1000 * 60 * 5, // 5 分鐘內不重新請求
     gcTime: 1000 * 60 * 10, // 10 分鐘後清除快取
+    initialData: initialData || undefined, // 使用 SSR 資料作為初始值
   })
 }
 

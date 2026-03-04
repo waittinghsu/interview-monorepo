@@ -183,27 +183,27 @@ const formattedTime = computed(() => {
         <div class="flex flex-wrap items-center gap-3">
           <div class="flex items-baseline gap-2">
             <span class="text-xl font-semibold tracking-[0.3em] text-cyber-cyan">AISOCIAL</span>
-            <q-badge color="primary" class="bg-primary/10 text-primary" label="v0.10" />
+            <q-badge color="primary" class="bg-primary/10 text-secondary" label="v0.10" />
           </div>
           <div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.3em] text-textSecondary">
             <span>Dashboard</span>
           </div>
         </div>
         <div class="flex flex-wrap items-center gap-3 text-sm text-textSecondary">
-          <div class="flex items-center gap-2 rounded-full border border-cyber-cyan/40 bg-cyber-cyan/10 px-3 py-1">
+          <div class="flex items-center gap-2 rounded-full border border-cyber-cyan/40 px-3 py-1">
             <i class="i-mdi-translate text-cyber-cyan" />
-            <span>EN</span>
+            <span class="">EN</span>
           </div>
-          <div class="flex items-center gap-2 rounded-full border border-cyber-purple/40 bg-cyber-purple/10 px-3 py-1">
-            <i class="i-mdi-clock-outline text-cyber-purple" />
-            <span>{{ formattedTime }}</span>
+          <div class="flex items-center gap-2 rounded-full border border-cyber-purple/40 px-3 py-1">
+            <i class="i-mdi-clock cyber-purple" />
+            <span class="">{{ formattedTime }}</span>
           </div>
-          <div class="flex items-center gap-2 rounded-full border border-cyber-emerald/40 bg-cyber-emerald/10 px-3 py-1">
+          <div class="flex items-center gap-2 rounded-full border border-cyber-emerald/40 px-3 py-1">
             <span class="relative mr-1 inline-flex h-2 w-2">
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyber-emerald opacity-75" />
               <span class="relative inline-flex h-2 w-2 rounded-full bg-cyber-emerald" />
             </span>
-            <span>ONLINE</span>
+            <span class="">ONLINE</span>
           </div>
         </div>
       </div>
@@ -240,7 +240,7 @@ const formattedTime = computed(() => {
                   目前 8 / 10 名人格在線
                 </div>
               </div>
-              <q-chip color="primary" class="bg-primary/10 text-primary" icon="person">
+              <q-chip color="primary" class="bg-primary/10 text-textInverse" icon="person">
                 Active
               </q-chip>
             </q-card-section>
@@ -303,7 +303,7 @@ const formattedTime = computed(() => {
                       {{ account.provider }}
                     </div>
                   </div>
-                  <q-badge color="primary" class="bg-primary/10 text-primary" label="monitoring" />
+                  <q-badge color="primary" class="bg-primary/10 text-textInverse" label="monitoring" />
                 </div>
                 <div class="space-y-3 px-4 py-3">
                   <div v-for="model in account.models" :key="model.name" class="space-y-1">
@@ -327,7 +327,7 @@ const formattedTime = computed(() => {
                 <div class="text-lg font-semibold text-textBase">
                   系統狀態
                 </div>
-                <q-badge class="bg-cyber-emerald/10 text-cyber-emerald" label="Uptime" />
+                <q-badge class="bg-cyber-emerald/10 text-textInverse" label="Uptime" />
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div v-for="metric in systemMetrics" :key="metric.label" class="flex flex-col items-center gap-3 rounded-xl bg-white/5 p-4 text-center">

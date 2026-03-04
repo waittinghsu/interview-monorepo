@@ -12,12 +12,12 @@ export interface RequestMeta {
 }
 
 // 擴展 FetchOptions 以支援 _meta
-export interface ExtendedFetchOptions<R extends any = any> extends FetchOptions {
+export interface ExtendedFetchOptions extends FetchOptions {
   _meta?: RequestMeta
 }
 
 // 自定義 Fetch 函數型別
-export type ExtendedFetch = <T = any>(
+export type ExtendedFetch = <T = unknown>(
   request: string,
   options?: ExtendedFetchOptions
 ) => Promise<T>
@@ -32,28 +32,28 @@ export interface FetchClientOptions {
   responseFormat?: {
     enabled: boolean
     codeKey: string
-    successCode: string
+    successCode: string | number
     dataKey: string
     msgKey: string
-    onBusinessError?: (code: string, msg: string, response: any) => void
+    onBusinessError?: (code: string | number, msg: string, response: unknown) => void
   }
 
   // Callbacks
   onRequestStart?: (request: FetchContext) => void
   onRequestEnd?: () => void
   onUnauthorized?: () => void
-  onForbidden?: (response: any) => void
-  onBadRequest?: (response: any) => void
-  onServerError?: (response: any) => void
-  onNetworkError?: (error: any) => void
+  onForbidden?: (response: unknown) => void
+  onBadRequest?: (response: unknown) => void
+  onServerError?: (response: unknown) => void
+  onNetworkError?: (error: unknown) => void
 
   // Tracking
-  onTrackRequest?: (data: any) => void
-  onTrackResponse?: (data: any) => void
+  onTrackRequest?: (data: { method: string, url: string, timestamp: number }) => void
+  onTrackResponse?: (data: { status: number, method: string, url: string, timestamp: number }) => void
 
   // Crypto
-  encryptRequest?: (data: any, request: any) => any
-  decryptResponse?: (data: any, request: any) => any
+  encryptRequest?: (data: BodyInit | Record<string, unknown> | null | undefined, request: FetchContext) => BodyInit | Record<string, unknown> | null | undefined
+  decryptResponse?: (data: unknown, request: FetchContext) => unknown
 }
 
 export function createFetchClient(options: FetchClientOptions): ExtendedFetch {
@@ -115,14 +115,14 @@ export function createFetchClient(options: FetchClientOptions): ExtendedFetch {
       if (onTrackRequest) {
         onTrackRequest({
           method: context.options.method || 'GET',
-          url: context.request,
+          url: typeof context.request === 'string' ? context.request : context.request.url,
           timestamp: Date.now(),
         })
       }
 
       // 5. Encrypt request body
       if (meta?.encrypt && encryptRequest && context.options.body) {
-        context.options.body = encryptRequest(context.options.body, context)
+        context.options.body = encryptRequest(context.options.body, context) as BodyInit
       }
     },
 
@@ -146,7 +146,7 @@ export function createFetchClient(options: FetchClientOptions): ExtendedFetch {
           onTrackResponse({
             status: context.response.status,
             method: context.options.method || 'GET',
-            url: context.request,
+            url: typeof context.request === 'string' ? context.request : context.request.url,
             timestamp: Date.now(),
           })
         }
