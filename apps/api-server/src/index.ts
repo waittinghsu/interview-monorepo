@@ -27,7 +27,7 @@ async function bootstrap() {
   // Health check
   app.get('/health', async () => ({ status: 'ok' }))
 
-  const port = Number(process.env.PORT ?? 3000)
+  const port = parseInt(process.env.WEB_PORT ?? process.env.PORT ?? '3000', 10)
   const host = process.env.HOST ?? '0.0.0.0'
 
   await app.listen({ port, host })
