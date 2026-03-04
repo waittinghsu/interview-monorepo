@@ -546,6 +546,32 @@ onBeforeUnmount(() => {
   opacity: 1;
 }
 
+/* Achievement card hover 特效 - 由下往上填滿 */
+.achievement-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* 創建新的層疊上下文 */
+}
+
+.achievement-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  /* 比原本背景更淺的顏色 */
+  background: color-mix(in srgb, var(--color-sys-raised) 60%, var(--color-action) 8%);
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1; /* 負值確保在卡片內容後面 */
+  border-radius: 16px;
+}
+
+.achievement-card:hover::after {
+  transform: translateY(0);
+}
+
 .work-card:hover {
   border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
   box-shadow: 0 12px 48px rgba(34, 211, 238, 0.2), 0 0 20px rgba(34, 211, 238, 0.1);
