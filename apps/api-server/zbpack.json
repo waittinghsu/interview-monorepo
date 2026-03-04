@@ -1,4 +1,4 @@
 {
   "build_command": "npm install && npx prisma generate && npx tsc",
-  "start_command": "node dist/index.js"
+  "start_command": "npx prisma migrate deploy && node dist/index.js"
 }
