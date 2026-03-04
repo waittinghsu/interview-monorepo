@@ -41,7 +41,10 @@ export async function authRoutes(app: FastifyInstance) {
               type: 'object',
               properties: {
                 token: { type: 'string' },
-                user: { type: 'object' },
+                user: {
+                  type: 'object',
+                  additionalProperties: true,
+                },
               },
             },
           },

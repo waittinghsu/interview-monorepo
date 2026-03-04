@@ -1,12 +1,12 @@
 import type { FastifyInstance } from 'fastify'
 import fastifyJwt from '@fastify/jwt'
+import fp from 'fastify-plugin'
 
-export async function jwtPlugin(app: FastifyInstance) {
-  app.register(fastifyJwt, {
+async function jwtPluginFn(app: FastifyInstance) {
+  await app.register(fastifyJwt, {
     secret: process.env.JWT_SECRET ?? 'default-secret-change-in-production',
   })
 
-  // Decorator: authenticate
   app.decorate('authenticate', async function (request: any, reply: any) {
     try {
       await request.jwtVerify()
@@ -16,3 +16,5 @@ export async function jwtPlugin(app: FastifyInstance) {
     }
   })
 }
+
+export const jwtPlugin = fp(jwtPluginFn)
