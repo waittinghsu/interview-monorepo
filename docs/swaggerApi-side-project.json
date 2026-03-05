@@ -1,1082 +1,98 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "ineterview",
-    "version": "last"
+    "title": "interview-monorepo API",
+    "version": "1.0.0",
+    "description": "Interview Monorepo API Server - 包含使用者、遊戲、書籍、會員等級、股票、演唱會等資源"
   },
   "basePath": "/",
   "tags": [
-    {
-      "name": "使用者類",
-      "description": "user"
-    },
-    {
-      "name": "股票類",
-      "description": "stock"
+    { "name": "使用者類", "description": "user - 使用者相關操作" },
+    { "name": "遊戲類", "description": "game - 遊戲資料 CRUD" },
+    { "name": "書籍類", "description": "book - 書籍資料 CRUD" },
+    { "name": "會員等級類", "description": "memberLevel - 會員等級管理" },
+    { "name": "股票類", "description": "stock - 股票即時行情代理" },
+    { "name": "演唱會類", "description": "concert - 演唱會票券 CRUD" }
+  ],
+  "schemes": ["http", "https"],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT Bearer Token。格式：Bearer {token}"
     }
-  ],
-  "schemes": [
-    "http"
-  ],
+  },
   "paths": {
-    "/v1/api/user/info": {
-      "get": {
-        "tags": [
-          "使用者類"
-        ],
-        "summary": "獲取-使用者基本資訊",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "title": "title",
-              "properties": {
-                "code": {
-                  "type": "number",
-                  "mock": {
-                    "mock": "200"
-                  }
-                },
-                "msg": {
-                  "type": "string",
-                  "mock": {
-                    "mock": "OK"
-                  }
-                },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "token": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "cvq46bwoi2nd1nnpi"
-                      }
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "memberId": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "@natural"
-                          }
-                        },
-                        "name": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "愛新覺羅"
-                          }
-                        },
-                        "nickname": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "oemga"
-                          }
-                        },
-                        "phone": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "0909000000"
-                          }
-                        },
-                        "email": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "omega@yapi.com"
-                          }
-                        },
-                        "level": {
-                          "type": "number",
-                          "mock": {
-                            "mock": "@natural(1,12)"
-                          }
-                        },
-                        "avatarId": {
-                          "type": "number",
-                          "mock": {
-                            "mock": "@natural(1,12)"
-                          }
-                        },
-                        "role": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "super"
-                          }
-                        },
-                        "bookmarks": {
-                          "type": "array",
-                          "items": {
-                            "type": "number",
-                            "mock": {
-                              "mock": "@natural(1,999)"
-                            }
-                          }
-                        },
-                        "balance": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "345679.00"
-                          }
-                        }
-                      },
-                      "required": [
-                        "memberId",
-                        "nickname",
-                        "phone",
-                        "email",
-                        "level",
-                        "avatarId",
-                        "role",
-                        "name",
-                        "bookmarks",
-                        "balance"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "token",
-                    "user"
-                  ]
-                }
-              },
-              "required": [
-                "code",
-                "msg",
-                "data"
-              ]
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "使用者類"
-        ],
-        "summary": "更新-使用者資訊",
-        "description": "",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "root",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "title": "title",
-              "properties": {
-                "nickname": {
-                  "type": "string"
-                },
-                "bookmarks": {
-                  "type": "array",
-                  "items": {
-                    "type": "number",
-                    "mock": {
-                      "mock": "@natural(123,12391293)"
-                    }
-                  }
-                },
-                "email": {
-                  "type": "string",
-                  "mock": {
-                    "mock": "kira@yamato.com"
-                  }
-                }
-              },
-              "required": [
-                "nickname",
-                "bookmarks",
-                "email"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$schema": "http://json-schema.org/draft-04/schema#",
-              "type": "object",
-              "properties": {
-                "code": {
-                  "type": "number",
-                  "mock": {
-                    "mock": "200"
-                  }
-                },
-                "msg": {
-                  "type": "string",
-                  "mock": {
-                    "mock": "OK"
-                  }
-                },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "memberId": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "@natural(1231,28282828)"
-                      }
-                    },
-                    "nickname": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "omega"
-                      }
-                    },
-                    "phone": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "0999991191"
-                      }
-                    },
-                    "email": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "omega@yapi.com"
-                      }
-                    },
-                    "level": {
-                      "type": "number",
-                      "mock": {
-                        "mock": "@natural(1,12)"
-                      }
-                    },
-                    "avatarId": {
-                      "type": "number",
-                      "mock": {
-                        "mock": "@natural(1,12)"
-                      }
-                    },
-                    "role": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "super"
-                      }
-                    },
-                    "name": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "我愛羅"
-                      }
-                    },
-                    "bookmarks": {
-                      "type": "array",
-                      "items": {
-                        "type": "number",
-                        "mock": {
-                          "mock": "@natural(1,999)"
-                        }
-                      }
-                    },
-                    "balance": {
-                      "type": "string",
-                      "mock": {
-                        "mock": "258147.39"
-                      }
-                    }
-                  },
-                  "required": [
-                    "memberId",
-                    "nickname",
-                    "phone",
-                    "email",
-                    "level",
-                    "avatarId",
-                    "role",
-                    "name",
-                    "bookmarks",
-                    "balance"
-                  ]
-                }
-              },
-              "required": [
-                "code",
-                "msg",
-                "data"
-              ]
-            }
-          }
-        }
-      }
-    },
     "/v1/api/user/login": {
       "post": {
-        "tags": [
-          "使用者類"
-        ],
+        "tags": ["使用者類"],
         "summary": "登入",
-        "description": "",
-        "consumes": [
-          "application/json"
-        ],
+        "description": "使用電子信箱與密碼進行身份驗證，成功後返回 JWT token 與用戶資訊",
+        "consumes": ["application/json"],
         "parameters": [
           {
-            "name": "root",
+            "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
-              "title": "title",
+              "required": ["email", "password"],
               "properties": {
                 "email": {
-                  "type": "string"
+                  "type": "string",
+                  "mock": { "mock": "demo@example.com" },
+                  "title": "電子信箱",
+                  "description": "用戶登入的電子郵件地址"
                 },
                 "password": {
                   "type": "string",
-                  "mock": {
-                    "mock": "123456"
-                  }
+                  "mock": { "mock": "password123" },
+                  "title": "密碼",
+                  "description": "用戶密碼，至少6個字元"
                 }
-              },
-              "required": [
-                "email",
-                "password"
-              ]
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "登入成功",
             "schema": {
-              "$schema": "http://json-schema.org/draft-04/schema#",
               "type": "object",
               "properties": {
-                "code": {
-                  "type": "number",
-                  "mock": {
-                    "mock": "200"
-                  }
-                },
-                "msg": {
-                  "type": "string",
-                  "mock": {
-                    "mock": "OK"
-                  }
-                },
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼", "description": "200 表示登入成功，401 表示帳號或密碼錯誤" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息", "description": "操作結果描述" },
                 "data": {
                   "type": "object",
                   "properties": {
                     "token": {
                       "type": "string",
-                      "mock": {
-                        "mock": "@string"
-                      }
+                      "mock": { "mock": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example" },
+                      "title": "JWT Token",
+                      "description": "JSON Web Token，用於後續 API 請求的身份驗證，有效期 7 天"
                     },
                     "user": {
                       "type": "object",
                       "properties": {
-                        "memberId": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "38"
-                          }
-                        },
-                        "nickname": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "omega"
-                          }
-                        },
-                        "phone": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "0909002222"
-                          }
-                        },
-                        "email": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "omega@yapi.com"
-                          }
-                        },
-                        "level": {
-                          "type": "number",
-                          "mock": {
-                            "mock": "6"
-                          }
-                        },
-                        "avatarId": {
-                          "type": "number",
-                          "mock": {
-                            "mock": "5"
-                          }
-                        },
-                        "role": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "super"
-                          }
-                        },
-                        "name": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "老皮"
-                          }
-                        },
+                        "memberId": { "type": "string", "mock": { "mock": "@natural" }, "title": "用戶代號", "description": "用戶唯一識別碼（CUID）" },
+                        "name": { "type": "string", "mock": { "mock": "愛新覺羅" }, "title": "真實姓名", "description": "用戶的真實姓名" },
+                        "nickname": { "type": "string", "mock": { "mock": "omega" }, "title": "暱稱", "description": "用戶的顯示暱稱" },
+                        "phone": { "type": "string", "mock": { "mock": "0909000000" }, "title": "手機號碼", "description": "用戶手機號碼" },
+                        "email": { "type": "string", "mock": { "mock": "omega@yapi.com" }, "title": "電子信箱", "description": "用戶電子郵件地址" },
+                        "level": { "type": "number", "mock": { "mock": "@natural(1,12)" }, "title": "會員等級", "description": "會員等級編號" },
+                        "avatarId": { "type": "number", "mock": { "mock": "@natural(1,12)" }, "title": "頭像編號", "description": "頭像編號 1~14" },
+                        "role": { "type": "string", "mock": { "mock": "member" }, "title": "角色", "description": "super/admin/member/noob" },
+                        "balance": { "type": "string", "mock": { "mock": "258147.39" }, "title": "帳戶餘額", "description": "帳戶餘額（TWD）" },
                         "bookmarks": {
                           "type": "array",
-                          "items": {
-                            "type": "number",
-                            "mock": {
-                              "mock": "@natural(12312,3123)"
-                            }
-                          }
-                        },
-                        "balance": {
-                          "type": "string",
-                          "mock": {
-                            "mock": "578184.22"
-                          }
-                        }
-                      },
-                      "required": [
-                        "memberId",
-                        "nickname",
-                        "phone",
-                        "email",
-                        "level",
-                        "avatarId",
-                        "role",
-                        "name",
-                        "bookmarks",
-                        "balance"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "token",
-                    "user"
-                  ]
-                }
-              },
-              "required": [
-                "code",
-                "msg",
-                "data"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "/v1/api/user/logout": {
-      "post": {
-        "tags": [
-          "使用者類"
-        ],
-        "summary": "登出",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {}
-          }
-        }
-      }
-    },
-    "/v8/finance/chart/0050.TW": {
-      "get": {
-        "tags": [
-          "股票類"
-        ],
-        "summary": "0050",
-        "description": "",
-        "parameters": [
-          {
-            "name": "period1",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          },
-          {
-            "name": "period2",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          },
-          {
-            "name": "interval",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          },
-          {
-            "name": "range",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$schema": "http://json-schema.org/draft-04/schema#",
-              "type": "object",
-              "properties": {
-                "chart": {
-                  "type": "object",
-                  "properties": {
-                    "result": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "meta": {
-                            "type": "object",
-                            "properties": {
-                              "currency": {
-                                "type": "string"
-                              },
-                              "symbol": {
-                                "type": "string"
-                              },
-                              "exchangeName": {
-                                "type": "string"
-                              },
-                              "fullExchangeName": {
-                                "type": "string"
-                              },
-                              "instrumentType": {
-                                "type": "string"
-                              },
-                              "firstTradeDate": {
-                                "type": "number"
-                              },
-                              "regularMarketTime": {
-                                "type": "number"
-                              },
-                              "hasPrePostMarketData": {
-                                "type": "boolean"
-                              },
-                              "gmtoffset": {
-                                "type": "number"
-                              },
-                              "timezone": {
-                                "type": "string"
-                              },
-                              "exchangeTimezoneName": {
-                                "type": "string"
-                              },
-                              "regularMarketPrice": {
-                                "type": "number"
-                              },
-                              "fiftyTwoWeekHigh": {
-                                "type": "number"
-                              },
-                              "fiftyTwoWeekLow": {
-                                "type": "number"
-                              },
-                              "regularMarketDayHigh": {
-                                "type": "number"
-                              },
-                              "regularMarketDayLow": {
-                                "type": "number"
-                              },
-                              "regularMarketVolume": {
-                                "type": "number"
-                              },
-                              "longName": {
-                                "type": "string"
-                              },
-                              "shortName": {
-                                "type": "string"
-                              },
-                              "chartPreviousClose": {
-                                "type": "number"
-                              },
-                              "priceHint": {
-                                "type": "number"
-                              },
-                              "currentTradingPeriod": {
-                                "type": "object",
-                                "properties": {
-                                  "pre": {
-                                    "type": "object",
-                                    "properties": {
-                                      "timezone": {
-                                        "type": "string"
-                                      },
-                                      "end": {
-                                        "type": "number"
-                                      },
-                                      "start": {
-                                        "type": "number"
-                                      },
-                                      "gmtoffset": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "required": [
-                                      "timezone",
-                                      "end",
-                                      "start",
-                                      "gmtoffset"
-                                    ]
-                                  },
-                                  "regular": {
-                                    "type": "object",
-                                    "properties": {
-                                      "timezone": {
-                                        "type": "string"
-                                      },
-                                      "end": {
-                                        "type": "number"
-                                      },
-                                      "start": {
-                                        "type": "number"
-                                      },
-                                      "gmtoffset": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "required": [
-                                      "timezone",
-                                      "end",
-                                      "start",
-                                      "gmtoffset"
-                                    ]
-                                  },
-                                  "post": {
-                                    "type": "object",
-                                    "properties": {
-                                      "timezone": {
-                                        "type": "string"
-                                      },
-                                      "end": {
-                                        "type": "number"
-                                      },
-                                      "start": {
-                                        "type": "number"
-                                      },
-                                      "gmtoffset": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "required": [
-                                      "timezone",
-                                      "end",
-                                      "start",
-                                      "gmtoffset"
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "pre",
-                                  "regular",
-                                  "post"
-                                ]
-                              },
-                              "dataGranularity": {
-                                "type": "string"
-                              },
-                              "range": {
-                                "type": "string"
-                              },
-                              "validRanges": {
-                                "type": "array",
-                                "items": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "required": [
-                              "currency",
-                              "symbol",
-                              "exchangeName",
-                              "fullExchangeName",
-                              "instrumentType",
-                              "firstTradeDate",
-                              "regularMarketTime",
-                              "hasPrePostMarketData",
-                              "gmtoffset",
-                              "timezone",
-                              "exchangeTimezoneName",
-                              "regularMarketPrice",
-                              "fiftyTwoWeekHigh",
-                              "fiftyTwoWeekLow",
-                              "regularMarketDayHigh",
-                              "regularMarketDayLow",
-                              "regularMarketVolume",
-                              "longName",
-                              "shortName",
-                              "chartPreviousClose",
-                              "priceHint",
-                              "currentTradingPeriod",
-                              "dataGranularity",
-                              "range",
-                              "validRanges"
-                            ]
-                          },
-                          "timestamp": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          "indicators": {
-                            "type": "object",
-                            "properties": {
-                              "quote": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "volume": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "close": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "high": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "open": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "low": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "volume",
-                                    "close",
-                                    "high",
-                                    "open",
-                                    "low"
-                                  ]
-                                }
-                              },
-                              "adjclose": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "adjclose": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "adjclose"
-                                  ]
-                                }
-                              }
-                            },
-                            "required": [
-                              "quote",
-                              "adjclose"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "meta",
-                          "timestamp",
-                          "indicators"
-                        ]
-                      }
-                    },
-                    "error": {
-                      "type": "null"
-                    }
-                  },
-                  "required": [
-                    "result",
-                    "error"
-                  ]
-                }
-              },
-              "required": [
-                "chart"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "/v8/finance/chart/BTC-USD": {
-      "get": {
-        "tags": [
-          "股票類"
-        ],
-        "summary": "BTC-USD",
-        "description": "",
-        "parameters": [
-          {
-            "name": "period1",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          },
-          {
-            "name": "period2",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          },
-          {
-            "name": "interval",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          },
-          {
-            "name": "range",
-            "in": "query",
-            "required": false,
-            "description": "",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$schema": "http://json-schema.org/draft-04/schema#",
-              "type": "object",
-              "properties": {
-                "chart": {
-                  "type": "object",
-                  "properties": {
-                    "result": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "meta": {
-                            "type": "object",
-                            "properties": {
-                              "currency": {
-                                "type": "string"
-                              },
-                              "symbol": {
-                                "type": "string"
-                              },
-                              "exchangeName": {
-                                "type": "string"
-                              },
-                              "fullExchangeName": {
-                                "type": "string"
-                              },
-                              "instrumentType": {
-                                "type": "string"
-                              },
-                              "firstTradeDate": {
-                                "type": "number"
-                              },
-                              "regularMarketTime": {
-                                "type": "number"
-                              },
-                              "hasPrePostMarketData": {
-                                "type": "boolean"
-                              },
-                              "gmtoffset": {
-                                "type": "number"
-                              },
-                              "timezone": {
-                                "type": "string"
-                              },
-                              "exchangeTimezoneName": {
-                                "type": "string"
-                              },
-                              "regularMarketPrice": {
-                                "type": "number"
-                              },
-                              "fiftyTwoWeekHigh": {
-                                "type": "number"
-                              },
-                              "fiftyTwoWeekLow": {
-                                "type": "number"
-                              },
-                              "regularMarketDayHigh": {
-                                "type": "number"
-                              },
-                              "regularMarketDayLow": {
-                                "type": "number"
-                              },
-                              "regularMarketVolume": {
-                                "type": "number"
-                              },
-                              "longName": {
-                                "type": "string"
-                              },
-                              "shortName": {
-                                "type": "string"
-                              },
-                              "chartPreviousClose": {
-                                "type": "number"
-                              },
-                              "priceHint": {
-                                "type": "number"
-                              },
-                              "currentTradingPeriod": {
-                                "type": "object",
-                                "properties": {
-                                  "pre": {
-                                    "type": "object",
-                                    "properties": {
-                                      "timezone": {
-                                        "type": "string"
-                                      },
-                                      "start": {
-                                        "type": "number"
-                                      },
-                                      "end": {
-                                        "type": "number"
-                                      },
-                                      "gmtoffset": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "regular": {
-                                    "type": "object",
-                                    "properties": {
-                                      "timezone": {
-                                        "type": "string"
-                                      },
-                                      "start": {
-                                        "type": "number"
-                                      },
-                                      "end": {
-                                        "type": "number"
-                                      },
-                                      "gmtoffset": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "post": {
-                                    "type": "object",
-                                    "properties": {
-                                      "timezone": {
-                                        "type": "string"
-                                      },
-                                      "start": {
-                                        "type": "number"
-                                      },
-                                      "end": {
-                                        "type": "number"
-                                      },
-                                      "gmtoffset": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              "dataGranularity": {
-                                "type": "string"
-                              },
-                              "range": {
-                                "type": "string"
-                              },
-                              "validRanges": {
-                                "type": "array",
-                                "items": {
-                                  "type": "string"
-                                }
-                              }
-                            }
-                          },
-                          "timestamp": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          "indicators": {
-                            "type": "object",
-                            "properties": {
-                              "quote": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "open": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "high": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "low": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "volume": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "close": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              "adjclose": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "adjclose": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
+                          "items": { "type": "number", "mock": { "mock": "@natural(1,999)" } },
+                          "minItems": 5,
+                          "maxItems": 10,
+                          "title": "書籤列表",
+                          "description": "收藏項目ID列表，最少5個最多10個"
                         }
                       }
-                    },
-                    "error": {
-                      "type": "null"
                     }
                   }
                 }
@@ -1085,6 +101,601 @@
           }
         }
       }
+    },
+    "/v1/api/user/logout": {
+      "post": {
+        "tags": ["使用者類"],
+        "summary": "登出",
+        "description": "登出當前用戶（前端清除 token 即可）",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "登出成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": { "type": "null", "title": "資料" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/user/info": {
+      "get": {
+        "tags": ["使用者類"],
+        "summary": "獲取-使用者基本資訊",
+        "description": "根據 JWT token 取得當前登入用戶的完整資料，並自動刷新 token",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼", "description": "商業邏輯驗證碼 comment" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "api訊息", "description": "api訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string", "mock": { "mock": "cvq46bwoi2nd1nnpi" }, "title": "通行證", "description": "通行證的說明" },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "memberId": { "type": "string", "mock": { "mock": "@natural" }, "title": "用戶代號", "description": "用戶代號的說明" },
+                        "name": { "type": "string", "mock": { "mock": "愛新覺羅" }, "title": "名字", "description": "名字的說明" },
+                        "nickname": { "type": "string", "mock": { "mock": "oemga" }, "title": "小明", "description": "小明的說明" },
+                        "phone": { "type": "string", "mock": { "mock": "0909000000" }, "title": "手機", "description": "手機的說明" },
+                        "email": { "type": "string", "mock": { "mock": "omega@yapi.com" }, "title": "信箱", "description": "信箱的說明" },
+                        "level": { "type": "number", "mock": { "mock": "@natural(1,12)" }, "title": "等級", "description": "等級有1~13集" },
+                        "avatarId": { "type": "number", "mock": { "mock": "@natural(1,12)" }, "title": "頭像帶號", "description": "頭像帶號1~14號" },
+                        "role": { "type": "string", "mock": { "mock": "super" }, "title": "角色", "description": "角色, super , admin ,user,noob" },
+                        "bookmarks": {
+                          "type": "array",
+                          "items": { "type": "number", "mock": { "mock": "@natural(1,999)" } },
+                          "minItems": 5,
+                          "maxItems": 10,
+                          "title": "書籤列表",
+                          "description": "收藏列表"
+                        },
+                        "balance": { "type": "string", "mock": { "mock": "258147.39" }, "title": "餘額", "description": "帳戶餘額" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["使用者類"],
+        "summary": "更新-使用者資訊",
+        "description": "更新當前登入用戶的暱稱、電子信箱與書籤列表",
+        "security": [{ "bearerAuth": [] }],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["nickname", "bookmarks", "email"],
+              "properties": {
+                "nickname": { "type": "string", "mock": { "mock": "omega" }, "title": "暱稱", "description": "用戶的顯示暱稱" },
+                "email": { "type": "string", "mock": { "mock": "kira@yamato.com" }, "title": "電子信箱" },
+                "bookmarks": {
+                  "type": "array",
+                  "items": { "type": "number", "mock": { "mock": "@natural(123,12391293)" } },
+                  "minItems": 5,
+                  "maxItems": 10,
+                  "title": "書籤列表"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更新成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "memberId": { "type": "string", "mock": { "mock": "@natural(1231,28282828)" } },
+                    "nickname": { "type": "string", "mock": { "mock": "omega" } },
+                    "phone": { "type": "string", "mock": { "mock": "0999991191" } },
+                    "email": { "type": "string", "mock": { "mock": "omega@yapi.com" } },
+                    "level": { "type": "number", "mock": { "mock": "@natural(1,12)" } },
+                    "avatarId": { "type": "number", "mock": { "mock": "@natural(1,12)" } },
+                    "role": { "type": "string", "mock": { "mock": "super" } },
+                    "name": { "type": "string", "mock": { "mock": "我愛羅" } },
+                    "bookmarks": {
+                      "type": "array",
+                      "items": { "type": "number", "mock": { "mock": "@natural(1,999)" } },
+                      "minItems": 5,
+                      "maxItems": 10
+                    },
+                    "balance": { "type": "string", "mock": { "mock": "258147.39" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/games": {
+      "get": {
+        "tags": ["遊戲類"],
+        "summary": "獲取-遊戲列表",
+        "description": "取得遊戲列表，支援分頁、類型篩選與關鍵字搜尋",
+        "parameters": [
+          { "name": "page", "in": "query", "type": "integer", "default": 1, "description": "頁碼" },
+          { "name": "limit", "in": "query", "type": "integer", "default": 10, "description": "每頁筆數" },
+          { "name": "genre", "in": "query", "type": "string", "description": "遊戲類型篩選" },
+          { "name": "keyword", "in": "query", "type": "string", "description": "關鍵字搜尋（名稱/描述）" }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "title": "遊戲列表",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "gameId": { "type": "string", "mock": { "mock": "@guid" }, "title": "遊戲ID" },
+                          "title": { "type": "string", "mock": { "mock": "薩爾達傳說：王國之淚" }, "title": "遊戲名稱" },
+                          "description": { "type": "string", "mock": { "mock": "探索廣大的海拉魯大陸" }, "title": "遊戲簡介" },
+                          "genre": { "type": "string", "mock": { "mock": "Action-Adventure" }, "title": "遊戲類型" },
+                          "platform": { "type": "array", "items": { "type": "string", "mock": { "mock": "Nintendo Switch" } }, "title": "支援平台" },
+                          "rating": { "type": "string", "mock": { "mock": "9.8" }, "title": "評分", "description": "0-10分制" },
+                          "price": { "type": "string", "mock": { "mock": "1799.00" }, "title": "售價", "description": "新台幣" },
+                          "releaseDate": { "type": "string", "mock": { "mock": "2023-05-12T00:00:00.000Z" }, "title": "發售日期" },
+                          "developer": { "type": "string", "mock": { "mock": "Nintendo EPD" }, "title": "開發商" },
+                          "publisher": { "type": "string", "mock": { "mock": "Nintendo" }, "title": "發行商" },
+                          "imageUrl": { "type": "string", "mock": { "mock": "https://example.com/game.jpg" }, "title": "封面圖片" },
+                          "tags": { "type": "array", "items": { "type": "string", "mock": { "mock": "open-world" } }, "title": "標籤" },
+                          "isActive": { "type": "boolean", "mock": { "mock": true }, "title": "上架狀態" },
+                          "createdAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "建立時間" },
+                          "updatedAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "更新時間" }
+                        }
+                      }
+                    },
+                    "total": { "type": "number", "mock": { "mock": "@natural(1,100)" }, "title": "總筆數" },
+                    "page": { "type": "number", "mock": { "mock": "1" }, "title": "當前頁碼" },
+                    "limit": { "type": "number", "mock": { "mock": "10" }, "title": "每頁筆數" },
+                    "totalPages": { "type": "number", "mock": { "mock": "5" }, "title": "總頁數" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["遊戲類"],
+        "summary": "新增-遊戲",
+        "description": "新增遊戲資料（需要驗證）",
+        "security": [{ "bearerAuth": [] }],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "description", "genre", "platform", "price", "releaseDate", "developer", "publisher"],
+              "properties": {
+                "title": { "type": "string", "mock": { "mock": "薩爾達傳說：王國之淚" }, "title": "遊戲名稱" },
+                "description": { "type": "string", "mock": { "mock": "探索廣大的海拉魯大陸" }, "title": "遊戲簡介" },
+                "genre": { "type": "string", "mock": { "mock": "Action-Adventure" }, "title": "遊戲類型" },
+                "platform": { "type": "array", "items": { "type": "string" }, "mock": { "mock": ["Nintendo Switch"] }, "title": "支援平台" },
+                "rating": { "type": "number", "mock": { "mock": "9.8" }, "title": "評分" },
+                "price": { "type": "number", "mock": { "mock": "1799" }, "title": "售價" },
+                "releaseDate": { "type": "string", "mock": { "mock": "2023-05-12T00:00:00.000Z" }, "title": "發售日期" },
+                "developer": { "type": "string", "mock": { "mock": "Nintendo EPD" }, "title": "開發商" },
+                "publisher": { "type": "string", "mock": { "mock": "Nintendo" }, "title": "發行商" },
+                "imageUrl": { "type": "string", "mock": { "mock": "https://example.com/game.jpg" }, "title": "封面圖片URL" },
+                "tags": { "type": "array", "items": { "type": "string" }, "title": "標籤" },
+                "isActive": { "type": "boolean", "mock": { "mock": true }, "title": "上架狀態" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "新增成功", "schema": { "type": "object", "properties": { "code": { "type": "number" }, "msg": { "type": "string" }, "data": { "type": "object" } } } }
+        }
+      }
+    },
+    "/v1/api/games/{gameId}": {
+      "get": {
+        "tags": ["遊戲類"],
+        "summary": "獲取-遊戲詳情",
+        "parameters": [{ "name": "gameId", "in": "path", "required": true, "type": "string", "description": "遊戲唯一識別碼" }],
+        "responses": { "200": { "description": "成功" }, "404": { "description": "遊戲不存在" } }
+      },
+      "put": {
+        "tags": ["遊戲類"],
+        "summary": "更新-遊戲資訊",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "gameId", "in": "path", "required": true, "type": "string" },
+          { "name": "body", "in": "body", "schema": { "type": "object", "properties": { "title": { "type": "string" }, "price": { "type": "number" }, "isActive": { "type": "boolean" } } } }
+        ],
+        "responses": { "200": { "description": "更新成功" }, "404": { "description": "遊戲不存在" } }
+      },
+      "delete": {
+        "tags": ["遊戲類"],
+        "summary": "刪除-遊戲",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "gameId", "in": "path", "required": true, "type": "string" }],
+        "responses": { "200": { "description": "刪除成功" }, "404": { "description": "遊戲不存在" } }
+      }
+    },
+    "/v1/api/books": {
+      "get": {
+        "tags": ["書籍類"],
+        "summary": "獲取-書籍列表",
+        "description": "取得書籍列表，支援分頁、類型篩選、庫存篩選與關鍵字搜尋",
+        "parameters": [
+          { "name": "page", "in": "query", "type": "integer", "default": 1 },
+          { "name": "limit", "in": "query", "type": "integer", "default": 10 },
+          { "name": "genre", "in": "query", "type": "string", "description": "書籍類型篩選" },
+          { "name": "keyword", "in": "query", "type": "string", "description": "關鍵字搜尋（書名/作者）" },
+          { "name": "inStock", "in": "query", "type": "boolean", "description": "是否只顯示有庫存" }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "title": "書籍列表",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "bookId": { "type": "string", "mock": { "mock": "@guid" }, "title": "書籍ID" },
+                          "title": { "type": "string", "mock": { "mock": "三體" }, "title": "書名" },
+                          "author": { "type": "string", "mock": { "mock": "劉慈欣" }, "title": "作者" },
+                          "isbn": { "type": "string", "mock": { "mock": "9789571375700" }, "title": "ISBN" },
+                          "description": { "type": "string", "mock": { "mock": "中國科幻小說的巔峰之作" }, "title": "書籍簡介" },
+                          "genre": { "type": "string", "mock": { "mock": "科幻" }, "title": "書籍類型" },
+                          "price": { "type": "string", "mock": { "mock": "380.00" }, "title": "定價", "description": "TWD" },
+                          "publishDate": { "type": "string", "mock": { "mock": "2008-05-01T00:00:00.000Z" }, "title": "出版日期" },
+                          "publisher": { "type": "string", "mock": { "mock": "大田出版" }, "title": "出版社" },
+                          "totalPages": { "type": "number", "mock": { "mock": "@natural(50,800)" }, "title": "總頁數" },
+                          "language": { "type": "string", "mock": { "mock": "zh-TW" }, "title": "語言" },
+                          "coverUrl": { "type": "string", "mock": { "mock": "https://example.com/cover.jpg" }, "title": "封面圖片" },
+                          "rating": { "type": "string", "mock": { "mock": "9.5" }, "title": "評分" },
+                          "inStock": { "type": "boolean", "mock": { "mock": true }, "title": "庫存狀態" },
+                          "createdAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "建立時間" },
+                          "updatedAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "更新時間" }
+                        }
+                      }
+                    },
+                    "total": { "type": "number", "mock": { "mock": "@natural(1,50)" }, "title": "總筆數" },
+                    "page": { "type": "number", "mock": { "mock": "1" }, "title": "當前頁碼" },
+                    "limit": { "type": "number", "mock": { "mock": "10" }, "title": "每頁筆數" },
+                    "totalPages": { "type": "number", "mock": { "mock": "3" }, "title": "總頁數" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["書籍類"],
+        "summary": "新增-書籍",
+        "security": [{ "bearerAuth": [] }],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "isbn", "description", "genre", "price", "publishDate", "publisher", "totalPages"],
+              "properties": {
+                "title": { "type": "string", "mock": { "mock": "三體" }, "title": "書名" },
+                "author": { "type": "string", "mock": { "mock": "劉慈欣" }, "title": "作者" },
+                "isbn": { "type": "string", "mock": { "mock": "9789571375700" }, "title": "ISBN" },
+                "description": { "type": "string", "mock": { "mock": "中國科幻小說" }, "title": "書籍簡介" },
+                "genre": { "type": "string", "mock": { "mock": "科幻" }, "title": "類型" },
+                "price": { "type": "number", "mock": { "mock": "380" }, "title": "定價" },
+                "publishDate": { "type": "string", "mock": { "mock": "2008-05-01T00:00:00.000Z" }, "title": "出版日期" },
+                "publisher": { "type": "string", "mock": { "mock": "大田出版" }, "title": "出版社" },
+                "totalPages": { "type": "integer", "mock": { "mock": "400" }, "title": "總頁數" },
+                "language": { "type": "string", "mock": { "mock": "zh-TW" }, "title": "語言" },
+                "coverUrl": { "type": "string", "title": "封面URL" },
+                "rating": { "type": "number", "mock": { "mock": "9.5" }, "title": "評分" },
+                "inStock": { "type": "boolean", "mock": { "mock": true }, "title": "庫存狀態" }
+              }
+            }
+          }
+        ],
+        "responses": { "200": { "description": "新增成功" } }
+      }
+    },
+    "/v1/api/books/{bookId}": {
+      "get": { "tags": ["書籍類"], "summary": "獲取-書籍詳情", "parameters": [{ "name": "bookId", "in": "path", "required": true, "type": "string" }], "responses": { "200": { "description": "成功" }, "404": { "description": "書籍不存在" } } },
+      "put": { "tags": ["書籍類"], "summary": "更新-書籍資訊", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "bookId", "in": "path", "required": true, "type": "string" }, { "name": "body", "in": "body", "schema": { "type": "object" } }], "responses": { "200": { "description": "更新成功" } } },
+      "delete": { "tags": ["書籍類"], "summary": "刪除-書籍", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "bookId", "in": "path", "required": true, "type": "string" }], "responses": { "200": { "description": "刪除成功" } } }
+    },
+    "/v1/api/member-levels": {
+      "get": {
+        "tags": ["會員等級類"],
+        "summary": "獲取-會員等級列表",
+        "description": "取得所有會員等級，依 levelId 升序排列",
+        "parameters": [
+          { "name": "page", "in": "query", "type": "integer", "default": 1 },
+          { "name": "limit", "in": "query", "type": "integer", "default": 20 }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "title": "等級列表",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "levelId": { "type": "number", "mock": { "mock": "@natural(1,10)" }, "title": "等級編號", "description": "由小到大代表等級由低到高" },
+                          "name": { "type": "string", "mock": { "mock": "黃金會員" }, "title": "等級名稱" },
+                          "minPoints": { "type": "number", "mock": { "mock": "@natural(0,10000)" }, "title": "最低點數", "description": "達到此等級的最低點數門檻" },
+                          "maxPoints": { "type": "number", "mock": { "mock": "@natural(10000,99999)" }, "title": "最高點數" },
+                          "discount": { "type": "string", "mock": { "mock": "0.85" }, "title": "折扣率", "description": "1.00=無折扣，0.85=85折" },
+                          "benefits": { "type": "array", "items": { "type": "string", "mock": { "mock": "生日禮券" } }, "title": "會員福利" },
+                          "badgeUrl": { "type": "string", "mock": { "mock": "https://example.com/badge.png" }, "title": "等級徽章URL" },
+                          "createdAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "建立時間" },
+                          "updatedAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "更新時間" }
+                        }
+                      }
+                    },
+                    "total": { "type": "number", "mock": { "mock": "@natural(1,10)" }, "title": "總筆數" },
+                    "page": { "type": "number", "mock": { "mock": "1" }, "title": "當前頁碼" },
+                    "limit": { "type": "number", "mock": { "mock": "20" }, "title": "每頁筆數" },
+                    "totalPages": { "type": "number", "mock": { "mock": "1" }, "title": "總頁數" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["會員等級類"],
+        "summary": "新增-會員等級",
+        "security": [{ "bearerAuth": [] }],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["levelId", "name", "minPoints", "maxPoints"],
+              "properties": {
+                "levelId": { "type": "integer", "mock": { "mock": "1" }, "title": "等級編號" },
+                "name": { "type": "string", "mock": { "mock": "普通會員" }, "title": "等級名稱" },
+                "minPoints": { "type": "integer", "mock": { "mock": "0" }, "title": "最低點數" },
+                "maxPoints": { "type": "integer", "mock": { "mock": "999" }, "title": "最高點數" },
+                "discount": { "type": "number", "mock": { "mock": "1.00" }, "title": "折扣率" },
+                "benefits": { "type": "array", "items": { "type": "string" }, "title": "會員福利" },
+                "badgeUrl": { "type": "string", "title": "徽章URL" }
+              }
+            }
+          }
+        ],
+        "responses": { "200": { "description": "新增成功" } }
+      }
+    },
+    "/v1/api/member-levels/{levelId}": {
+      "get": { "tags": ["會員等級類"], "summary": "獲取-會員等級詳情", "parameters": [{ "name": "levelId", "in": "path", "required": true, "type": "integer" }], "responses": { "200": { "description": "成功" }, "404": { "description": "等級不存在" } } },
+      "put": { "tags": ["會員等級類"], "summary": "更新-會員等級", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "levelId", "in": "path", "required": true, "type": "integer" }, { "name": "body", "in": "body", "schema": { "type": "object" } }], "responses": { "200": { "description": "更新成功" } } },
+      "delete": { "tags": ["會員等級類"], "summary": "刪除-會員等級", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "levelId", "in": "path", "required": true, "type": "integer" }], "responses": { "200": { "description": "刪除成功" } } }
+    },
+    "/v1/api/stock/{symbol}": {
+      "get": {
+        "tags": ["股票類"],
+        "summary": "獲取-股票即時行情",
+        "description": "代理 Yahoo Finance API 取得台灣/全球股票即時報價與歷史圖表資料。台股格式：0050.TW；美股格式：AAPL",
+        "parameters": [
+          { "name": "symbol", "in": "path", "required": true, "type": "string", "description": "股票代號，台股加 .TW 後綴" },
+          { "name": "range", "in": "query", "type": "string", "default": "1d", "description": "時間範圍：1d, 5d, 1mo, 3mo, 6mo, 1y, 5y" },
+          { "name": "interval", "in": "query", "type": "string", "default": "5m", "description": "資料間隔：1m, 5m, 15m, 1h, 1d" }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "symbol": { "type": "string", "mock": { "mock": "0050.TW" }, "title": "股票代號" },
+                    "longName": { "type": "string", "mock": { "mock": "元大台灣50" }, "title": "股票全名" },
+                    "currency": { "type": "string", "mock": { "mock": "TWD" }, "title": "貨幣單位" },
+                    "exchangeName": { "type": "string", "mock": { "mock": "TAI" }, "title": "交易所" },
+                    "price": { "type": "number", "mock": { "mock": "@float(50,500,0,2)" }, "title": "當前價格", "description": "最新成交價" },
+                    "previousClose": { "type": "number", "mock": { "mock": "@float(50,500,0,2)" }, "title": "昨日收盤價" },
+                    "open": { "type": "number", "mock": { "mock": "@float(50,500,0,2)" }, "title": "今日開盤價" },
+                    "dayHigh": { "type": "number", "mock": { "mock": "@float(50,500,0,2)" }, "title": "今日最高價" },
+                    "dayLow": { "type": "number", "mock": { "mock": "@float(50,500,0,2)" }, "title": "今日最低價" },
+                    "volume": { "type": "number", "mock": { "mock": "@natural(100000,9999999)" }, "title": "成交量" },
+                    "timestamps": {
+                      "type": "array",
+                      "items": { "type": "number", "mock": { "mock": "@natural(1700000000,1800000000)" } },
+                      "title": "時間戳列表",
+                      "description": "Unix 時間戳陣列"
+                    },
+                    "prices": {
+                      "type": "array",
+                      "items": { "type": "number", "mock": { "mock": "@float(50,500,0,2)" } },
+                      "title": "價格列表",
+                      "description": "對應 timestamps 的收盤價陣列"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": { "description": "Yahoo Finance 返回錯誤或股票代號不存在" }
+        }
+      }
+    },
+    "/v1/api/concerts": {
+      "get": {
+        "tags": ["演唱會類"],
+        "summary": "獲取-演唱會列表",
+        "description": "取得演唱會列表，支援分頁、狀態篩選與關鍵字搜尋",
+        "parameters": [
+          { "name": "page", "in": "query", "type": "integer", "default": 1 },
+          { "name": "limit", "in": "query", "type": "integer", "default": 10 },
+          { "name": "status", "in": "query", "type": "string", "description": "狀態：upcoming, onsale, soldout, ended" },
+          { "name": "keyword", "in": "query", "type": "string", "description": "關鍵字搜尋（名稱/藝人）" }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "number", "mock": { "mock": "200" }, "title": "商業邏輯驗證碼" },
+                "msg": { "type": "string", "mock": { "mock": "OK" }, "title": "API 訊息" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "title": "演唱會列表",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "concertId": { "type": "string", "mock": { "mock": "@guid" }, "title": "演唱會ID" },
+                          "title": { "type": "string", "mock": { "mock": "Jay Chou 魔天倫世界巡迴演唱會" }, "title": "演唱會名稱" },
+                          "artist": { "type": "string", "mock": { "mock": "周杰倫" }, "title": "表演者" },
+                          "venue": {
+                            "type": "object",
+                            "title": "場館資訊",
+                            "properties": {
+                              "name": { "type": "string", "mock": { "mock": "台北小巨蛋" }, "title": "場館名稱" },
+                              "address": { "type": "string", "mock": { "mock": "台北市松山區南京東路四段2號" }, "title": "地址" },
+                              "city": { "type": "string", "mock": { "mock": "台北市" }, "title": "城市" },
+                              "capacity": { "type": "number", "mock": { "mock": "@natural(1000,100000)" }, "title": "容納人數" }
+                            }
+                          },
+                          "organizer": { "type": "string", "mock": { "mock": "相信音樂" }, "title": "主辦單位" },
+                          "performanceDate": { "type": "string", "mock": { "mock": "2024-08-15T19:00:00.000Z" }, "title": "演出時間" },
+                          "saleStartDate": { "type": "string", "mock": { "mock": "2024-06-01T10:00:00.000Z" }, "title": "售票開始時間" },
+                          "saleEndDate": { "type": "string", "mock": { "mock": "2024-08-14T23:59:59.000Z" }, "title": "售票截止時間" },
+                          "description": { "type": "string", "mock": { "mock": "周杰倫最新世界巡迴演唱會" }, "title": "演唱會說明" },
+                          "imageUrl": { "type": "string", "mock": { "mock": "https://example.com/concert.jpg" }, "title": "海報圖片" },
+                          "tickets": {
+                            "type": "array",
+                            "title": "票券列表",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string", "mock": { "mock": "VIP" }, "title": "票種代碼" },
+                                "name": { "type": "string", "mock": { "mock": "VIP 座位" }, "title": "票種名稱" },
+                                "price": { "type": "string", "mock": { "mock": "6800" }, "title": "票價", "description": "TWD" },
+                                "quantity": { "type": "number", "mock": { "mock": "@natural(100,5000)" }, "title": "總數量" },
+                                "available": { "type": "number", "mock": { "mock": "@natural(0,5000)" }, "title": "剩餘數量" }
+                              }
+                            }
+                          },
+                          "status": { "type": "string", "mock": { "mock": "upcoming" }, "title": "演唱會狀態", "description": "upcoming/onsale/soldout/ended" },
+                          "createdAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "建立時間" },
+                          "updatedAt": { "type": "string", "mock": { "mock": "2024-01-01T00:00:00.000Z" }, "title": "更新時間" }
+                        }
+                      }
+                    },
+                    "total": { "type": "number", "mock": { "mock": "@natural(1,50)" }, "title": "總筆數" },
+                    "page": { "type": "number", "mock": { "mock": "1" }, "title": "當前頁碼" },
+                    "limit": { "type": "number", "mock": { "mock": "10" }, "title": "每頁筆數" },
+                    "totalPages": { "type": "number", "mock": { "mock": "3" }, "title": "總頁數" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["演唱會類"],
+        "summary": "新增-演唱會",
+        "security": [{ "bearerAuth": [] }],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "artist", "venue", "organizer", "performanceDate", "saleStartDate", "saleEndDate", "description", "tickets"],
+              "properties": {
+                "title": { "type": "string", "mock": { "mock": "Jay Chou 魔天倫世界巡迴演唱會" }, "title": "演唱會名稱" },
+                "artist": { "type": "string", "mock": { "mock": "周杰倫" }, "title": "表演者" },
+                "venue": { "type": "object", "title": "場館資訊", "properties": { "name": { "type": "string" }, "address": { "type": "string" }, "city": { "type": "string" }, "capacity": { "type": "number" } } },
+                "organizer": { "type": "string", "mock": { "mock": "相信音樂" }, "title": "主辦單位" },
+                "performanceDate": { "type": "string", "mock": { "mock": "2024-08-15T19:00:00.000Z" }, "title": "演出時間" },
+                "saleStartDate": { "type": "string", "mock": { "mock": "2024-06-01T10:00:00.000Z" }, "title": "售票開始時間" },
+                "saleEndDate": { "type": "string", "mock": { "mock": "2024-08-14T23:59:59.000Z" }, "title": "售票截止時間" },
+                "description": { "type": "string", "title": "演唱會說明" },
+                "imageUrl": { "type": "string", "title": "海報URL" },
+                "tickets": { "type": "array", "items": { "type": "object" }, "title": "票券列表" },
+                "status": { "type": "string", "mock": { "mock": "upcoming" }, "title": "狀態" }
+              }
+            }
+          }
+        ],
+        "responses": { "200": { "description": "新增成功" } }
+      }
+    },
+    "/v1/api/concerts/{concertId}": {
+      "get": { "tags": ["演唱會類"], "summary": "獲取-演唱會詳情", "parameters": [{ "name": "concertId", "in": "path", "required": true, "type": "string" }], "responses": { "200": { "description": "成功" }, "404": { "description": "演唱會不存在" } } },
+      "put": { "tags": ["演唱會類"], "summary": "更新-演唱會資訊", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "concertId", "in": "path", "required": true, "type": "string" }, { "name": "body", "in": "body", "schema": { "type": "object" } }], "responses": { "200": { "description": "更新成功" } } },
+      "delete": { "tags": ["演唱會類"], "summary": "刪除-演唱會", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "concertId", "in": "path", "required": true, "type": "string" }], "responses": { "200": { "description": "刪除成功" } } }
     }
   }
 }

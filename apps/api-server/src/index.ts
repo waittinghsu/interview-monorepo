@@ -3,9 +3,17 @@ import Fastify from 'fastify'
 import { jwtPlugin } from './plugins/jwt.js'
 import { swaggerPlugin } from './plugins/swagger.js'
 import { authRoutes } from './routes/auth.js'
+import { bookRoutes } from './routes/book.js'
+import { concertRoutes } from './routes/concert.js'
+import { gameRoutes } from './routes/game.js'
+import { memberLevelRoutes } from './routes/memberLevel.js'
+import { stockRoutes } from './routes/stock.js'
 import { userRoutes } from './routes/user.js'
 
-const app = Fastify({ logger: true })
+const app = Fastify({
+  logger: true,
+  ajv: { customOptions: { strict: false } },
+})
 
 async function bootstrap() {
   // CORS
@@ -23,6 +31,11 @@ async function bootstrap() {
   // Routes
   await app.register(authRoutes)
   await app.register(userRoutes)
+  await app.register(gameRoutes)
+  await app.register(bookRoutes)
+  await app.register(memberLevelRoutes)
+  await app.register(stockRoutes)
+  await app.register(concertRoutes)
 
   // Health check
   app.get('/health', async () => ({ status: 'ok' }))
