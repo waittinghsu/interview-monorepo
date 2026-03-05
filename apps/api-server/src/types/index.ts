@@ -9,3 +9,26 @@ export interface ApiResponse<T = unknown> {
   msg: string
   data: T
 }
+
+export interface PaginatedData<T> {
+  list: T[]
+  total: number
+  page: number
+  limit: number
+  totalPages: number
+}
+
+export interface VenueData {
+  name: string
+  address: string
+  city: string
+  capacity: number
+}
+
+export interface TicketData {
+  type: string
+  name: string
+  price: string
+  quantity: number
+  available: number
+}

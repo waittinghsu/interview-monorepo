@@ -23,3 +23,73 @@ model User {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
+
+model Game {
+  id          Int      @id @default(autoincrement())
+  gameId      String   @unique @default(cuid())
+  title       String
+  description String
+  genre       String
+  platform    String[]
+  rating      Decimal  @default(0) @db.Decimal(4, 1)
+  price       Decimal  @db.Decimal(10, 2)
+  releaseDate DateTime
+  developer   String
+  publisher   String
+  imageUrl    String   @default("")
+  tags        String[]
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Book {
+  id          Int      @id @default(autoincrement())
+  bookId      String   @unique @default(cuid())
+  title       String
+  author      String
+  isbn        String   @unique
+  description String
+  genre       String
+  price       Decimal  @db.Decimal(10, 2)
+  publishDate DateTime
+  publisher   String
+  totalPages  Int
+  language    String   @default("zh-TW")
+  coverUrl    String   @default("")
+  rating      Decimal  @default(0) @db.Decimal(3, 1)
+  inStock     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MemberLevel {
+  id        Int      @id @default(autoincrement())
+  levelId   Int      @unique
+  name      String
+  minPoints Int
+  maxPoints Int
+  discount  Decimal  @default(1.00) @db.Decimal(4, 2)
+  benefits  String[]
+  badgeUrl  String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Concert {
+  id              Int      @id @default(autoincrement())
+  concertId       String   @unique @default(cuid())
+  title           String
+  artist          String
+  venue           Json
+  organizer       String
+  performanceDate DateTime
+  saleStartDate   DateTime
+  saleEndDate     DateTime
+  description     String
+  imageUrl        String   @default("")
+  tickets         Json
+  status          String   @default("upcoming")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
