@@ -79,8 +79,7 @@ export async function stockRoutes(app: FastifyInstance) {
 
     const trimmedSymbol = symbol.trim()
     if (!trimmedSymbol) {
-      reply.status(400)
-      return { code: 400, msg: '股票代號不得為空', data: null }
+      return (reply as any).status(400).send({ code: 400, msg: '股票代號不得為空', data: null })
     }
 
     const url = `${YAHOO_FINANCE_BASE}/${encodeURIComponent(trimmedSymbol)}?range=${range}&interval=${interval}&includePrePost=false`
@@ -94,8 +93,7 @@ export async function stockRoutes(app: FastifyInstance) {
       })
 
       if (!response.ok) {
-        reply.status(502)
-        return { code: 502, msg: `Yahoo Finance 返回錯誤：HTTP ${response.status}`, data: null }
+        return (reply as any).status(502).send({ code: 502, msg: `Yahoo Finance 返回錯誤：HTTP ${response.status}`, data: null})
       }
 
       const json: any = await response.json()
@@ -103,8 +101,7 @@ export async function stockRoutes(app: FastifyInstance) {
 
       if (!result || result.length === 0) {
         const error = json?.chart?.error
-        reply.status(502)
-        return { code: 502, msg: error?.description ?? `找不到股票代號：${trimmedSymbol}`, data: null }
+        return (reply as any).status(502).send({ code: 502, msg: error?.description ?? `找不到股票代號：${trimmedSymbol}`, data: null})
       }
 
       const meta = result[0].meta
@@ -132,8 +129,7 @@ export async function stockRoutes(app: FastifyInstance) {
     }
     catch (err) {
       app.log.error(err, 'Stock proxy error')
-      reply.status(502)
-      return { code: 502, msg: '無法連接 Yahoo Finance', data: null }
+      return (reply as any).status(502).send({ code: 502, msg: '無法連接 Yahoo Finance', data: null})
     }
   })
 }

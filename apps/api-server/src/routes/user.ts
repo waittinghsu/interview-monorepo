@@ -76,8 +76,7 @@ export async function userRoutes(app: FastifyInstance) {
 
     const user = await prisma.user.findUnique({ where: { memberId: payload.memberId } })
     if (!user) {
-      reply.status(404)
-      return { code: 404, msg: '用戶不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '用戶不存在', data: null })
     }
 
     // Re-sign token (refresh)

@@ -202,8 +202,7 @@ export async function bookRoutes(app: FastifyInstance) {
     const { bookId } = request.params as { bookId: string }
     const book = await prisma.book.findUnique({ where: { bookId } })
     if (!book) {
-      reply.status(404)
-      return { code: 404, msg: '書籍不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '書籍不存在', data: null })
     }
     return { code: 200, msg: 'OK', data: formatBook(book) }
   })
@@ -254,8 +253,7 @@ export async function bookRoutes(app: FastifyInstance) {
 
     const existing = await prisma.book.findUnique({ where: { bookId } })
     if (!existing) {
-      reply.status(404)
-      return { code: 404, msg: '書籍不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '書籍不存在', data: null })
     }
 
     const updateData: any = {}
@@ -304,8 +302,7 @@ export async function bookRoutes(app: FastifyInstance) {
 
     const existing = await prisma.book.findUnique({ where: { bookId } })
     if (!existing) {
-      reply.status(404)
-      return { code: 404, msg: '書籍不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '書籍不存在', data: null })
     }
 
     await prisma.book.delete({ where: { bookId } })

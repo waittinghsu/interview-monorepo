@@ -157,8 +157,7 @@ export async function memberLevelRoutes(app: FastifyInstance) {
     const { levelId } = request.params as { levelId: number }
     const level = await prisma.memberLevel.findUnique({ where: { levelId: Number(levelId) } })
     if (!level) {
-      reply.status(404)
-      return { code: 404, msg: '會員等級不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '會員等級不存在', data: null })
     }
     return { code: 200, msg: 'OK', data: formatMemberLevel(level) }
   })
@@ -202,8 +201,7 @@ export async function memberLevelRoutes(app: FastifyInstance) {
 
     const existing = await prisma.memberLevel.findUnique({ where: { levelId: Number(levelId) } })
     if (!existing) {
-      reply.status(404)
-      return { code: 404, msg: '會員等級不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '會員等級不存在', data: null })
     }
 
     const updateData: any = {}
@@ -248,8 +246,7 @@ export async function memberLevelRoutes(app: FastifyInstance) {
 
     const existing = await prisma.memberLevel.findUnique({ where: { levelId: Number(levelId) } })
     if (!existing) {
-      reply.status(404)
-      return { code: 404, msg: '會員等級不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '會員等級不存在', data: null })
     }
 
     await prisma.memberLevel.delete({ where: { levelId: Number(levelId) } })
