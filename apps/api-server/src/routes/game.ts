@@ -195,8 +195,7 @@ export async function gameRoutes(app: FastifyInstance) {
     const { gameId } = request.params as { gameId: string }
     const game = await prisma.game.findUnique({ where: { gameId } })
     if (!game) {
-      reply.status(404)
-      return { code: 404, msg: '遊戲不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '遊戲不存在', data: null })
     }
     return { code: 200, msg: 'OK', data: formatGame(game) }
   })
@@ -246,8 +245,7 @@ export async function gameRoutes(app: FastifyInstance) {
 
     const existing = await prisma.game.findUnique({ where: { gameId } })
     if (!existing) {
-      reply.status(404)
-      return { code: 404, msg: '遊戲不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '遊戲不存在', data: null })
     }
 
     const updateData: any = {}
@@ -295,8 +293,7 @@ export async function gameRoutes(app: FastifyInstance) {
 
     const existing = await prisma.game.findUnique({ where: { gameId } })
     if (!existing) {
-      reply.status(404)
-      return { code: 404, msg: '遊戲不存在', data: null }
+      return (reply as any).status(404).send({ code: 404, msg: '遊戲不存在', data: null })
     }
 
     await prisma.game.delete({ where: { gameId } })

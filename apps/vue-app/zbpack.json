@@ -1,0 +1,4 @@
+{
+  "build_command": "pnpm --filter=@interview/vue-app build",
+  "output_dir": "apps/vue-app/dist"
+}
