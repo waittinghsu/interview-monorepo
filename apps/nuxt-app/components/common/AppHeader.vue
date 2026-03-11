@@ -90,5 +90,7 @@ function goToLogin() {
         </template>
       </div>
     </q-toolbar>
+
+    <ScrollProgressBar />
   </q-header>
 </template>
