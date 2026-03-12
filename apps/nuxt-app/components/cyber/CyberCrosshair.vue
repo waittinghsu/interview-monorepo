@@ -81,7 +81,7 @@ watch(() => props.locked, (isLocked) => {
         scale: 1,
         duration: 0.2,
         transformOrigin: 'center center',
-        onComplete: () => dotTween?.play(),
+        onComplete: () => { dotTween?.play() },
       })
     }
   }

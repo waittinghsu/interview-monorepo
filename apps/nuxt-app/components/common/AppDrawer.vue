@@ -33,6 +33,7 @@ const navigationItems: NavigationItem[] = [
   { id: 11, label: '座位距離', icon: 'i-mdi-grid', route: '/seat-grid' },
   { id: 12, label: '陣列旋轉', icon: 'i-mdi-rotate-right', route: '/seat-rotate' },
   { id: 13, label: 'AI Social', icon: 'i-mdi-view-dashboard', route: '/dashboard' },
+  { id: 14, label: 'Cyber 元件', icon: 'i-mdi-orbit', route: '/cyber-components' },
 ]
 </script>
 
