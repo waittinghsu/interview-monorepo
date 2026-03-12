@@ -69,6 +69,18 @@ const app = Fastify({
 preHandler: [(app as any).authenticate]
 ```
 
+## 新增 / 修改 API 後必做
+
+每次新增或修改路由後，**必須更新 `shared/api-spec.md`**，前端 session 依賴此文件串接 API：
+
+```bash
+# 確認 api-server 在跑（port 3001）
+# 然後呼叫 api-agent：
+Task: api-agent — 更新 API spec（Swagger URL: http://localhost:3001/docs/json）
+```
+
+> `shared/api-spec.md` 是前端開發的唯一參考來源，不需要讀 swagger.json 或 api-server 程式碼。
+
 ## 資料庫指令
 
 ```bash
