@@ -1,0 +1,30 @@
+{
+  "name": "@interview/smartauto-nuxt-app",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "rm -rf .nuxt .output node_modules"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.5",
+    "@vueuse/nuxt": "^12.4.0",
+    "nuxt": "^3.15.1",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.0.0",
+    "@unocss/nuxt": "^66.6.0",
+    "eslint": "^9.18.0",
+    "typescript": "^5.7.3",
+    "vue-tsc": "^2.2.0"
+  }
+}
