@@ -4,6 +4,7 @@
   "scripts": {
     "dev:vue": "turbo run dev --filter=@interview/vue-app",
     "dev:nuxt": "turbo run dev --filter=@interview/nuxt-app",
+    "dev:smartauto": "turbo run dev --filter=@interview/smartauto-nuxt-app",
     "dev": "turbo run dev",
     "build": "turbo run build",
     "build:vue": "turbo run build --filter=...@interview/vue-app",

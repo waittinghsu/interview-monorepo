@@ -68,7 +68,7 @@ export default defineConfig({
   },
   server: {
     port: 9527,
-    open: true, // 不自動開啟瀏覽器
+    open: false, // 不自動開啟瀏覽器
   },
   build: {
     // 生產環境保留 console（使用 esbuild）

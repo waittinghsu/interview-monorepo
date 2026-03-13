@@ -1,81 +1,41 @@
 <script setup>
-const userStore = useUserStore()
-const themeStore = useThemeStore()
 const router = useRouter()
+const route = useRoute()
 
-const menuItems = [
-  { label: '首頁', to: '/' },
-  { label: '關於', to: '/about' },
-  { label: 'Dashboard', to: '/dashboard' },
-  { label: 'SeatGrid', to: '/seat-grid' },
-  { label: 'SeatRotate', to: '/seat-rotate' },
-  { label: '猜數字', to: '/number-guess' },
-  { label: 'API 測試', to: '/api-test' },
-]
-
-async function handleLogout() {
-  await userStore.logout()
-  router.push('/')
-}
-
-function onThemeChange(value) {
-  themeStore.setTheme(value)
-}
+const isHome = computed(() => route.name === 'Home')
 </script>
 
 <template>
-  <q-header elevated class="bg-sys-card">
-    <q-toolbar>
-      <q-btn flat dense round icon="menu" aria-label="Menu">
-        <q-menu class="bg-sys-card">
-          <q-list style="min-width: 150px" class="bg-sys-card text-textBase">
-            <q-item
-              v-for="item in menuItems"
-              :key="item.to"
-              v-close-popup
-              clickable
-              :to="item.to"
-              class="text-textBase hover:text-primary"
-            >
-              <q-item-section>{{ item.label }}</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-btn>
+  <q-header elevated class="bg-sys-card border-b border-sys-border">
+    <q-toolbar class="min-h-[52px] px-3">
+      <!-- Back button（非首頁才顯示） -->
+      <q-btn
+        v-if="!isHome"
+        flat
+        round
+        dense
+        icon="arrow_back_ios"
+        class="text-textSecondary mr-1"
+        @click="router.back()"
+      />
 
-      <q-toolbar-title>
-        <router-link :to="{ name: 'Home' }" class="text-primary-400 no-underline">
-          Interview Vue
-        </router-link>
-      </q-toolbar-title>
+      <!-- Logo -->
+      <router-link :to="{ name: 'Home' }" class="no-underline flex items-center gap-1.5">
+        <q-icon name="music_note" size="1.4rem" class="text-primary" />
+        <span class="text-textBase font-bold text-base tracking-wide">K-Pop</span>
+        <span class="text-primary font-bold text-base">Hub</span>
+      </router-link>
 
       <q-space />
 
-      <!-- 主題切換 -->
-      <q-select
-        :model-value="themeStore.currentThemeName"
-        :options="themeStore.themeOptions"
+      <!-- 搜尋按鈕（預留） -->
+      <q-btn
+        flat
+        round
         dense
-        outlined
-        emit-value
-        map-options
-        dark
-        class="mr-4"
-        style="min-width: 120px"
-        @update:model-value="onThemeChange"
-      >
-        <template #prepend>
-          <q-icon name="palette" size="xs" />
-        </template>
-      </q-select>
-
-      <template v-if="userStore.isLoggedIn">
-        <span class="mr-4">{{ userStore.user?.name }}</span>
-        <q-btn flat label="登出" @click="handleLogout" />
-      </template>
-      <template v-else>
-        <q-btn flat label="登入" to="/login" />
-      </template>
+        icon="search"
+        class="text-textSecondary"
+      />
     </q-toolbar>
   </q-header>
 </template>
