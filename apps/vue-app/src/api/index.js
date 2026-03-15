@@ -1,7 +1,6 @@
 import { createHttpClient } from '@interview/shared-api'
 import { loadingBus } from './loading.js'
 import { createStockService } from './services/stock.js'
-import { createUserService } from './services/user.js'
 
 // ─────────────────────────────────────────────
 // Mock 配置
@@ -55,8 +54,7 @@ const loadingCallbacks = {
 // ─────────────────────────────────────────────
 const errorCallbacks = {
   onUnauthorized: () => {
-    localStorage.removeItem('token')
-    window.location.href = '/login'
+    window.location.href = '/'
   },
   onForbidden: (res) => {
     console.warn('[API] 403 Forbidden:', res?.config?.url)
@@ -186,7 +184,6 @@ const stockHttpClient = createHttpClient({
 // 預設使用真實後端，可透過以下方式切換 YAPI mock：
 //   1. 全站切換：設定 VITE_USE_YAPI_MOCK=true（緊急開關）
 //   2. 單一 API：userApi.login(creds, { useYApiMock: true })
-export const userApi = createUserService(httpClient)
 export const stockApi = createStockService(stockHttpClient)
 
 // 供需要直接使用的場景

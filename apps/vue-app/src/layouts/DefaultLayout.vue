@@ -1,7 +1,5 @@
 <script setup>
-// Layout 包含共用的頁面結構：Header + Container + Footer
-const { isLoading, pendingCount } = useApiLoading()
-const isDev = import.meta.env.DEV
+const { isLoading } = useApiLoading()
 </script>
 
 <template>
@@ -27,12 +25,5 @@ const isDev = import.meta.env.DEV
 
     <!-- Footer -->
     <AppFooter />
-
-    <!-- Debug: API Loading State (DEV only) -->
-    <div v-if="isDev && pendingCount > 0" class="fixed bottom-4 right-4 z-9999">
-      <q-chip color="primary" text-color="white" icon="hourglass_empty">
-        API Loading: {{ pendingCount }}
-      </q-chip>
-    </div>
   </q-layout>
 </template>
