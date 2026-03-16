@@ -1,4 +1,4 @@
 {
-  "build_command": "pnpm --filter=@interview/smartauto-nuxt-app generate",
-  "start_command": ""
+  "build_command": "pnpm --filter=@interview/smartauto-nuxt-app build",
+  "start_command": "cd /src && node apps/smartauto-nuxt-app/.output/server/index.mjs"
 }
