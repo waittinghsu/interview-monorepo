@@ -1,13 +1,6 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-03-01',
   devtools: { enabled: true },
-  nitro: {
-    preset: 'node-server', // 強制使用 node-server（Zeabur 自動偵測 zeabur preset 有問題）
-    // 確保使用環境變數的端口
-    experimental: {
-      openAPI: false,
-    },
-  },
 
   devServer: {
     port: 3002,

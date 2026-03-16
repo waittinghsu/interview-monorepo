@@ -1,0 +1,4 @@
+{
+  "build_command": "pnpm --filter=@interview/smartauto-nuxt-app generate",
+  "start_command": ""
+}
