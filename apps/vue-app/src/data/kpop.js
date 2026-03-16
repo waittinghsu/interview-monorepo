@@ -55,7 +55,7 @@ export const groups = [
     koreanName: '트와이스',
     debut: '2015-10-20',
     fandomName: 'ONCE',
-    cover: '/images/home/carousel/26_twice.jpg',
+    cover: '/images/kpop/groups/twice.jpg',
     description: '由 JYP Entertainment 於 2015 年組建的九人女子組合，出道即大紅，代表作《Cheer Up》《TT》《LIKEY》《What is Love?》，是 K-pop 第四代偶像浪潮前最具代表性的女團。',
     color: '#ff85c2',
     gradientFrom: '#ff6b9d',
@@ -68,7 +68,7 @@ export const groups = [
     koreanName: '스트레이 키즈',
     debut: '2018-03-25',
     fandomName: 'STAY',
-    cover: '',
+    cover: '/images/kpop/groups/stray-kids.jpg',
     description: '以自製音樂（自製曲）著稱的八人男團，MIROH、God\'s Menu、MIROH 等作品廣受粉絲喜愛，多次登頂 Billboard 200。',
     color: '#7c3aed',
     gradientFrom: '#7c3aed',
@@ -81,7 +81,7 @@ export const groups = [
     koreanName: '있지',
     debut: '2019-02-12',
     fandomName: 'MIDZY',
-    cover: '',
+    cover: '/images/kpop/groups/itzy.jpg',
     description: '以「自我認同」為核心理念的五人女團，出道曲《달라달라》打破多項紀錄，舞蹈實力強勁。',
     color: '#ec4899',
     gradientFrom: '#ec4899',
@@ -94,7 +94,7 @@ export const groups = [
     koreanName: '엔믹스',
     debut: '2022-02-22',
     fandomName: 'NSWER',
-    cover: '',
+    cover: '/images/kpop/groups/nmixx.jpg',
     description: '以融合多種音樂風格的「Mix Pop」概念出道，六人女團，出道曲《O.O》展現強烈個人特色。',
     color: '#06b6d4',
     gradientFrom: '#06b6d4',
@@ -107,7 +107,7 @@ export const groups = [
     koreanName: '데이식스',
     debut: '2015-09-07',
     fandomName: 'My Day',
-    cover: '/images/home/carousel/26_day6.jpg',
+    cover: '/images/kpop/groups/day6.jpg',
     description: '以現場樂器演奏為特色的四人男團，成員親自創作詞曲，代表作《Congratulations》《I Wait》《Shoot Me》。',
     color: '#f59e0b',
     gradientFrom: '#f59e0b',
@@ -120,7 +120,7 @@ export const groups = [
     koreanName: '투피엠',
     debut: '2008-09-04',
     fandomName: 'Hottest',
-    cover: '',
+    cover: '/images/kpop/groups/2pm.jpg',
     description: '以「野獸偶像」聞名的六人男團，以強悍的舞蹈與肌肉形象著稱，代表作《Again & Again》《Heartbeat》《My House》。',
     color: '#64748b',
     gradientFrom: '#374151',
@@ -135,7 +135,7 @@ export const groups = [
     koreanName: '방탄소년단',
     debut: '2013-06-13',
     fandomName: 'ARMY',
-    cover: '',
+    cover: '/images/kpop/groups/bts.jpg',
     description: '全球最具影響力的 K-pop 男團，七人組合，多次登頂 Billboard Hot 100，代表作《Dynamite》《Butter》《Boy With Luv》。目前成員皆已完成兵役，2025 年完整回歸。',
     color: '#7c3aed',
     gradientFrom: '#7c3aed',
@@ -148,7 +148,7 @@ export const groups = [
     koreanName: '세븐틴',
     debut: '2015-05-26',
     fandomName: 'Carat',
-    cover: '',
+    cover: '/images/kpop/groups/seventeen.jpg',
     description: '以自製音樂與強大舞台表演聞名的十三人男團，內部分為表演組、嘻哈組、歌謠組三個子單位，代表作《아주 NICE》《HIT》《Fear》。',
     color: '#2563eb',
     gradientFrom: '#2563eb',
@@ -161,7 +161,7 @@ export const groups = [
     koreanName: '투모로우바이투게더',
     debut: '2019-03-04',
     fandomName: 'MOA',
-    cover: '',
+    cover: '/images/kpop/groups/txt.jpg',
     description: '以「青少年的故事」為主題的五人男團（Big Hit Music），融合 Dream Pop 與 Alternative Rock 元素，代表作《어느 날 머리에서 뿔이 자랐다》《0X1=LOVESONG》。',
     color: '#ec4899',
     gradientFrom: '#ec4899',
@@ -174,7 +174,7 @@ export const groups = [
     koreanName: '엔하이픈',
     debut: '2020-11-30',
     fandomName: 'ENGENE',
-    cover: '',
+    cover: '/images/kpop/groups/enhypen.jpg',
     description: '透過選秀節目 I-Land 誕生的七人男團（BELIFT LAB），以吸血鬼神話世界觀為概念，代表作《Given-Taken》《Bite Me》。',
     color: '#0ea5e9',
     gradientFrom: '#0ea5e9',
@@ -187,7 +187,7 @@ export const groups = [
     koreanName: '르세라핌',
     debut: '2022-05-02',
     fandomName: 'FEARNOT',
-    cover: '',
+    cover: '/images/kpop/groups/le-sserafim.jpg',
     description: '以「我是不怕的人（I\'m fearless）」為理念的五人女團（Source Music），代表作《FEARLESS》《ANTIFRAGILE》《EASY》。',
     color: '#f59e0b',
     gradientFrom: '#f59e0b',
@@ -200,7 +200,7 @@ export const groups = [
     koreanName: '뉴진스',
     debut: '2022-08-01',
     fandomName: 'Bunnies',
-    cover: '',
+    cover: '/images/kpop/groups/newjeans.jpg',
     description: '以清新的 Y2K 美學與獨特的音樂品味席捲 K-pop 界的五人女團（ADOR），代表作《Hype Boy》《Ditto》《OMG》《ETA》。',
     color: '#10b981',
     gradientFrom: '#10b981',
@@ -215,7 +215,7 @@ export const groups = [
     koreanName: '에스파',
     debut: '2020-11-17',
     fandomName: 'MY',
-    cover: '',
+    cover: '/images/kpop/groups/aespa.jpg',
     description: '以「虛擬自我 æ」與 KWANGYA 世界觀為核心的四人女團，融合 K-pop 與科幻概念，代表作《Black Mamba》《Next Level》《Girls》。',
     color: '#8b5cf6',
     gradientFrom: '#8b5cf6',
@@ -228,7 +228,7 @@ export const groups = [
     koreanName: '레드벨벳',
     debut: '2014-08-01',
     fandomName: 'ReVeluv',
-    cover: '',
+    cover: '/images/kpop/groups/red-velvet.jpg',
     description: '以「Red（活潑）」與「Velvet（優雅）」雙重概念著稱的五人女團，代表作《Happiness》《Bad Boy》《Psycho》。',
     color: '#ef4444',
     gradientFrom: '#ef4444',
@@ -241,7 +241,7 @@ export const groups = [
     koreanName: 'NCT 127',
     debut: '2016-07-07',
     fandomName: 'NCTzen',
-    cover: '',
+    cover: '/images/kpop/groups/nct127.webp',
     description: 'NCT 系統下首爾分隊（127 為首爾東經座標），以實驗性音樂風格著稱，代表作《Cherry Bomb》《Regular》《Kick It》。',
     color: '#10b981',
     gradientFrom: '#10b981',
@@ -254,7 +254,7 @@ export const groups = [
     koreanName: '엑소',
     debut: '2012-04-08',
     fandomName: 'EXO-L',
-    cover: '',
+    cover: '/images/kpop/groups/exo.jpg',
     description: '以超能力世界觀為基礎的男團，曾橫掃亞洲各大音樂獎項，代表作《Wolf》《Call Me Baby》《Monster》《Ko Ko Bop》。',
     color: '#64748b',
     gradientFrom: '#475569',
@@ -267,7 +267,7 @@ export const groups = [
     koreanName: '샤이니',
     debut: '2008-05-22',
     fandomName: 'Shawol',
-    cover: '',
+    cover: '/images/kpop/groups/shinee.jpg',
     description: '韓流第二代代表男團，以精湛的舞蹈和實力著稱，代表作《누난 너무 예뻐》《Ring Ding Dong》《Everybody》《View》。',
     color: '#0ea5e9',
     gradientFrom: '#0ea5e9',
@@ -282,7 +282,7 @@ export const groups = [
     koreanName: '블랙핑크',
     debut: '2016-08-08',
     fandomName: 'BLINK',
-    cover: '',
+    cover: '/images/kpop/groups/blackpink.jpg',
     description: '全球知名度最高的 K-pop 女團之一，以霸氣時尚風格著稱，代表作《DDU-DU DDU-DU》《Kill This Love》《How You Like That》《Pink Venom》。',
     color: '#ec4899',
     gradientFrom: '#ec4899',
@@ -295,7 +295,7 @@ export const groups = [
     koreanName: '빅뱅',
     debut: '2006-08-19',
     fandomName: 'VIP',
-    cover: '',
+    cover: '/images/kpop/groups/bigbang.png',
     description: 'K-pop 歷史上最具影響力的男團之一，開創韓流全球化浪潮，代表作《Fantastic Baby》《Bad Boy》《Bang Bang Bang》《Lies》。',
     color: '#f59e0b',
     gradientFrom: '#f59e0b',
@@ -308,7 +308,7 @@ export const groups = [
     koreanName: '트레저',
     debut: '2020-08-07',
     fandomName: 'TREASURE MAKER',
-    cover: '',
+    cover: '/images/kpop/groups/treasure.jpg',
     description: '透過選秀節目 YG Treasure Box 誕生的男團，以青春活力和嘻哈風格為特色，代表作《BOY》《MMM》《JIKJIN》。',
     color: '#ef4444',
     gradientFrom: '#ef4444',
@@ -327,7 +327,7 @@ export const members = [
     birthday: '1995-09-22',
     nationality: '韓國',
     position: ['主唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/nayeon.jpg',
     color: '#ff6b9d',
   },
   {
@@ -339,7 +339,7 @@ export const members = [
     birthday: '1996-09-01',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/jeongyeon.jpg',
     color: '#ff85c2',
   },
   {
@@ -351,7 +351,7 @@ export const members = [
     birthday: '1996-11-09',
     nationality: '日本',
     position: ['主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/momo.jpg',
     color: '#f97316',
   },
   {
@@ -363,7 +363,7 @@ export const members = [
     birthday: '1996-12-29',
     nationality: '日本',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/sana.jpg',
     color: '#fbbf24',
   },
   {
@@ -375,7 +375,7 @@ export const members = [
     birthday: '1997-02-01',
     nationality: '韓國',
     position: ['隊長', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/jihyo.jpg',
     color: '#a855f7',
   },
   {
@@ -387,7 +387,7 @@ export const members = [
     birthday: '1997-03-24',
     nationality: '日本',
     position: ['副舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/mina.jpg',
     color: '#06b6d4',
   },
   {
@@ -399,7 +399,7 @@ export const members = [
     birthday: '1998-05-28',
     nationality: '韓國',
     position: ['副唱', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/dahyun.jpg',
     color: '#10b981',
   },
   {
@@ -411,7 +411,7 @@ export const members = [
     birthday: '1999-04-23',
     nationality: '韓國',
     position: ['主Rapper', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/chaeyoung.jpg',
     color: '#ef4444',
   },
   {
@@ -423,7 +423,7 @@ export const members = [
     birthday: '1999-06-14',
     nationality: '台灣',
     position: ['門面', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/tzuyu.jpg',
     color: '#3b82f6',
   },
 
@@ -437,7 +437,7 @@ export const members = [
     birthday: '2000-10-03',
     nationality: '澳洲',
     position: ['隊長', '主Rapper', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/bang-chan.jpg',
     color: '#7c3aed',
   },
   {
@@ -449,7 +449,7 @@ export const members = [
     birthday: '1998-10-25',
     nationality: '韓國',
     position: ['主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/lee-know.jpg',
     color: '#2563eb',
   },
   {
@@ -461,7 +461,7 @@ export const members = [
     birthday: '1999-08-11',
     nationality: '韓國',
     position: ['主Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/changbin.jpg',
     color: '#374151',
   },
   {
@@ -473,7 +473,7 @@ export const members = [
     birthday: '2000-03-20',
     nationality: '韓國',
     position: ['主舞', '門面', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/hyunjin.jpg',
     color: '#ec4899',
   },
   {
@@ -485,7 +485,7 @@ export const members = [
     birthday: '2000-09-14',
     nationality: '韓國',
     position: ['副Rapper', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/han.jpg',
     color: '#f59e0b',
   },
   {
@@ -497,7 +497,7 @@ export const members = [
     birthday: '2000-09-15',
     nationality: '澳洲',
     position: ['主舞', '副Rapper', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/felix.jpg',
     color: '#f97316',
   },
   {
@@ -509,7 +509,7 @@ export const members = [
     birthday: '2000-09-22',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/seungmin.jpg',
     color: '#3b82f6',
   },
   {
@@ -521,7 +521,7 @@ export const members = [
     birthday: '2001-02-08',
     nationality: '韓國',
     position: ['副唱', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/in.jpg',
     color: '#10b981',
   },
 
@@ -535,7 +535,7 @@ export const members = [
     birthday: '2000-05-26',
     nationality: '韓國',
     position: ['隊長', '主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/yeji.jpg',
     color: '#ef4444',
   },
   {
@@ -547,7 +547,7 @@ export const members = [
     birthday: '2000-07-21',
     nationality: '加拿大',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/lia.jpg',
     color: '#ec4899',
   },
   {
@@ -559,7 +559,7 @@ export const members = [
     birthday: '2001-04-17',
     nationality: '韓國',
     position: ['主Rapper', '副舞', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/ryujin.jpg',
     color: '#7c3aed',
   },
   {
@@ -571,7 +571,7 @@ export const members = [
     birthday: '2001-06-05',
     nationality: '韓國',
     position: ['主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/chaeryeong.jpg',
     color: '#3b82f6',
   },
   {
@@ -583,7 +583,7 @@ export const members = [
     birthday: '2003-12-09',
     nationality: '韓國',
     position: ['門面', '副唱', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/yuna.jpg',
     color: '#10b981',
   },
 
@@ -597,7 +597,7 @@ export const members = [
     birthday: '2001-08-28',
     nationality: '澳洲',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/lily.jpg',
     color: '#06b6d4',
   },
   {
@@ -609,7 +609,7 @@ export const members = [
     birthday: '2001-02-15',
     nationality: '韓國',
     position: ['副唱'],
-    photo: '',
+    photo: '/images/kpop/members/haewon.jpg',
     color: '#8b5cf6',
   },
   {
@@ -621,7 +621,7 @@ export const members = [
     birthday: '2004-01-15',
     nationality: '韓國',
     position: ['門面', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/sullyoon.jpg',
     color: '#ec4899',
   },
   {
@@ -633,7 +633,7 @@ export const members = [
     birthday: '2000-12-09',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/jiwoo.jpg',
     color: '#f59e0b',
   },
   {
@@ -645,7 +645,7 @@ export const members = [
     birthday: '2002-12-05',
     nationality: '韓國',
     position: ['副唱', '副舞'],
-    photo: '',
+    photo: '/images/kpop/members/bae.jpg',
     color: '#ef4444',
   },
   {
@@ -657,7 +657,7 @@ export const members = [
     birthday: '2005-12-07',
     nationality: '韓國',
     position: ['主舞', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/kyujin.jpg',
     color: '#a855f7',
   },
 
@@ -671,7 +671,7 @@ export const members = [
     birthday: '1993-01-16',
     nationality: '韓國',
     position: ['隊長', '主唱', '吉他'],
-    photo: '',
+    photo: '/images/kpop/members/sungjin.jpg',
     color: '#f59e0b',
   },
   {
@@ -683,7 +683,7 @@ export const members = [
     birthday: '1993-12-19',
     nationality: '韓國',
     position: ['主Rapper', '副唱', '貝斯'],
-    photo: '',
+    photo: '/images/kpop/members/young-k.jpg',
     color: '#10b981',
   },
   {
@@ -695,7 +695,7 @@ export const members = [
     birthday: '1994-04-28',
     nationality: '韓國',
     position: ['主唱', '鍵盤'],
-    photo: '',
+    photo: '/images/kpop/members/wonpil.jpg',
     color: '#3b82f6',
   },
   {
@@ -707,7 +707,7 @@ export const members = [
     birthday: '1995-08-25',
     nationality: '韓國',
     position: ['鼓手'],
-    photo: '',
+    photo: '/images/kpop/members/dowoon.jpg',
     color: '#64748b',
   },
 
@@ -721,7 +721,7 @@ export const members = [
     birthday: '1988-01-15',
     nationality: '韓國',
     position: ['主唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/junk.jpg',
     color: '#94a3b8',
   },
   {
@@ -733,7 +733,7 @@ export const members = [
     birthday: '1988-06-24',
     nationality: '泰國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/nichkhun.jpg',
     color: '#f59e0b',
   },
   {
@@ -745,7 +745,7 @@ export const members = [
     birthday: '1988-12-27',
     nationality: '韓國/美國',
     position: ['主Rapper', '副舞'],
-    photo: '',
+    photo: '/images/kpop/members/taecyeon.jpg',
     color: '#475569',
   },
   {
@@ -757,7 +757,7 @@ export const members = [
     birthday: '1989-04-30',
     nationality: '韓國',
     position: ['副唱', '主舞'],
-    photo: '',
+    photo: '/images/kpop/members/wooyoung.jpg',
     color: '#3b82f6',
   },
   {
@@ -769,7 +769,7 @@ export const members = [
     birthday: '1990-01-25',
     nationality: '韓國',
     position: ['主舞', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/junho.jpg',
     color: '#64748b',
   },
   {
@@ -781,7 +781,7 @@ export const members = [
     birthday: '1990-02-11',
     nationality: '韓國',
     position: ['副Rapper', '副唱', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/chansung.jpg',
     color: '#6b7280',
   },
 
@@ -795,7 +795,7 @@ export const members = [
     birthday: '1994-09-12',
     nationality: '韓國',
     position: ['隊長', '主Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/rm.jpg',
     color: '#4f46e5',
   },
   {
@@ -807,7 +807,7 @@ export const members = [
     birthday: '1992-12-04',
     nationality: '韓國',
     position: ['主唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/jin.jpg',
     color: '#ec4899',
   },
   {
@@ -819,7 +819,7 @@ export const members = [
     birthday: '1993-03-09',
     nationality: '韓國',
     position: ['副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/suga.jpg',
     color: '#374151',
   },
   {
@@ -831,7 +831,7 @@ export const members = [
     birthday: '1994-02-18',
     nationality: '韓國',
     position: ['主舞', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/jhope.jpg',
     color: '#f59e0b',
   },
   {
@@ -843,7 +843,7 @@ export const members = [
     birthday: '1995-10-13',
     nationality: '韓國',
     position: ['主舞', '副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/jimin.jpg',
     color: '#06b6d4',
   },
   {
@@ -855,7 +855,7 @@ export const members = [
     birthday: '1995-12-30',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/v.jpg',
     color: '#7c3aed',
   },
   {
@@ -867,7 +867,7 @@ export const members = [
     birthday: '1997-09-01',
     nationality: '韓國',
     position: ['主唱', '副舞', '門面', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/jungkook.jpg',
     color: '#2563eb',
   },
 
@@ -881,7 +881,7 @@ export const members = [
     birthday: '1995-08-08',
     nationality: '韓國',
     position: ['隊長', '嘻哈組'],
-    photo: '',
+    photo: '/images/kpop/members/s-coups.jpg',
     color: '#2563eb',
   },
   {
@@ -893,7 +893,7 @@ export const members = [
     birthday: '1995-10-04',
     nationality: '韓國',
     position: ['歌謠組', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/jeonghan.jpg',
     color: '#0ea5e9',
   },
   {
@@ -905,7 +905,7 @@ export const members = [
     birthday: '1996-12-30',
     nationality: '美國',
     position: ['歌謠組', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/joshua.jpg',
     color: '#06b6d4',
   },
   {
@@ -917,7 +917,7 @@ export const members = [
     birthday: '1996-06-10',
     nationality: '中國',
     position: ['表演組', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/jun.jpg',
     color: '#ec4899',
   },
   {
@@ -929,7 +929,7 @@ export const members = [
     birthday: '1996-06-15',
     nationality: '韓國',
     position: ['表演組', '主舞'],
-    photo: '',
+    photo: '/images/kpop/members/hoshi.jpg',
     color: '#f59e0b',
   },
   {
@@ -941,7 +941,7 @@ export const members = [
     birthday: '1996-07-17',
     nationality: '韓國',
     position: ['嘻哈組', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/wonwoo.jpg',
     color: '#374151',
   },
   {
@@ -953,7 +953,7 @@ export const members = [
     birthday: '1996-11-22',
     nationality: '韓國',
     position: ['音樂總監', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/woozi.jpg',
     color: '#ec4899',
   },
   {
@@ -965,7 +965,7 @@ export const members = [
     birthday: '1997-11-07',
     nationality: '中國',
     position: ['表演組', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/the8.jpg',
     color: '#7c3aed',
   },
   {
@@ -977,7 +977,7 @@ export const members = [
     birthday: '1997-04-06',
     nationality: '韓國',
     position: ['嘻哈組', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/mingyu.jpg',
     color: '#8b5cf6',
   },
   {
@@ -989,7 +989,7 @@ export const members = [
     birthday: '1997-02-18',
     nationality: '韓國',
     position: ['歌謠組', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/dk.jpg',
     color: '#fbbf24',
   },
   {
@@ -1001,7 +1001,7 @@ export const members = [
     birthday: '1998-01-16',
     nationality: '韓國',
     position: ['歌謠組', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/seungkwan.jpg',
     color: '#06b6d4',
   },
   {
@@ -1013,7 +1013,7 @@ export const members = [
     birthday: '1998-02-18',
     nationality: '美國/韓國',
     position: ['嘻哈組', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/vernon.jpg',
     color: '#3b82f6',
   },
   {
@@ -1025,7 +1025,7 @@ export const members = [
     birthday: '1999-02-11',
     nationality: '韓國',
     position: ['表演組', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/dino.jpg',
     color: '#10b981',
   },
 
@@ -1039,7 +1039,7 @@ export const members = [
     birthday: '1999-09-13',
     nationality: '韓國',
     position: ['主舞', '副Rapper', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/yeonjun.jpg',
     color: '#ec4899',
   },
   {
@@ -1051,7 +1051,7 @@ export const members = [
     birthday: '2000-12-05',
     nationality: '韓國',
     position: ['隊長', '副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/soobin.jpg',
     color: '#3b82f6',
   },
   {
@@ -1063,7 +1063,7 @@ export const members = [
     birthday: '2001-03-13',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/beomgyu.jpg',
     color: '#f59e0b',
   },
   {
@@ -1075,7 +1075,7 @@ export const members = [
     birthday: '2002-02-05',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/taehyun.jpg',
     color: '#06b6d4',
   },
   {
@@ -1087,7 +1087,7 @@ export const members = [
     birthday: '2002-08-14',
     nationality: '美國/德國',
     position: ['副唱', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/huening-kai.jpg',
     color: '#10b981',
   },
 
@@ -1101,7 +1101,7 @@ export const members = [
     birthday: '2004-02-09',
     nationality: '韓國',
     position: ['隊長', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/jungwon.jpg',
     color: '#0ea5e9',
   },
   {
@@ -1113,7 +1113,7 @@ export const members = [
     birthday: '2001-10-15',
     nationality: '韓國',
     position: ['主舞', '副唱', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/heeseung.jpg',
     color: '#8b5cf6',
   },
   {
@@ -1125,7 +1125,7 @@ export const members = [
     birthday: '2002-04-20',
     nationality: '美國/韓國',
     position: ['副唱'],
-    photo: '',
+    photo: '/images/kpop/members/jay.jpg',
     color: '#f97316',
   },
   {
@@ -1137,7 +1137,7 @@ export const members = [
     birthday: '2002-11-15',
     nationality: '澳洲',
     position: ['副唱'],
-    photo: '',
+    photo: '/images/kpop/members/jake.jpg',
     color: '#10b981',
   },
   {
@@ -1149,7 +1149,7 @@ export const members = [
     birthday: '2002-12-08',
     nationality: '韓國',
     position: ['門面', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/sunghoon.jpg',
     color: '#ec4899',
   },
   {
@@ -1161,7 +1161,7 @@ export const members = [
     birthday: '2003-06-24',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/sunoo.jpg',
     color: '#fbbf24',
   },
   {
@@ -1173,7 +1173,7 @@ export const members = [
     birthday: '2005-12-09',
     nationality: '日本',
     position: ['主舞', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/niki.jpg',
     color: '#7c3aed',
   },
 
@@ -1187,7 +1187,7 @@ export const members = [
     birthday: '2000-08-01',
     nationality: '韓國',
     position: ['隊長', '主唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/chaewon.jpg',
     color: '#f59e0b',
   },
   {
@@ -1199,7 +1199,7 @@ export const members = [
     birthday: '1998-03-19',
     nationality: '日本',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/sakura.jpg',
     color: '#ec4899',
   },
   {
@@ -1211,7 +1211,7 @@ export const members = [
     birthday: '2001-10-08',
     nationality: '美國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/yunjin.jpg',
     color: '#06b6d4',
   },
   {
@@ -1223,7 +1223,7 @@ export const members = [
     birthday: '2003-08-09',
     nationality: '日本',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/kazuha.jpg',
     color: '#8b5cf6',
   },
   {
@@ -1235,7 +1235,7 @@ export const members = [
     birthday: '2006-11-10',
     nationality: '韓國',
     position: ['副Rapper', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/eunchae.jpg',
     color: '#10b981',
   },
 
@@ -1249,7 +1249,7 @@ export const members = [
     birthday: '2004-05-07',
     nationality: '韓國',
     position: ['隊長', '門面', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/minji.jpg',
     color: '#10b981',
   },
   {
@@ -1261,7 +1261,7 @@ export const members = [
     birthday: '2004-10-06',
     nationality: '澳洲',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/hanni.jpg',
     color: '#ec4899',
   },
   {
@@ -1273,7 +1273,7 @@ export const members = [
     birthday: '2005-04-11',
     nationality: '澳洲',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/danielle.jpg',
     color: '#3b82f6',
   },
   {
@@ -1285,7 +1285,7 @@ export const members = [
     birthday: '2006-05-15',
     nationality: '韓國',
     position: ['主唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/haerin.jpg',
     color: '#7c3aed',
   },
   {
@@ -1297,7 +1297,7 @@ export const members = [
     birthday: '2008-04-21',
     nationality: '韓國',
     position: ['副唱', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/hyein.jpg',
     color: '#06b6d4',
   },
 
@@ -1311,7 +1311,7 @@ export const members = [
     birthday: '2000-04-11',
     nationality: '韓國',
     position: ['隊長', '門面', '主舞'],
-    photo: '',
+    photo: '/images/kpop/members/karina.jpg',
     color: '#8b5cf6',
   },
   {
@@ -1323,7 +1323,7 @@ export const members = [
     birthday: '2000-10-30',
     nationality: '日本',
     position: ['主Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/giselle.jpg',
     color: '#374151',
   },
   {
@@ -1335,7 +1335,7 @@ export const members = [
     birthday: '2001-01-01',
     nationality: '韓國',
     position: ['主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/winter.jpg',
     color: '#0ea5e9',
   },
   {
@@ -1347,7 +1347,7 @@ export const members = [
     birthday: '2002-10-23',
     nationality: '中國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/ningning.jpg',
     color: '#ec4899',
   },
 
@@ -1361,7 +1361,7 @@ export const members = [
     birthday: '1991-03-29',
     nationality: '韓國',
     position: ['隊長', '門面', '副唱', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/irene.jpg',
     color: '#ef4444',
   },
   {
@@ -1373,7 +1373,7 @@ export const members = [
     birthday: '1994-02-10',
     nationality: '韓國',
     position: ['主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/seulgi.jpg',
     color: '#f59e0b',
   },
   {
@@ -1385,7 +1385,7 @@ export const members = [
     birthday: '1994-02-21',
     nationality: '加拿大',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/wendy.jpg',
     color: '#06b6d4',
   },
   {
@@ -1397,7 +1397,7 @@ export const members = [
     birthday: '1996-09-03',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/joy.jpg',
     color: '#ec4899',
   },
   {
@@ -1409,7 +1409,7 @@ export const members = [
     birthday: '1999-03-05',
     nationality: '韓國',
     position: ['副唱', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/yeri.jpg',
     color: '#8b5cf6',
   },
 
@@ -1423,7 +1423,7 @@ export const members = [
     birthday: '1994-06-14',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/taeil.jpg',
     color: '#0ea5e9',
   },
   {
@@ -1435,7 +1435,7 @@ export const members = [
     birthday: '1995-02-09',
     nationality: '美國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/johnny.jpg',
     color: '#f59e0b',
   },
   {
@@ -1447,7 +1447,7 @@ export const members = [
     birthday: '1995-07-01',
     nationality: '韓國',
     position: ['隊長', '主Rapper', '主舞'],
-    photo: '',
+    photo: '/images/kpop/members/taeyong.jpg',
     color: '#10b981',
   },
   {
@@ -1459,7 +1459,7 @@ export const members = [
     birthday: '1995-10-26',
     nationality: '日本',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/yuta.jpg',
     color: '#ef4444',
   },
   {
@@ -1471,7 +1471,7 @@ export const members = [
     birthday: '1996-02-01',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/doyoung.jpg',
     color: '#8b5cf6',
   },
   {
@@ -1483,7 +1483,7 @@ export const members = [
     birthday: '1997-02-14',
     nationality: '韓國',
     position: ['主唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/jaehyun.jpg',
     color: '#3b82f6',
   },
   {
@@ -1495,7 +1495,7 @@ export const members = [
     birthday: '1998-02-19',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/jungwoo.jpg',
     color: '#ec4899',
   },
   {
@@ -1507,7 +1507,7 @@ export const members = [
     birthday: '1999-08-02',
     nationality: '加拿大',
     position: ['主Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/mark-nct.jpg',
     color: '#0ea5e9',
   },
   {
@@ -1519,7 +1519,7 @@ export const members = [
     birthday: '2000-06-06',
     nationality: '韓國',
     position: ['主唱', '門面', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/haechan.jpg',
     color: '#ef4444',
   },
 
@@ -1533,7 +1533,7 @@ export const members = [
     birthday: '1990-03-26',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/xiumin.jpg',
     color: '#94a3b8',
   },
   {
@@ -1545,7 +1545,7 @@ export const members = [
     birthday: '1991-05-22',
     nationality: '韓國',
     position: ['隊長', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/suho.jpg',
     color: '#94a3b8',
   },
   {
@@ -1557,7 +1557,7 @@ export const members = [
     birthday: '1992-05-06',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/baekhyun.jpg',
     color: '#60a5fa',
   },
   {
@@ -1569,7 +1569,7 @@ export const members = [
     birthday: '1992-11-27',
     nationality: '韓國',
     position: ['副Rapper', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/chanyeol.jpg',
     color: '#475569',
   },
   {
@@ -1581,7 +1581,7 @@ export const members = [
     birthday: '1993-01-12',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/do.jpg',
     color: '#64748b',
   },
   {
@@ -1593,7 +1593,7 @@ export const members = [
     birthday: '1994-01-14',
     nationality: '韓國',
     position: ['主舞', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/kai.jpg',
     color: '#374151',
   },
 
@@ -1607,7 +1607,7 @@ export const members = [
     birthday: '1989-12-14',
     nationality: '韓國',
     position: ['隊長', '主唱'],
-    photo: '',
+    photo: '/images/kpop/members/onew.jpg',
     color: '#0ea5e9',
   },
   {
@@ -1619,7 +1619,7 @@ export const members = [
     birthday: '1991-09-23',
     nationality: '韓國',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/key.jpg',
     color: '#ec4899',
   },
   {
@@ -1631,7 +1631,7 @@ export const members = [
     birthday: '1991-12-09',
     nationality: '韓國',
     position: ['門面', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/minho.jpg',
     color: '#10b981',
   },
   {
@@ -1643,7 +1643,7 @@ export const members = [
     birthday: '1993-07-18',
     nationality: '韓國',
     position: ['主舞', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/taemin.jpg',
     color: '#7c3aed',
   },
 
@@ -1657,7 +1657,7 @@ export const members = [
     birthday: '1995-01-03',
     nationality: '韓國',
     position: ['門面', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/jisoo.jpg',
     color: '#ec4899',
   },
   {
@@ -1669,7 +1669,7 @@ export const members = [
     birthday: '1996-01-16',
     nationality: '韓國/紐西蘭',
     position: ['主Rapper', '副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/jennie.jpg',
     color: '#374151',
   },
   {
@@ -1681,7 +1681,7 @@ export const members = [
     birthday: '1997-02-11',
     nationality: '澳洲',
     position: ['主唱', '副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/rose.jpg',
     color: '#f9a8d4',
   },
   {
@@ -1693,7 +1693,7 @@ export const members = [
     birthday: '1997-03-27',
     nationality: '泰國',
     position: ['主Rapper', '主舞', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/lisa.jpg',
     color: '#fbbf24',
   },
 
@@ -1707,7 +1707,7 @@ export const members = [
     birthday: '1988-08-18',
     nationality: '韓國',
     position: ['隊長', '主Rapper', '作詞'],
-    photo: '',
+    photo: '/images/kpop/members/gd.jpg',
     color: '#f59e0b',
   },
   {
@@ -1719,7 +1719,7 @@ export const members = [
     birthday: '1988-05-18',
     nationality: '韓國',
     position: ['主唱', '主舞'],
-    photo: '',
+    photo: '/images/kpop/members/taeyang.jpg',
     color: '#ef4444',
   },
   {
@@ -1731,7 +1731,7 @@ export const members = [
     birthday: '1987-11-04',
     nationality: '韓國',
     position: ['副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/top.jpg',
     color: '#374151',
   },
   {
@@ -1743,7 +1743,7 @@ export const members = [
     birthday: '1989-04-26',
     nationality: '韓國',
     position: ['副唱'],
-    photo: '',
+    photo: '/images/kpop/members/daesung.jpg',
     color: '#374151',
   },
   {
@@ -1769,7 +1769,7 @@ export const members = [
     birthday: '2001-04-03',
     nationality: '韓國',
     position: ['隊長', '主Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/hyunsuk.jpg',
     color: '#ef4444',
   },
   {
@@ -1781,7 +1781,7 @@ export const members = [
     birthday: '2002-10-17',
     nationality: '韓國',
     position: ['主舞', '副唱'],
-    photo: '',
+    photo: '/images/kpop/members/jihoon-treasure.jpg',
     color: '#f59e0b',
   },
   {
@@ -1793,7 +1793,7 @@ export const members = [
     birthday: '2002-05-15',
     nationality: '日本',
     position: ['副唱', '門面'],
-    photo: '',
+    photo: '/images/kpop/members/yoshi.jpg',
     color: '#06b6d4',
   },
   {
@@ -1805,7 +1805,7 @@ export const members = [
     birthday: '2000-09-09',
     nationality: '韓國',
     position: ['主唱'],
-    photo: '',
+    photo: '/images/kpop/members/junkyu.jpg',
     color: '#8b5cf6',
   },
   {
@@ -1817,7 +1817,7 @@ export const members = [
     birthday: '2001-08-20',
     nationality: '日本',
     position: ['副唱', '副舞'],
-    photo: '',
+    photo: '/images/kpop/members/asahi.jpg',
     color: '#3b82f6',
   },
   {
@@ -1829,7 +1829,7 @@ export const members = [
     birthday: '2003-12-04',
     nationality: '韓國',
     position: ['副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/doyoung-treasure.jpg',
     color: '#10b981',
   },
   {
@@ -1841,7 +1841,7 @@ export const members = [
     birthday: '2003-05-05',
     nationality: '日本',
     position: ['副Rapper'],
-    photo: '',
+    photo: '/images/kpop/members/haruto.jpg',
     color: '#10b981',
   },
   {
@@ -1853,7 +1853,7 @@ export const members = [
     birthday: '2004-03-26',
     nationality: '韓國',
     position: ['主唱', '忙內'],
-    photo: '',
+    photo: '/images/kpop/members/jeongwoo.jpg',
     color: '#fbbf24',
   },
   {
@@ -1865,7 +1865,7 @@ export const members = [
     birthday: '2004-09-19',
     nationality: '韓國',
     position: ['副唱'],
-    photo: '',
+    photo: '/images/kpop/members/junghwan.jpg',
     color: '#ec4899',
   },
 ]

@@ -6,7 +6,6 @@ import { defineStore } from 'pinia'
  * 固定使用 cyberpunk 主題，不支援動態切換
  */
 export const useThemeStore = defineStore('theme', () => {
-  // 套用 CSS 變數到 :root
   function applyTheme(theme) {
     const root = document.documentElement
     const colors = theme.colors || {}

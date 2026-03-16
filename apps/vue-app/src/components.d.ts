@@ -9,7 +9,12 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/common/AppFooter.vue')['default']
     AppHeader: typeof import('./components/common/AppHeader.vue')['default']
+    CarouselBanner: typeof import('./components/home/CarouselBanner.vue')['default']
+    CompanySlider: typeof import('./components/home/CompanySlider.vue')['default']
     DefaultLayout: typeof import('./layouts/DefaultLayout.vue')['default']
+    GroupCard: typeof import('./components/group/GroupCard.vue')['default']
+    MarqueeBanner: typeof import('./components/home/MarqueeBanner.vue')['default']
+    MemberCard: typeof import('./components/member/MemberCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
