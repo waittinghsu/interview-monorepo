@@ -6,6 +6,21 @@ export default defineNuxtConfig({
     port: 3002,
   },
 
+  // Nitro 設定（用於生產環境）
+  nitro: {
+    preset: 'node-server', // 強制使用 node-server（Zeabur 自動偵測 zeabur preset 有問題）
+    // 確保使用環境變數的端口
+    experimental: {
+      openAPI: false,
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      githubToken: '', // 從 NUXT_PUBLIC_GITHUB_TOKEN 自動讀取
+    },
+  },
+
   ssr: false,
 
   typescript: {
