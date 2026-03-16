@@ -14,33 +14,16 @@ import 'virtual:uno.css'
 // CSS 變數宣告（供 IDE 識別）
 import './assets/css/variables.css'
 
-async function bootstrap() {
-  // 開發環境啟用 MSW
-  if (import.meta.env.DEV) {
-    const { worker } = await import('@interview/shared-mocks/browser')
-    await worker.start({
-      onUnhandledRequest: 'bypass',
-      quiet: false, // 顯示 console 訊息，方便 debug
-      serviceWorker: {
-        url: '/mockServiceWorker.js',
-      },
-    })
-  }
+const app = createApp(App)
 
-  const app = createApp(App)
+app.use(createPinia())
+app.use(router)
+app.use(Quasar, {
+  plugins: {
+    Dark,
+  },
+})
 
-  app.use(createPinia())
-  app.use(router)
-  app.use(Quasar, {
-    plugins: {
-      Dark,
-    },
-  })
+Dark.set(true)
 
-  // 啟用暗黑模式（所有主題都是暗色系）
-  Dark.set(true)
-
-  app.mount('#app')
-}
-
-bootstrap()
+app.mount('#app')
