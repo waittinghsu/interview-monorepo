@@ -67,7 +67,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 9527,
+    port: 9528,
     open: true, // 不自動開啟瀏覽器
   },
   build: {
