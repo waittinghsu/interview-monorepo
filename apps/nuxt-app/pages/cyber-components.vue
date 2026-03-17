@@ -82,6 +82,7 @@ const selectedColor = ref('#22d3ee')
               <button
                 v-for="c in accentColors"
                 :key="c"
+                type="button"
                 class="w-6 h-6 rounded-full border-2 transition-transform cursor-pointer"
                 :style="{ background: c, borderColor: selectedColor === c ? 'white' : 'transparent' }"
                 :class="{ 'scale-125': selectedColor === c }"
@@ -117,7 +118,7 @@ const selectedColor = ref('#22d3ee')
             <p class="text-textSecondary text-sm mb-2">
               脈衝環數 {{ pulseRings }}
             </p>
-            <q-slider v-model="pulseRings" :min="1" :max="6" :step="1" color="primary" />
+            <q-slider v-model="pulseRings" :min="1" :max="10" :step="1" color="primary" />
           </div>
           <ul class="text-textMuted text-sm space-y-1 list-none">
             <li>• 同心圓從中心向外擴散</li>
