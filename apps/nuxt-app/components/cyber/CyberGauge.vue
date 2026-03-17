@@ -15,55 +15,70 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
 })
 
+const uid = useId()
 const arcRef = ref<SVGPathElement>()
 const displayValue = ref(0)
 
-const RADIUS = 60
+// 所有幾何值都基於 size，讓字體、線條、位置隨 size 等比縮放
 const START_DEG = 225
 const SPAN_DEG = 270
-const CIRC = 2 * Math.PI * RADIUS
-const ARC_LEN = (SPAN_DEG / 360) * CIRC
+
+const radius = computed(() => props.size * 0.375)           // 60 / 160
+const circ = computed(() => 2 * Math.PI * radius.value)
+const arcLen = computed(() => (SPAN_DEG / 360) * circ.value)
+const strokeW = computed(() => props.size * 0.044)          // 7 / 160
+const valueFontSize = computed(() => props.size * 0.11)     // 17.6 at 160
+const labelFontSize = computed(() => props.size * 0.063)    // 10 at 160
+const valueY = computed(() => -props.size * 0.05)           // -8 at 160
+const labelY = computed(() => props.size * 0.113)           // 18 at 160
 
 function toRad(deg: number) {
   return (deg - 90) * Math.PI / 180
 }
 
-const bgPath = (() => {
+const bgPath = computed(() => {
+  const r = radius.value
   const endDeg = START_DEG + SPAN_DEG
-  const x1 = (RADIUS * Math.cos(toRad(START_DEG))).toFixed(3)
-  const y1 = (RADIUS * Math.sin(toRad(START_DEG))).toFixed(3)
-  const x2 = (RADIUS * Math.cos(toRad(endDeg))).toFixed(3)
-  const y2 = (RADIUS * Math.sin(toRad(endDeg))).toFixed(3)
-  return `M ${x1} ${y1} A ${RADIUS} ${RADIUS} 0 1 1 ${x2} ${y2}`
-})()
-
-// 28 ticks, every 10° across the 270° span
-const ticks = Array.from({ length: 28 }, (_, i) => {
-  const deg = START_DEG + i * (SPAN_DEG / 27)
-  const rad = toRad(deg)
-  const isMajor = i % 9 === 0
-  const r1 = isMajor ? 51 : 55
-  const r2 = 67
-  return {
-    x1: (r2 * Math.cos(rad)).toFixed(3),
-    y1: (r2 * Math.sin(rad)).toFixed(3),
-    x2: (r1 * Math.cos(rad)).toFixed(3),
-    y2: (r1 * Math.sin(rad)).toFixed(3),
-    isMajor,
-  }
+  const x1 = (r * Math.cos(toRad(START_DEG))).toFixed(3)
+  const y1 = (r * Math.sin(toRad(START_DEG))).toFixed(3)
+  const x2 = (r * Math.cos(toRad(endDeg))).toFixed(3)
+  const y2 = (r * Math.sin(toRad(endDeg))).toFixed(3)
+  return `M ${x1} ${y1} A ${r} ${r} 0 1 1 ${x2} ${y2}`
 })
 
+const ticks = computed(() => {
+  const r = radius.value
+  const rOuter = r * 1.117  // 67 / 60
+  const rMajor = r * 0.85   // 51 / 60
+  const rMinor = r * 0.917  // 55 / 60
+  return Array.from({ length: 28 }, (_, i) => {
+    const deg = START_DEG + i * (SPAN_DEG / 27)
+    const rad = toRad(deg)
+    const isMajor = i % 9 === 0
+    return {
+      x1: (rOuter * Math.cos(rad)).toFixed(3),
+      y1: (rOuter * Math.sin(rad)).toFixed(3),
+      x2: ((isMajor ? rMajor : rMinor) * Math.cos(rad)).toFixed(3),
+      y2: ((isMajor ? rMajor : rMinor) * Math.sin(rad)).toFixed(3),
+      isMajor,
+    }
+  })
+})
+
+const tickStrokeW = computed(() => props.size * 0.0063) // 1 / 160 base
+
 function progressOffset(val: number) {
-  return ARC_LEN * (1 - Math.max(0, Math.min(100, val)) / 100)
+  return arcLen.value * (1 - Math.max(0, Math.min(100, val)) / 100)
 }
 
 const counterObj = { val: 0 }
 let counterTween: ReturnType<typeof gsap.to> | null = null
+let arcTween: ReturnType<typeof gsap.to> | null = null
 
 function animateTo(target: number) {
   counterTween?.kill()
-  const startVal = displayValue.value
-  counterObj.val = startVal
+  arcTween?.kill()
+  counterObj.val = displayValue.value
   counterTween = gsap.to(counterObj, {
     val: target,
     duration: 1,
@@ -73,7 +88,7 @@ function animateTo(target: number) {
     },
   })
   if (arcRef.value) {
-    gsap.to(arcRef.value, {
+    arcTween = gsap.to(arcRef.value, {
       strokeDashoffset: progressOffset(target),
       duration: 1,
       ease: 'power2.out',
@@ -83,7 +98,7 @@ function animateTo(target: number) {
 
 onMounted(() => {
   if (arcRef.value) {
-    gsap.set(arcRef.value, { strokeDashoffset: ARC_LEN })
+    gsap.set(arcRef.value, { strokeDashoffset: arcLen.value })
   }
   nextTick(() => animateTo(props.value))
 })
@@ -92,6 +107,7 @@ watch(() => props.value, val => animateTo(val))
 
 onUnmounted(() => {
   counterTween?.kill()
+  arcTween?.kill()
 })
 </script>
 
@@ -99,11 +115,11 @@ onUnmounted(() => {
   <svg
     :width="size"
     :height="size"
-    viewBox="0 0 160 160"
+    :viewBox="`0 0 ${size} ${size}`"
     class="cyber-gauge"
   >
     <defs>
-      <filter id="glow-gauge">
+      <filter :id="`glow-gauge-${uid}`">
         <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
         <feMerge>
           <feMergeNode in="coloredBlur" />
@@ -112,13 +128,13 @@ onUnmounted(() => {
       </filter>
     </defs>
 
-    <g transform="translate(80, 80)">
+    <g :transform="`translate(${size / 2}, ${size / 2})`">
       <!-- Background arc -->
       <path
         :d="bgPath"
         fill="none"
         stroke="#1e293b"
-        stroke-width="7"
+        :stroke-width="strokeW"
         stroke-linecap="round"
       />
 
@@ -131,7 +147,7 @@ onUnmounted(() => {
         :x2="tick.x2"
         :y2="tick.y2"
         :stroke="color"
-        :stroke-width="tick.isMajor ? 2 : 1"
+        :stroke-width="tick.isMajor ? tickStrokeW * 2 : tickStrokeW"
         :opacity="tick.isMajor ? 0.7 : 0.3"
       />
 
@@ -141,19 +157,19 @@ onUnmounted(() => {
         :d="bgPath"
         fill="none"
         :stroke="color"
-        stroke-width="7"
+        :stroke-width="strokeW"
         stroke-linecap="round"
-        :stroke-dasharray="`${ARC_LEN} ${CIRC}`"
-        filter="url(#glow-gauge)"
+        :stroke-dasharray="`${arcLen} ${circ}`"
+        :filter="`url(#glow-gauge-${uid})`"
       />
 
       <!-- Center value -->
       <text
         text-anchor="middle"
         dominant-baseline="middle"
-        y="-8"
+        :y="valueY"
         :fill="color"
-        font-size="28"
+        :font-size="valueFontSize"
         font-weight="bold"
         font-family="monospace"
       >
@@ -163,9 +179,10 @@ onUnmounted(() => {
       <!-- % or label -->
       <text
         text-anchor="middle"
-        y="18"
+        dominant-baseline="middle"
+        :y="labelY"
         :fill="color"
-        font-size="11"
+        :font-size="labelFontSize"
         font-family="monospace"
         opacity="0.6"
       >

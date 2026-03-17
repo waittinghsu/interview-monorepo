@@ -11,13 +11,17 @@ withDefaults(defineProps<Props>(), {
   color: '#22d3ee',
 })
 
+const uid = useId()
 const radarRef = ref<SVGGElement>()
 const scanLineRef = ref<SVGLineElement>()
+
+let scanTween: ReturnType<typeof gsap.to> | null = null
+let pulseTween: ReturnType<typeof gsap.to> | null = null
 
 onMounted(() => {
   if (scanLineRef.value) {
     // 雷達掃描線旋轉動畫
-    gsap.to(scanLineRef.value, {
+    scanTween = gsap.to(scanLineRef.value, {
       rotation: 360,
       duration: 3,
       repeat: -1,
@@ -28,7 +32,7 @@ onMounted(() => {
 
   if (radarRef.value) {
     // 雷達圓環脈衝動畫
-    gsap.to(radarRef.value.querySelectorAll('.pulse-ring'), {
+    pulseTween = gsap.to(radarRef.value.querySelectorAll('.pulse-ring'), {
       scale: 1.2,
       opacity: 0,
       duration: 2,
@@ -38,6 +42,11 @@ onMounted(() => {
       transformOrigin: 'center center',
     })
   }
+})
+
+onUnmounted(() => {
+  scanTween?.kill()
+  pulseTween?.kill()
 })
 </script>
 
@@ -50,7 +59,7 @@ onMounted(() => {
   >
     <defs>
       <!-- 發光效果 -->
-      <filter id="glow">
+      <filter :id="`glow-${uid}`">
         <feGaussianBlur stdDeviation="2" result="coloredBlur" />
         <feMerge>
           <feMergeNode in="coloredBlur" />
@@ -59,7 +68,7 @@ onMounted(() => {
       </filter>
 
       <!-- 漸層 -->
-      <radialGradient id="radarGradient">
+      <radialGradient :id="`radarGradient-${uid}`">
         <stop offset="0%" :stop-color="color" stop-opacity="0.3" />
         <stop offset="100%" :stop-color="color" stop-opacity="0" />
       </radialGradient>
@@ -69,7 +78,7 @@ onMounted(() => {
       <!-- 背景圓 -->
       <circle
         r="90"
-        fill="url(#radarGradient)"
+        :fill="`url(#radarGradient-${uid})`"
         opacity="0.1"
       />
 
@@ -80,8 +89,8 @@ onMounted(() => {
         :r="r"
         fill="none"
         :stroke="color"
-        stroke-width="1"
-        opacity="0.3"
+        stroke-width="1.5"
+        opacity="0.5"
       />
 
       <!-- 脈衝圓環 -->
@@ -121,7 +130,7 @@ onMounted(() => {
           y2="-90"
           :stroke="color"
           stroke-width="2"
-          filter="url(#glow)"
+          :filter="`url(#glow-${uid})`"
           opacity="0.8"
         />
         <!-- 掃描區域 -->
@@ -136,7 +145,7 @@ onMounted(() => {
       <circle
         r="4"
         :fill="color"
-        filter="url(#glow)"
+        :filter="`url(#glow-${uid})`"
       />
 
       <!-- 隨機目標點（模擬雷達偵測） -->
