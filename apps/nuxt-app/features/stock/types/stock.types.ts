@@ -13,14 +13,20 @@ export interface StockChartResponse {
   longName: string
   currency: string
   exchangeName: string
+  dataGranularity: string
+  range: string
   price: number
   previousClose: number
-  open: number
-  dayHigh: number
-  dayLow: number
-  volume: number
+  regularMarketOpen: number
+  regularMarketDayHigh: number
+  regularMarketDayLow: number
+  regularMarketVolume: number
   timestamps: number[]
-  prices: number[]
+  open: number[]
+  high: number[]
+  low: number[]
+  close: number[]
+  volume: number[]
 }
 
 export interface LineChartData {

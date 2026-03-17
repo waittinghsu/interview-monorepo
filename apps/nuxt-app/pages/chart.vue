@@ -92,10 +92,12 @@ watch([stockData, candlestickChartContainer], ([data, container]) => {
     height: 400,
   })
 
-  // TODO: API 支援 OHLCV 後改成 CandlestickSeries
   const series = candlestickChart.addSeries(CandlestickSeries, {
-    color: '#26a69a',
-    lineWidth: 2,
+    upColor: '#26a69a',
+    downColor: '#ef5350',
+    borderVisible: false,
+    wickUpColor: '#26a69a',
+    wickDownColor: '#ef5350',
   })
 
   series.setData(data)
