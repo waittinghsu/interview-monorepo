@@ -33,6 +33,7 @@ function arcPath(radius: number, startDeg: number, endDeg: number): string {
   return `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}`
 }
 
+const uid = useId()
 let dotTween: ReturnType<typeof gsap.to> | null = null
 let arcTween: ReturnType<typeof gsap.to> | null = null
 
@@ -101,7 +102,7 @@ onUnmounted(() => {
     class="cyber-crosshair"
   >
     <defs>
-      <filter id="glow-crosshair">
+      <filter :id="`glow-crosshair-${uid}`">
         <feGaussianBlur stdDeviation="2" result="coloredBlur" />
         <feMerge>
           <feMergeNode in="coloredBlur" />
@@ -121,7 +122,7 @@ onUnmounted(() => {
           :stroke="color"
           stroke-width="2.5"
           stroke-linecap="round"
-          filter="url(#glow-crosshair)"
+          :filter="`url(#glow-crosshair-${uid})`"
         />
       </g>
 
@@ -164,7 +165,7 @@ onUnmounted(() => {
         ref="dotRef"
         r="5"
         :fill="color"
-        filter="url(#glow-crosshair)"
+        :filter="`url(#glow-crosshair-${uid})`"
       />
     </g>
   </svg>

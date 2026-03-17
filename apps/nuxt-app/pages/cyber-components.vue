@@ -6,7 +6,7 @@ definePageMeta({
 
 const crosshairLocked = ref(false)
 const gaugeValue = ref(65)
-const pulseRings = ref(3)
+const pulseRings = ref(5)
 
 const accentColors = ['#22d3ee', '#f97316', '#a78bfa', '#34d399', '#f43f5e']
 const selectedColor = ref('#22d3ee')
@@ -108,8 +108,8 @@ const selectedColor = ref('#22d3ee')
         <div class="flex gap-4 items-center">
           <ClientOnly>
             <CyberPulse :size="180" :rings="pulseRings" />
-            <CyberPulse :size="110" :rings="2" color="#a78bfa" />
-            <CyberPulse :size="70" :rings="4" color="#34d399" />
+            <CyberPulse :size="110" :rings="5" color="#a78bfa" />
+            <CyberPulse :size="70" :rings="2" color="#34d399" />
           </ClientOnly>
         </div>
         <div class="space-y-4 flex-1">
