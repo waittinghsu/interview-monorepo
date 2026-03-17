@@ -5,8 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "nuxt dev",
+    "dev:stage": "nuxt dev --dotenv .env.staging",
+    "local:proc": "nuxt dev",
     "build": "nuxt build",
+    "build:stage": "nuxt build --dotenv .env.staging",
     "preview": "nuxt preview",
+    "preview:stage": "nuxt preview --dotenv .env.staging",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { StockParams } from '~/features/stock'
 import { CandlestickSeries, createChart, LineSeries } from 'lightweight-charts'
 import { use0050Query, useBTCQuery } from '~/features/stock'
 
@@ -11,39 +12,46 @@ const lineChartContainer = shallowRef<HTMLDivElement | null>(null)
 let candlestickChart: ReturnType<typeof createChart> | null = null
 let lineChart: ReturnType<typeof createChart> | null = null
 
-// 0050 時間範圍選擇
-const stock0050Range = ref<'1mo' | '1y'>('1mo')
+// 區間選項
+type RangeValue = NonNullable<StockParams['range']>
 
-// 使用 TanStack Query
-// 創建兩個 query：1個月和1年
-const stock1mo = use0050Query({ range: '1mo', interval: '1d' })
-const stock1y = use0050Query({ range: '1y', interval: '1d' })
+const ranges: Array<{ value: RangeValue, label: string }> = [
+  { value: '1d', label: '1日' },
+  { value: '5d', label: '5日' },
+  { value: '1mo', label: '1月' },
+  { value: '3mo', label: '3月' },
+  { value: '6mo', label: '6月' },
+  { value: '1y', label: '1年' },
+  { value: '2y', label: '2年' },
+  { value: '5y', label: '5年' },
+  { value: 'max', label: '全部' },
+]
 
-// 根據當前選擇使用對應的 query
-const stockData = computed(() => {
-  return stock0050Range.value === '1mo' ? stock1mo.data.value : stock1y.data.value
-})
-const stockLoading = computed(() => {
-  return stock0050Range.value === '1mo' ? stock1mo.isLoading.value : stock1y.isLoading.value
-})
-const stockError = computed(() => {
-  return stock0050Range.value === '1mo' ? stock1mo.error.value : stock1y.error.value
-})
-
-const { data: btcData, isLoading: btcLoading, error: btcError } = useBTCQuery()
-
-// 監聽參數變化，清除舊圖表
-watch(stock0050Range, () => {
-  if (candlestickChart) {
-    candlestickChart.remove()
-    candlestickChart = null
-  }
-})
-
-// 切換時間範圍
-function changeStockRange(range: '1mo' | '1y') {
-  stock0050Range.value = range
+// 各區間對應的最適 interval
+const rangeIntervalMap: Record<RangeValue, NonNullable<StockParams['interval']>> = {
+  '1d': '5m',
+  '5d': '15m',
+  '1mo': '1d',
+  '3mo': '1d',
+  '6mo': '1d',
+  '1y': '1d',
+  '2y': '1wk',
+  '5y': '1wk',
+  '10y': '1wk',
+  'ytd': '1d',
+  'max': '1mo',
 }
+
+const selectedRange = ref<RangeValue>('1mo')
+
+// 單一 reactive query，切換區間時自動重新請求
+const queryParams = computed<StockParams>(() => ({
+  range: selectedRange.value,
+  interval: rangeIntervalMap[selectedRange.value],
+}))
+
+const { data: stockData, isLoading: stockLoading, error: stockError } = use0050Query(queryParams)
+const { data: btcData, isLoading: btcLoading, error: btcError } = useBTCQuery()
 
 // 圖表選項
 const chartOptions = {
@@ -67,53 +75,64 @@ const chartOptions = {
   },
 }
 
-// 監聽資料變化建立圖表
+// 資料或 container 變更時重建圖表（切換區間也會觸發）
 watch([stockData, candlestickChartContainer], ([data, container]) => {
-  if (data && container && data.length > 0 && !candlestickChart) {
-    candlestickChart = createChart(container, {
-      ...chartOptions,
-      width: container.clientWidth,
-      height: 400,
-    })
-
-    const candlestickSeries = candlestickChart.addSeries(CandlestickSeries, {
-      upColor: '#26a69a',
-      downColor: '#ef5350',
-      borderVisible: false,
-      wickUpColor: '#26a69a',
-      wickDownColor: '#ef5350',
-    })
-
-    candlestickSeries.setData(data)
-    candlestickChart.timeScale().fitContent()
+  if (!container)
+    return
+  if (candlestickChart) {
+    candlestickChart.remove()
+    candlestickChart = null
   }
+  if (!data || data.length === 0)
+    return
+
+  candlestickChart = createChart(container, {
+    ...chartOptions,
+    width: container.clientWidth,
+    height: 400,
+  })
+
+  // TODO: API 支援 OHLCV 後改成 CandlestickSeries
+  const series = candlestickChart.addSeries(CandlestickSeries, {
+    color: '#26a69a',
+    lineWidth: 2,
+  })
+
+  series.setData(data)
+  candlestickChart.timeScale().fitContent()
 }, { immediate: true })
 
 watch([btcData, lineChartContainer], ([data, container]) => {
-  if (data && container && data.length > 0 && !lineChart) {
-    lineChart = createChart(container, {
-      ...chartOptions,
-      width: container.clientWidth,
-      height: 400,
-    })
-
-    const lineSeries = lineChart.addSeries(LineSeries, {
-      color: '#f7931a',
-      lineWidth: 2,
-    })
-
-    lineSeries.setData(data)
-    lineChart.timeScale().fitContent()
+  if (!container)
+    return
+  if (lineChart) {
+    lineChart.remove()
+    lineChart = null
   }
+  if (!data || data.length === 0)
+    return
+
+  lineChart = createChart(container, {
+    ...chartOptions,
+    width: container.clientWidth,
+    height: 400,
+  })
+
+  const lineSeries = lineChart.addSeries(LineSeries, {
+    color: '#f7931a',
+    lineWidth: 2,
+  })
+
+  lineSeries.setData(data)
+  lineChart.timeScale().fitContent()
 }, { immediate: true })
 
 function handleResize() {
-  if (candlestickChart && candlestickChartContainer.value) {
+  if (candlestickChart && candlestickChartContainer.value)
     candlestickChart.applyOptions({ width: candlestickChartContainer.value.clientWidth })
-  }
-  if (lineChart && lineChartContainer.value) {
+
+  if (lineChart && lineChartContainer.value)
     lineChart.applyOptions({ width: lineChartContainer.value.clientWidth })
-  }
 }
 
 onMounted(() => {
@@ -129,55 +148,51 @@ onUnmounted(() => {
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold mb-6 text-textPrimary">
+    <h1 class="text-2xl font-bold mb-6 text-textBase">
       股票圖表展示
     </h1>
 
-    <!-- 0050 K線圖 -->
+    <!-- 0050 圖表 -->
     <div class="mb-8">
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div>
-          <h2 class="text-xl font-semibold mb-2 text-textPrimary">
-            0050 元大台灣50 (K線圖)
+          <h2 class="text-xl font-semibold text-textBase">
+            0050 元大台灣50
           </h2>
-          <p class="text-textSecondary text-sm">
-            TanStack Query 管理
+          <p class="text-textSecondary text-sm mt-1">
+            TanStack Query 管理 · {{ queryParams.interval }} / {{ queryParams.range }}
           </p>
         </div>
-        <div class="flex gap-2">
+
+        <!-- 區間按鈕 -->
+        <div class="flex flex-wrap gap-1">
           <q-btn
-            :outline="stock0050Range !== '1mo'"
-            :unelevated="stock0050Range === '1mo'"
+            v-for="r in ranges"
+            :key="r.value"
+            :unelevated="selectedRange === r.value"
+            :outline="selectedRange !== r.value"
             color="primary"
-            label="1個月"
+            :label="r.label"
             size="sm"
-            @click="changeStockRange('1mo')"
-          />
-          <q-btn
-            :outline="stock0050Range !== '1y'"
-            :unelevated="stock0050Range === '1y'"
-            color="primary"
-            label="1年"
-            size="sm"
-            @click="changeStockRange('1y')"
+            @click="selectedRange = r.value"
           />
         </div>
       </div>
 
       <ClientOnly>
-        <div v-if="stockLoading" class="bg-sys-surface rounded-lg p-8 mb-4 text-center">
+        <div v-if="stockLoading" class="bg-sys-card rounded-lg p-8 mb-4 text-center">
           <p class="text-textSecondary">
             載入中...
           </p>
         </div>
 
-        <div v-else-if="stockError" class="bg-sys-surface rounded-lg p-4 mb-4">
+        <div v-else-if="stockError" class="bg-sys-card rounded-lg p-4 mb-4">
           <p class="text-red-500">
             無法載入 0050 資料
           </p>
         </div>
 
-        <div v-else class="bg-sys-surface rounded-lg p-4 mb-2">
+        <div v-else class="bg-sys-card rounded-lg p-4 mb-2">
           <div ref="candlestickChartContainer" class="w-full" />
         </div>
 
@@ -186,7 +201,7 @@ onUnmounted(() => {
         </div>
 
         <template #fallback>
-          <div class="bg-sys-surface rounded-lg p-8 mb-4 text-center">
+          <div class="bg-sys-card rounded-lg p-8 mb-4 text-center">
             <p class="text-textSecondary">
               準備載入圖表...
             </p>
@@ -197,27 +212,27 @@ onUnmounted(() => {
 
     <!-- BTC 折線圖 -->
     <div class="mb-8">
-      <h2 class="text-xl font-semibold mb-2 text-textPrimary">
+      <h2 class="text-xl font-semibold mb-2 text-textBase">
         Bitcoin (BTC-USD) 折線圖
       </h2>
       <p class="text-textSecondary mb-4 text-sm">
-        最近一個月資料 - TanStack Query 管理
+        最近一個月資料 · TanStack Query 管理
       </p>
 
       <ClientOnly>
-        <div v-if="btcLoading" class="bg-sys-surface rounded-lg p-8 mb-4 text-center">
+        <div v-if="btcLoading" class="bg-sys-card rounded-lg p-8 mb-4 text-center">
           <p class="text-textSecondary">
             載入中...
           </p>
         </div>
 
-        <div v-else-if="btcError" class="bg-sys-surface rounded-lg p-4 mb-4">
+        <div v-else-if="btcError" class="bg-sys-card rounded-lg p-4 mb-4">
           <p class="text-red-500">
             無法載入 BTC 資料
           </p>
         </div>
 
-        <div v-else class="bg-sys-surface rounded-lg p-4 mb-2">
+        <div v-else class="bg-sys-card rounded-lg p-4 mb-2">
           <div ref="lineChartContainer" class="w-full" />
         </div>
 
@@ -226,7 +241,7 @@ onUnmounted(() => {
         </div>
 
         <template #fallback>
-          <div class="bg-sys-surface rounded-lg p-8 mb-4 text-center">
+          <div class="bg-sys-card rounded-lg p-8 mb-4 text-center">
             <p class="text-textSecondary">
               準備載入圖表...
             </p>

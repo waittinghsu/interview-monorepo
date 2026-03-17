@@ -1,6 +1,6 @@
-import type { StockParams, YahooFinanceResponse } from '../types/stock.types'
+import type { StockParams, StockChartResponse } from '../types/stock.types'
 import type { RequestMeta } from '~/lib/api/createFetchClient'
-import { useStockApiClient } from '~/lib/api/clients'
+import { useBusinessApiClient } from '~/lib/api/clients'
 
 /**
  * Stock Service（nuxt-app 本地定義）
@@ -9,13 +9,13 @@ import { useStockApiClient } from '~/lib/api/clients'
  * - shared-api 只包含通用工具（createHttpClient 等）
  * - 業務 service 在各 app 本地定義
  *
- * 目前使用 yapimock API（Yahoo Finance 格式）
- * - 請求：/v8/finance/chart/:symbol?range=1mo&interval=1d
- * - 回應：{ chart: { result: [...], error: null } }
- * - 直接返回原始格式，不需要解包
+ * 使用 api-server API（業務格式）
+ * - 請求：/v1/api/stock/chart/:symbol?range=1mo&interval=1d
+ * - 回應：{ code: 200, msg: 'OK', data: StockChartResponse }
+ * - useBusinessApiClient 自動解包 data 層
  */
 export function useStockService() {
-  const stockApiClient = useStockApiClient()
+  const apiClient = useBusinessApiClient()
 
   return {
     /**
@@ -23,24 +23,16 @@ export function useStockService() {
      * @param symbol - 股票代號（例如：0050.TW、BTC-USD）
      * @param params - 查詢參數
      * @param options - 請求選項（skipLoading、silentError 等）
-     * @returns Promise<YahooFinanceResponse>
+     * @returns Promise<StockChartResponse>
      */
     async getChart(
       symbol: string,
       params: StockParams = {},
       options: RequestMeta = {},
-    ): Promise<YahooFinanceResponse> {
-      // 調用 yapimock API（Yahoo Finance 格式）
-      // 回傳：{ chart: { result: [...], error: null } }
-      return stockApiClient(`/v8/finance/chart/${symbol}`, {
-        query: {
-          range: params.range || '1mo',
-          interval: params.interval || '1d',
-        },
-        _meta: {
-          useYApiMock: true, // 使用 YAPI Mock
-          ...options,
-        },
+    ): Promise<StockChartResponse> {
+      return apiClient(`/v1/api/stock/chart/${symbol}`, {
+        query: params,
+        _meta: options,
       })
     },
 

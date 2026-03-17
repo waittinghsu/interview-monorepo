@@ -70,23 +70,61 @@ export async function stockRoutes(app: FastifyInstance) {
                 longName: { type: 'string', mock: { mock: '元大台灣50' }, title: '股票全名', description: '股票完整名稱' },
                 currency: { type: 'string', mock: { mock: 'TWD' }, title: '貨幣單位', description: '股票交易貨幣' },
                 exchangeName: { type: 'string', mock: { mock: 'TAI' }, title: '交易所', description: '股票上市交易所代碼' },
-                price: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '當前價格', description: '最新成交價格' },
-                previousClose: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '昨日收盤價', description: '前一個交易日收盤價格' },
-                open: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '今日開盤價', description: '當日開盤價格' },
-                dayHigh: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '今日最高價', description: '當日盤中最高價格' },
-                dayLow: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '今日最低價', description: '當日盤中最低價格' },
-                volume: { type: 'number', mock: { mock: '@natural(100000,9999999)' }, title: '成交量', description: '當日總成交量（股數）' },
+                dataGranularity: { type: 'string', mock: { mock: '1d' }, title: '資料粒度', description: '實際使用的取樣間隔' },
+                range: { type: 'string', mock: { mock: '1mo' }, title: '時間範圍', description: '實際使用的時間範圍' },
+                validRanges: {
+                  type: 'array',
+                  items: { type: 'string' },
+                  title: '可用時間範圍',
+                  description: '該標的支援的所有 range 值',
+                },
+                price: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '最新成交價', description: '最新成交價格' },
+                previousClose: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '前日收盤價', description: '前一交易日收盤價格' },
+                regularMarketOpen: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '今日開盤價', description: '當日開盤價格（meta 即時值）' },
+                regularMarketDayHigh: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '今日最高價', description: '當日盤中最高價格' },
+                regularMarketDayLow: { type: 'number', mock: { mock: '@float(50,500,0,2)' }, title: '今日最低價', description: '當日盤中最低價格' },
+                regularMarketVolume: { type: 'number', mock: { mock: '@natural(100000,9999999)' }, title: '今日成交量', description: '當日總成交量' },
                 timestamps: {
                   type: 'array',
                   items: { type: 'number', mock: { mock: '@natural(1700000000,1800000000)' } },
                   title: '時間戳列表',
-                  description: 'Unix 時間戳陣列，對應 prices 陣列中每個點的時間',
+                  description: 'Unix 時間戳陣列，對應 OHLCV 各欄位的時間點',
                 },
-                prices: {
+                open: {
                   type: 'array',
-                  items: { type: 'number', mock: { mock: '@float(50,500,0,2)' } },
-                  title: '價格列表',
-                  description: '歷史價格陣列，對應 timestamps 中每個時間點的收盤價',
+                  items: { type: 'number' },
+                  title: '開盤價序列',
+                  description: 'K 線開盤價陣列（含 null）',
+                },
+                high: {
+                  type: 'array',
+                  items: { type: 'number' },
+                  title: '最高價序列',
+                  description: 'K 線最高價陣列（含 null）',
+                },
+                low: {
+                  type: 'array',
+                  items: { type: 'number' },
+                  title: '最低價序列',
+                  description: 'K 線最低價陣列（含 null）',
+                },
+                close: {
+                  type: 'array',
+                  items: { type: 'number' },
+                  title: '收盤價序列',
+                  description: 'K 線收盤價陣列（含 null）',
+                },
+                volume: {
+                  type: 'array',
+                  items: { type: 'number' },
+                  title: '成交量序列',
+                  description: 'K 線成交量陣列（含 null）',
+                },
+                adjclose: {
+                  type: 'array',
+                  items: { type: 'number' },
+                  title: '還原收盤價序列',
+                  description: '調整後收盤價（includeAdjustedClose=true 時才有）',
                 },
               },
             },
@@ -154,26 +192,36 @@ export async function stockRoutes(app: FastifyInstance) {
 
       const meta = result[0].meta
       const timestamps: number[] = result[0].timestamp ?? []
-      const closePrices: (number | null)[] = result[0].indicators?.quote?.[0]?.close ?? []
+      const quote = result[0].indicators?.quote?.[0] ?? {}
+      const adjcloseArr: (number | null)[] = result[0].indicators?.adjclose?.[0]?.adjclose ?? []
 
-      return {
-        code: 200,
-        msg: 'OK',
-        data: {
-          symbol: meta.symbol ?? trimmedSymbol,
-          longName: meta.longName ?? meta.shortName ?? '',
-          currency: meta.currency ?? '',
-          exchangeName: meta.exchangeName ?? '',
-          price: meta.regularMarketPrice ?? null,
-          previousClose: meta.previousClose ?? meta.chartPreviousClose ?? null,
-          open: meta.regularMarketOpen ?? null,
-          dayHigh: meta.regularMarketDayHigh ?? null,
-          dayLow: meta.regularMarketDayLow ?? null,
-          volume: meta.regularMarketVolume ?? null,
-          timestamps,
-          prices: closePrices,
-        },
+      const data: Record<string, any> = {
+        symbol: meta.symbol ?? trimmedSymbol,
+        longName: meta.longName ?? meta.shortName ?? '',
+        currency: meta.currency ?? '',
+        exchangeName: meta.exchangeName ?? '',
+        dataGranularity: meta.dataGranularity ?? interval,
+        range: meta.range ?? range,
+        validRanges: meta.validRanges ?? [],
+        price: meta.regularMarketPrice ?? null,
+        previousClose: meta.previousClose ?? meta.chartPreviousClose ?? null,
+        regularMarketOpen: meta.regularMarketOpen ?? null,
+        regularMarketDayHigh: meta.regularMarketDayHigh ?? null,
+        regularMarketDayLow: meta.regularMarketDayLow ?? null,
+        regularMarketVolume: meta.regularMarketVolume ?? null,
+        timestamps,
+        open: quote.open ?? [],
+        high: quote.high ?? [],
+        low: quote.low ?? [],
+        close: quote.close ?? [],
+        volume: quote.volume ?? [],
       }
+
+      if (includeAdjustedClose) {
+        data.adjclose = adjcloseArr
+      }
+
+      return { code: 200, msg: 'OK', data }
     }
     catch (err) {
       app.log.error(err, 'Stock proxy error')
