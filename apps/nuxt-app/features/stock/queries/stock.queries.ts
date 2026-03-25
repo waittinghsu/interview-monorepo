@@ -1,5 +1,5 @@
-import type { ChartData, LineChartData, StockParams } from '../types/stock.types'
 import type { MaybeRefOrGetter } from 'vue'
+import type { ChartData, LineChartData, StockParams } from '../types/stock.types'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, toValue } from 'vue'
 import { useStockService } from '../services/stock.service'
@@ -69,7 +69,7 @@ export function use0050Query(params: MaybeRefOrGetter<StockParams> = { range: '1
       return toCandlestickData(response.timestamps, response.open, response.high, response.low, response.close)
     },
     enabled: import.meta.client,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 1,
   })
 }
 

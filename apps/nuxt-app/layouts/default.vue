@@ -14,6 +14,7 @@ const drawerOpen = ref(false)
       </q-page>
     </q-page-container>
     <AppFooter />
+    <PopupManager />
     <!--    <q-footer class="bg-sys-card border-t border-sys-border"> -->
     <!--      &lt;!&ndash; Desktop Footer &ndash;&gt; -->
     <!--      <div class="gt-sm container mx-auto text-center text-textMuted text-sm py-4 px-4"> -->
