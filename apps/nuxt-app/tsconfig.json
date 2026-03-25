@@ -1,6 +1,5 @@
 {
   "extends": "./.nuxt/tsconfig.json",
-  "exclude": ["vitest.config.ts"],
   "compilerOptions": {
     "strict": true,
     "strictBindCallApply": true,
