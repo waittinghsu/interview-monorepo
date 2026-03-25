@@ -4,7 +4,8 @@ import { useWindowScroll } from '@vueuse/core'
 const { y: scrollY } = useWindowScroll()
 
 const scrollProgress = computed(() => {
-  if (!import.meta.client) return 0
+  if (!import.meta.client)
+    return 0
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   return maxScroll > 0 ? Math.min((scrollY.value / maxScroll) * 100, 100) : 0
 })
@@ -14,14 +15,16 @@ let hideTimer: ReturnType<typeof setTimeout> | null = null
 
 watch(scrollY, () => {
   isVisible.value = true
-  if (hideTimer) clearTimeout(hideTimer)
+  if (hideTimer)
+    clearTimeout(hideTimer)
   hideTimer = setTimeout(() => {
     isVisible.value = false
   }, 6000)
 })
 
 onUnmounted(() => {
-  if (hideTimer) clearTimeout(hideTimer)
+  if (hideTimer)
+    clearTimeout(hideTimer)
 })
 </script>
 

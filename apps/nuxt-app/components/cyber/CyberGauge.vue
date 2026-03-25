@@ -23,14 +23,14 @@ const displayValue = ref(0)
 const START_DEG = 225
 const SPAN_DEG = 270
 
-const radius = computed(() => props.size * 0.375)           // 60 / 160
+const radius = computed(() => props.size * 0.375) // 60 / 160
 const circ = computed(() => 2 * Math.PI * radius.value)
 const arcLen = computed(() => (SPAN_DEG / 360) * circ.value)
-const strokeW = computed(() => props.size * 0.044)          // 7 / 160
-const valueFontSize = computed(() => props.size * 0.11)     // 17.6 at 160
-const labelFontSize = computed(() => props.size * 0.063)    // 10 at 160
-const valueY = computed(() => -props.size * 0.05)           // -8 at 160
-const labelY = computed(() => props.size * 0.113)           // 18 at 160
+const strokeW = computed(() => props.size * 0.044) // 7 / 160
+const valueFontSize = computed(() => props.size * 0.11) // 17.6 at 160
+const labelFontSize = computed(() => props.size * 0.063) // 10 at 160
+const valueY = computed(() => -props.size * 0.05) // -8 at 160
+const labelY = computed(() => props.size * 0.113) // 18 at 160
 
 function toRad(deg: number) {
   return (deg - 90) * Math.PI / 180
@@ -48,9 +48,9 @@ const bgPath = computed(() => {
 
 const ticks = computed(() => {
   const r = radius.value
-  const rOuter = r * 1.117  // 67 / 60
-  const rMajor = r * 0.85   // 51 / 60
-  const rMinor = r * 0.917  // 55 / 60
+  const rOuter = r * 1.117 // 67 / 60
+  const rMajor = r * 0.85 // 51 / 60
+  const rMinor = r * 0.917 // 55 / 60
   return Array.from({ length: 28 }, (_, i) => {
     const deg = START_DEG + i * (SPAN_DEG / 27)
     const rad = toRad(deg)

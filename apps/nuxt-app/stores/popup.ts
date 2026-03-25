@@ -1,7 +1,7 @@
-import { computed } from 'vue'
 import { defineStore } from 'pinia'
-import { useUserStore } from './user'
+import { computed } from 'vue'
 import { usePopupQueue } from '~/features/popup'
+import { useUserStore } from './user'
 
 export const usePopupStore = defineStore('popup', () => {
   const userStore = useUserStore()
