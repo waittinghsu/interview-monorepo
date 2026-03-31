@@ -99,7 +99,8 @@ await userApi.login(credentials, {
 
 | 項目 | 設定 |
 |------|------|
-| Service ID | `698d9d03eceac33904f65b78` |
+| Service ID | `69c66d86a972bb88a76276d5` |
+| Project ID | `69c66d86a972bb88a76276cb` |
 | 觸發分支 | `main` |
 | ZBPACK_ROOT_DIRECTORY | `apps/vue-app` |
 | 類型 | 靜態網站（Caddy） |

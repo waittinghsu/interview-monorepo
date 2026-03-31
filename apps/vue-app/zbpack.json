@@ -1,5 +1,0 @@
-{
-  "build_command": "cd /src && pnpm --filter=@interview/vue-app build",
-  "output_dir": "apps/vue-app/dist"
-}
-

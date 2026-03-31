@@ -91,7 +91,8 @@ rules?: Array<[string, string | Record<string, string>] | [RegExp, Function]>
 
 | 項目 | 設定 |
 |------|------|
-| Service ID | `699c39b846fe0965fb048116` |
+| Service ID | `69c66d86a972bb88a76276d3` |
+| Project ID | `69c66d86a972bb88a76276cb` |
 | 觸發分支 | `dev` |
 | ZBPACK_ROOT_DIRECTORY | 未設定（使用根目錄 zbpack.json） |
 | 類型 | Node.js SSR |
