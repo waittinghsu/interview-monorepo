@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nuxt-app",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "NITRO_PORT=31313 pnpm dev:nuxt"],
+      "port": 31313
+    }
+  ]
+}
