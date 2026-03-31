@@ -3,17 +3,20 @@ WORKDIR /app
 
 RUN npm install -g pnpm@9 --force
 
-# Install deps (layer cache)
+# Workspace manifest（全部 package.json，讓 pnpm 解析 workspace）
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY apps/nuxt-app/package.json          ./apps/nuxt-app/
-COPY apps/smartauto-nuxt-app/package.json ./apps/smartauto-nuxt-app/
 COPY apps/vue-app/package.json           ./apps/vue-app/
 COPY apps/api-server/package.json        ./apps/api-server/
+COPY apps/smartauto-nuxt-app/package.json ./apps/smartauto-nuxt-app/
 COPY packages/                           ./packages/
 
-RUN pnpm install --frozen-lockfile
+# 只裝 nuxt-app 及其 workspace dependencies
+RUN pnpm install --frozen-lockfile --filter=@interview/nuxt-app...
 
-COPY . .
+# 只複製 nuxt-app 和 shared packages 的 source
+COPY apps/nuxt-app/ ./apps/nuxt-app/
+COPY packages/      ./packages/
 
 RUN pnpm --filter=@interview/nuxt-app build
 

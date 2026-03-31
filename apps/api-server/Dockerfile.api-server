@@ -1,0 +1,42 @@
+FROM node:22-slim AS builder
+WORKDIR /app
+
+RUN npm install -g pnpm@9 --force
+
+# Workspace manifest
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY apps/api-server/package.json ./apps/api-server/
+COPY packages/                    ./packages/
+
+# 只裝 api-server 及其 workspace dependencies
+RUN pnpm install --frozen-lockfile --filter=@interview/api-server...
+
+# 只複製 api-server source
+COPY apps/api-server/ ./apps/api-server/
+COPY packages/        ./packages/
+
+# 產生 Prisma client + 編譯 TypeScript
+RUN cd apps/api-server && npx prisma generate && npx tsc
+
+# --- Production ---
+FROM node:22-slim
+WORKDIR /app
+
+RUN npm install -g pnpm@9 --force
+
+# 只複製執行需要的東西
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY apps/api-server/package.json ./apps/api-server/
+COPY packages/                    ./packages/
+
+RUN pnpm install --frozen-lockfile --filter=@interview/api-server... --prod
+
+COPY --from=builder /app/apps/api-server/dist    ./apps/api-server/dist
+COPY --from=builder /app/apps/api-server/prisma  ./apps/api-server/prisma
+COPY --from=builder /app/apps/api-server/node_modules/.prisma ./apps/api-server/node_modules/.prisma
+
+ENV PORT=8080
+EXPOSE 8080
+
+WORKDIR /app/apps/api-server
+CMD ["/bin/sh", "-c", "npx prisma migrate deploy && node dist/index.js"]

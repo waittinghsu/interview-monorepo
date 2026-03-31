@@ -1,4 +1,0 @@
-{
-  "build_command": "npx prisma generate && npx tsc",
-  "start_command": "npx prisma migrate deploy && npx tsx prisma/seed.ts && node dist/index.js"
-}
