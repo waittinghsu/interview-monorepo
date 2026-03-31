@@ -1,17 +1,26 @@
-FROM node:22-alpine
-LABEL "language"="nodejs"
-LABEL "framework"="vue.js"
+FROM node:22-slim AS builder
+WORKDIR /app
 
-WORKDIR /src
+RUN npm install -g pnpm@9 --force
 
-RUN npm install -f -g pnpm@9
+# Workspace manifest
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY apps/vue-app/package.json ./apps/vue-app/
+COPY packages/ ./packages/
 
-COPY . .
+# 只裝 vue-app 及其 workspace dependencies
+RUN pnpm install --frozen-lockfile --filter=@interview/vue-app...
 
-RUN pnpm install
+# 只複製 vue-app source
+COPY apps/vue-app/ ./apps/vue-app/
+COPY packages/ ./packages/
 
 RUN pnpm --filter=@interview/vue-app build
 
-EXPOSE 8080
+# --- Production（nginx 靜態 serve）---
+FROM nginx:alpine
+COPY --from=builder /app/apps/vue-app/dist /usr/share/nginx/html
 
-CMD ["npx", "serve", "-s", "apps/vue-app/dist", "-l", "8080"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
