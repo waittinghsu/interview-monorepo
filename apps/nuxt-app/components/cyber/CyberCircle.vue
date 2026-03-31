@@ -13,8 +13,10 @@ const props = withDefaults(defineProps<Props>(), {
   progress: 75,
 })
 
+const uid = useId()
 const circleRef = ref<SVGCircleElement>()
 const outerRingRef = ref<SVGCircleElement>()
+let outerTween: ReturnType<typeof gsap.to> | null = null
 
 const radius = computed(() => props.size / 2 - 20)
 const circumference = computed(() => 2 * Math.PI * radius.value)
@@ -25,7 +27,7 @@ const strokeDashoffset = computed(() => {
 onMounted(() => {
   // 外圈旋轉動畫
   if (outerRingRef.value) {
-    gsap.to(outerRingRef.value, {
+    outerTween = gsap.to(outerRingRef.value, {
       rotation: 360,
       duration: 4,
       repeat: -1,
@@ -42,6 +44,10 @@ onMounted(() => {
       ease: 'power2.out',
     })
   }
+})
+
+onUnmounted(() => {
+  outerTween?.kill()
 })
 
 // 監聽 progress 變化，動態更新動畫
@@ -65,7 +71,7 @@ watch(() => props.progress, (newProgress) => {
     class="cyber-circle"
   >
     <defs>
-      <filter id="glow-circle">
+      <filter :id="`glow-circle-${uid}`">
         <feGaussianBlur stdDeviation="3" result="coloredBlur" />
         <feMerge>
           <feMergeNode in="coloredBlur" />
@@ -108,7 +114,7 @@ watch(() => props.progress, (newProgress) => {
         :stroke-dashoffset="strokeDashoffset"
         stroke-linecap="round"
         transform="rotate(-90)"
-        filter="url(#glow-circle)"
+        :filter="`url(#glow-circle-${uid})`"
       />
 
       <!-- 中心文字 -->

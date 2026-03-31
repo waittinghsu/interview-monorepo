@@ -33,8 +33,44 @@ function arcPath(radius: number, startDeg: number, endDeg: number): string {
   return `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}`
 }
 
+const uid = useId()
 let dotTween: ReturnType<typeof gsap.to> | null = null
 let arcTween: ReturnType<typeof gsap.to> | null = null
+let bracketsTween: ReturnType<typeof gsap.to> | null = null
+
+function initBracketsAnim() {
+  if (!bracketsRef.value)
+    return
+  bracketsTween?.kill()
+  gsap.set(bracketsRef.value, { scale: 0.4, opacity: 0.8, transformOrigin: 'center center' })
+  bracketsTween = gsap.to(bracketsRef.value, {
+    scale: 0.8,
+    duration: 1,
+    ease: 'power2.out',
+    transformOrigin: 'center center',
+    yoyo: true,
+    repeat: -1,
+  })
+}
+
+function applyLocked(isLocked: boolean) {
+  if (bracketsRef.value) {
+    bracketsTween?.[isLocked ? 'pause' : 'restart']()
+    if (isLocked)
+      gsap.to(bracketsRef.value, { scale: 0.4, opacity: 0.8, duration: 1, ease: 'power2.out' })
+  }
+  if (dotRef.value) {
+    if (isLocked) {
+      dotTween?.pause()
+      gsap.to(dotRef.value, { opacity: 1, scale: 1.5, duration: 0.2, transformOrigin: 'center center' })
+    }
+    else {
+      gsap.to(dotRef.value, { scale: 1, duration: 0.2, transformOrigin: 'center center', onComplete: () => {
+        dotTween?.play()
+      } })
+    }
+  }
+}
 
 onMounted(() => {
   if (outerArcRef.value) {
@@ -55,41 +91,19 @@ onMounted(() => {
       ease: 'power1.inOut',
     })
   }
+  initBracketsAnim()
+  if (props.locked)
+    applyLocked(true)
 })
 
 watch(() => props.locked, (isLocked) => {
-  if (bracketsRef.value) {
-    gsap.to(bracketsRef.value, {
-      scale: isLocked ? 0.8 : 1,
-      duration: 0.3,
-      ease: 'power2.out',
-      transformOrigin: 'center center',
-    })
-  }
-  if (dotRef.value) {
-    if (isLocked) {
-      dotTween?.pause()
-      gsap.to(dotRef.value, {
-        opacity: 1,
-        scale: 1.5,
-        duration: 0.2,
-        transformOrigin: 'center center',
-      })
-    }
-    else {
-      gsap.to(dotRef.value, {
-        scale: 1,
-        duration: 0.2,
-        transformOrigin: 'center center',
-        onComplete: () => { dotTween?.play() },
-      })
-    }
-  }
+  applyLocked(isLocked)
 })
 
 onUnmounted(() => {
   arcTween?.kill()
   dotTween?.kill()
+  bracketsTween?.kill()
 })
 </script>
 
@@ -101,7 +115,7 @@ onUnmounted(() => {
     class="cyber-crosshair"
   >
     <defs>
-      <filter id="glow-crosshair">
+      <filter :id="`glow-crosshair-${uid}`">
         <feGaussianBlur stdDeviation="2" result="coloredBlur" />
         <feMerge>
           <feMergeNode in="coloredBlur" />
@@ -121,7 +135,7 @@ onUnmounted(() => {
           :stroke="color"
           stroke-width="2.5"
           stroke-linecap="round"
-          filter="url(#glow-crosshair)"
+          :filter="`url(#glow-crosshair-${uid})`"
         />
       </g>
 
@@ -164,7 +178,7 @@ onUnmounted(() => {
         ref="dotRef"
         r="5"
         :fill="color"
-        filter="url(#glow-crosshair)"
+        :filter="`url(#glow-crosshair-${uid})`"
       />
     </g>
   </svg>

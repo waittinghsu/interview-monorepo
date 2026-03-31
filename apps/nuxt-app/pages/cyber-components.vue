@@ -6,7 +6,7 @@ definePageMeta({
 
 const crosshairLocked = ref(false)
 const gaugeValue = ref(65)
-const pulseRings = ref(3)
+const pulseRings = ref(5)
 
 const accentColors = ['#22d3ee', '#f97316', '#a78bfa', '#34d399', '#f43f5e']
 const selectedColor = ref('#22d3ee')
@@ -82,6 +82,7 @@ const selectedColor = ref('#22d3ee')
               <button
                 v-for="c in accentColors"
                 :key="c"
+                type="button"
                 class="w-6 h-6 rounded-full border-2 transition-transform cursor-pointer"
                 :style="{ background: c, borderColor: selectedColor === c ? 'white' : 'transparent' }"
                 :class="{ 'scale-125': selectedColor === c }"
@@ -108,8 +109,8 @@ const selectedColor = ref('#22d3ee')
         <div class="flex gap-4 items-center">
           <ClientOnly>
             <CyberPulse :size="180" :rings="pulseRings" />
-            <CyberPulse :size="110" :rings="2" color="#a78bfa" />
-            <CyberPulse :size="70" :rings="4" color="#34d399" />
+            <CyberPulse :size="110" :rings="5" color="#a78bfa" />
+            <CyberPulse :size="70" :rings="2" color="#34d399" />
           </ClientOnly>
         </div>
         <div class="space-y-4 flex-1">
@@ -117,7 +118,7 @@ const selectedColor = ref('#22d3ee')
             <p class="text-textSecondary text-sm mb-2">
               脈衝環數 {{ pulseRings }}
             </p>
-            <q-slider v-model="pulseRings" :min="1" :max="6" :step="1" color="primary" />
+            <q-slider v-model="pulseRings" :min="1" :max="10" :step="1" color="primary" />
           </div>
           <ul class="text-textMuted text-sm space-y-1 list-none">
             <li>• 同心圓從中心向外擴散</li>

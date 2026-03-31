@@ -6,9 +6,13 @@ definePageMeta({
 // Carousel 資料
 const slide = ref(0)
 const carouselItems = [
-  { title: 'Welcome to Cyberpunk', description: '探索未來科技的無限可能', image: '/carousel/one_ok_rock.jpg' },
-  { title: 'Modern Tech Stack', description: 'Nuxt 3 + Quasar + TanStack Query', image: '/carousel/26_twice.jpg' },
-  { title: 'Responsive Design', description: '適配所有裝置的優雅體驗', image: '/carousel/fx.jpg' },
+  { title: 'Welcome to Cyberpunk', description: '探索未來科技的無限可能', image: '/carousel/D1.png' },
+  { title: 'Modern Tech Stack', description: 'Nuxt 3 + Quasar + TanStack Query', image: '/carousel/D3.png' },
+  { title: 'Responsive Design', description: '適配所有裝置的優雅體驗', image: '/carousel/D2.png' },
+  { title: '圖片版權歸各娛樂公司所有', description: '本站僅供學習展示用途，無商業意圖。', image: '/carousel/D4.png' },
+  { title: 'Monorepo ', description: '練習專案。', image: '/carousel/D5.png' },
+  { title: '即時股票數據視覺化 ', description: '練習專案。', image: '/carousel/D6.png' },
+  { title: 'API 測試 ', description: 'Transition Effects。', image: '/carousel/D7.png' },
 ]
 
 // ActionCards 資料
@@ -27,6 +31,8 @@ const actionCards: ActionCard[] = [
   { id: 4, label: '會員資料', icon: 'i-mdi-account-circle', route: '/user-info', description: '管理個人資料' },
   { id: 5, label: '關於我們', icon: 'i-mdi-information', route: '/about', description: '了解本專案' },
   { id: 6, label: '郵件中心', icon: 'i-mdi-email', route: '/mail', description: '訊息管理' },
+  { id: 7, label: 'API 測試', icon: 'i-mdi-api', route: '/api-demo', description: '測試三種 API 調用方式' },
+  { id: 8, label: 'Transition Effects', icon: 'i-mdi-shimmer', route: '/transition-effects', description: '視覺過渡特效展示' },
 ]
 </script>
 
@@ -110,8 +116,8 @@ const actionCards: ActionCard[] = [
           class="action-card no-underline"
         >
           <div class="card-content">
-            <CyberRadar :size="250" color="#22d3ee" />
-            <!--            <div :class="card.icon" class="text-5xl text-textBrand mb-4" /> -->
+            <!--            <CyberRadar :size="250" color="#22d3ee" /> -->
+            <div :class="card.icon" class="text-5xl text-textBrand mb-4" />
             <h3 class="text-xl font-bold text-textBase mb-2">
               {{ card.label }}
             </h3>
@@ -120,6 +126,21 @@ const actionCards: ActionCard[] = [
             </p>
           </div>
         </NuxtLink>
+        <div class="action-card no-underline">
+          <div class="card-content">
+            <CyberRadar :size="250" color="#22d3ee" />
+          </div>
+        </div>
+        <div class="action-card no-underline">
+          <div class="card-content">
+            <CyberPulse :size="250" :rings="3" color="#f87171" />
+          </div>
+        </div>
+        <div class="action-card no-underline">
+          <div class="card-content pa-3">
+            <CyberCrosshair :size="200" :locked="true" />
+          </div>
+        </div>
       </div>
     </section>
   </div>

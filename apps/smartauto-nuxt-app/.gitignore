@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Nuxt
+.nuxt/
+.output/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build
+dist/
+
+# Logs
+*.log
