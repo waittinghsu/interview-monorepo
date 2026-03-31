@@ -27,7 +27,8 @@ WORKDIR /src
 
 COPY --from=builder /src/apps/nuxt-app/.output ./apps/nuxt-app/.output
 
-ENV PORT=3000
-EXPOSE 3000
+# PORT is injected by Zeabur (default 8080)
+ENV PORT=8080
+EXPOSE 8080
 
-CMD ["node", "apps/nuxt-app/.output/server/index.mjs"]
+CMD ["/bin/sh", "-c", "node apps/nuxt-app/.output/server/index.mjs 2>&1"]
