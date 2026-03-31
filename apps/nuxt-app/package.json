@@ -30,6 +30,7 @@
     "@tanstack/vue-query": "^5.62.16",
     "@types/highlight.js": "^10.1.0",
     "@vueuse/components": "^12.4.0",
+    "@vueuse/core": "^14.1.0",
     "@vueuse/nuxt": "^12.4.0",
     "@zumer/snapdom": "^2.0.2",
     "animejs-v4": "npm:animejs@^4.2.2",
