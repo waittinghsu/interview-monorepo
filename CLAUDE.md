@@ -1,6 +1,6 @@
 # CLAUDE.md — Interview Monorepo
 
-## 專案概覽
+## 專案概覽 
 
 pnpm + Turborepo monorepo，包含兩個前端 App、一個 API Server 與共用套件。
 
