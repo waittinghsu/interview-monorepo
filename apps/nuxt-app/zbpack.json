@@ -1,0 +1,5 @@
+{
+  "dockerfile": {
+    "path": "apps/nuxt-app/Dockerfile.nuxt-app"
+  }
+}

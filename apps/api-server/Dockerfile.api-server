@@ -39,4 +39,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 WORKDIR /app/apps/api-server
-CMD ["/bin/sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
+CMD ["/bin/sh", "-c", "until npx prisma migrate deploy; do echo '[api-server] DB not ready, retrying in 5s...'; sleep 5; done && node dist/index.js"]

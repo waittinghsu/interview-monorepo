@@ -8,7 +8,7 @@ RUN npm install -f -g pnpm@9
 
 COPY . .
 
-RUN pnpm install
+RUN pnpm install --filter=@interview/nuxt-app --recursive
 
 RUN cd /src && pnpm --filter=@interview/nuxt-app build
 
