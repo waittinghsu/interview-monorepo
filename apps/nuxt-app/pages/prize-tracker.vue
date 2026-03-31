@@ -72,7 +72,7 @@ function getPct(state: PrizeState | undefined): number {
 // ── 格式化 ────────────────────────────────────────────────────
 function formatJST(date: Date): string {
   return date.toLocaleString('zh-TW', {
-    timeZone: 'Asia/Tokyo',
+    timeZone: 'Asia/Taipei',
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
