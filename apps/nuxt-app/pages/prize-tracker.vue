@@ -255,17 +255,26 @@ function updateCharts(draws: DrawEvent[]) {
   }
 }
 
-// 初始化 chart（ClientOnly 後 canvas 才存在）
-function initCharts() {
+// 初始化 chart（需等 ClientOnly DOM 渲染完）
+async function initCharts() {
+  await nextTick()
   if (timelineCanvasRef.value && !timelineChart)
     buildTimelineChart(timelineCanvasRef.value)
   if (hourCanvasRef.value && !hourChart)
     buildHourChart(hourCanvasRef.value)
 }
 
-watch(drawsData, (draws) => {
+watch(drawsData, async (draws) => {
+  if (!timelineChart || !hourChart)
+    await initCharts()
   if (draws)
     updateCharts(draws)
+})
+
+onMounted(async () => {
+  await initCharts()
+  if (drawsData.value)
+    updateCharts(drawsData.value)
 })
 </script>
 
@@ -326,7 +335,7 @@ watch(drawsData, (draws) => {
     </div>
 
     <!-- Timeline Chart -->
-    <ClientOnly @ready="initCharts">
+    <ClientOnly>
       <div class="bg-sys-card border border-sys-border p-5 mb-5">
         <div class="text-xs font-mono tracking-widest text-textMuted uppercase mb-4">
           ▸ DRAW TIMELINE &nbsp; X=時間 &nbsp; Y=品項 &nbsp; 點大小=抽出數量
