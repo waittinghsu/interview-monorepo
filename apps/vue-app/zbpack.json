@@ -1,5 +1,5 @@
 {
   "build_command": "cd /src && pnpm --filter=@interview/vue-app build",
-  "output_dir": "apps/vue-app/dist"
+  "output_dir": "apps/vue-app/dist",
+  "start_command": "npx --yes serve -s /src/apps/vue-app/dist -l ${PORT:-8080}"
 }
-

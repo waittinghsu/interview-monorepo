@@ -119,10 +119,11 @@ npx vitest run --reporter=html  # 產生 HTML 報告
 
 | 項目 | 設定 |
 |------|------|
-| Service ID | `69a721f0e10515e35593d7bb` |
+| Service ID | `69c66e7ea972bb88a762777b` |
+| Project ID | `69c66e7da972bb88a7627778` |
 | 觸發分支 | `dev` |
 | ZBPACK_ROOT_DIRECTORY | `apps/api-server` |
-| PostgreSQL | `69a720b3ebec607bb566eb3f` |
+| PostgreSQL | `69c66e7ea972bb88a762777a` |
 
 **zbpack.json 說明**：
 ```json
