@@ -68,7 +68,8 @@ const menuItems: MenuItem[] = [
       { id: 95, label: '彈窗示範', icon: 'i-mdi-message-image-outline', route: '/popup-demo' },
     ],
   },
-  { id: 10, label: '關於', icon: 'i-mdi-information', route: '/about' },
+  { id: 10, label: 'TWICE 抽獎追蹤', icon: 'i-mdi-ticket-percent', route: '/prize-tracker' },
+  { id: 11, label: '關於', icon: 'i-mdi-information', route: '/about' },
 ]
 </script>
 
