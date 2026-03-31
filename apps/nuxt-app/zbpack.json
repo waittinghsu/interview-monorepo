@@ -1,4 +1,3 @@
 {
-  "build_command": "cd /src && pnpm --filter=@interview/nuxt-app build",
-  "start_command": "/bin/sh -c 'node /src/apps/nuxt-app/.output/server/index.mjs 2>&1'"
+  "start_command": "node /app/.output/server/index.mjs"
 }
