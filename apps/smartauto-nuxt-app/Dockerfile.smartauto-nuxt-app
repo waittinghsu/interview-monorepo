@@ -1,0 +1,17 @@
+FROM node:22-alpine
+LABEL "language"="nodejs"
+LABEL "framework"="nuxt.js"
+
+WORKDIR /src
+
+COPY . .
+
+RUN npm install -g pnpm@9.15.4
+
+RUN pnpm install
+
+RUN pnpm --filter=@interview/smartauto-nuxt-app build
+
+EXPOSE 8080
+
+CMD ["node", "apps/smartauto-nuxt-app/.output/server/index.mjs"]
