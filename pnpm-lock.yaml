@@ -112,8 +112,8 @@ importers:
         specifier: npm:animejs@^4.2.2
         version: animejs@4.3.6
       axios:
-        specifier: ^1.7.9
-        version: 1.13.5
+        specifier: 1.7.9
+        version: 1.7.9
       chart.js:
         specifier: ^4.5.1
         version: 4.5.1
@@ -249,8 +249,8 @@ importers:
         specifier: ^14.1.0
         version: 14.2.0(vue@3.5.28(typescript@5.9.3))
       axios:
-        specifier: ^1.7.0
-        version: 1.13.5
+        specifier: 1.7.9
+        version: 1.7.9
       lightweight-charts:
         specifier: ^5.1.0
         version: 5.1.0
@@ -319,8 +319,8 @@ importers:
   packages/shared-api:
     dependencies:
       axios:
-        specifier: ^1.7.9
-        version: 1.13.5
+        specifier: 1.7.9
+        version: 1.7.9
       zod:
         specifier: ^3.24.1
         version: 3.25.76
@@ -3364,8 +3364,8 @@ packages:
   avvio@9.2.0:
     resolution: {integrity: sha512-2t/sy01ArdHHE0vRH5Hsay+RtCZt3dLPji7W7/MMOCEgze5b7SNDC4j5H6FnVgPkI1MTNFGzHdHrVXDDl7QSSQ==}
 
-  axios@1.13.5:
-    resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
+  axios@1.7.9:
+    resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
 
   b4a@1.7.3:
     resolution: {integrity: sha512-5Q2mfq2WfGuFp3uS//0s6baOJLMoVduPYVeNmDYxu5OUA1/cBfvr2RIS7vi62LdNj/urk1hfmj867I3qt6uZ7Q==}
@@ -10594,7 +10594,7 @@ snapshots:
       '@fastify/error': 4.2.0
       fastq: 1.20.1
 
-  axios@1.13.5:
+  axios@1.7.9:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5

@@ -9,7 +9,7 @@
     "./http-client": "./src/http-client/index.js"
   },
   "dependencies": {
-    "axios": "^1.7.9",
+    "axios": "1.7.9",
     "zod": "^3.24.1"
   }
 }

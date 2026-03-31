@@ -33,7 +33,7 @@
     "@vueuse/nuxt": "^12.4.0",
     "@zumer/snapdom": "^2.0.2",
     "animejs-v4": "npm:animejs@^4.2.2",
-    "axios": "^1.7.9",
+    "axios": "1.7.9",
     "chart.js": "^4.5.1",
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^4.1.0",
