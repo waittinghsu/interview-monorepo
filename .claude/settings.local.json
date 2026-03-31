@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "WebSearch",
+      "WebFetch(domain:openclaw.ai)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "mcp__ide__getDiagnostics",
+      "mcp__figma__get_design_context",
+      "Bash(curl:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(timeout 15 pnpm dev:*)",
+      "Bash(pnpm --filter @interview/vue-app build:*)",
+      "Bash(nslookup:*)",
+      "Bash(ping:*)",
+      "Bash(nc:*)",
+      "Bash(echo:*)",
+      "Bash(scutil:*)",
+      "Bash(timeout 10 openssl s_client:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:studio.apollographql.com)",
+      "Bash(pnpm build:nuxt:*)",
+      "Bash(npm run build:nuxt:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npx zeabur@latest deployment redeploy:*)",
+      "Bash(npx zeabur@latest service:*)",
+      "Bash(npx zeabur@latest deployment log:*)",
+      "Bash(npx zeabur@latest deployment get:*)",
+      "Bash(npx zeabur@latest deployment list:*)",
+      "Bash(npx eslint:*)",
+      "Read(//Users/waittinghsu/SpiderWork/side-project/interview-monorepo/apps/nuxt-app/**)",
+      "Bash(npx zeabur@latest variable list --id=699c39b846fe0965fb048116 -i=false)"
+    ]
+  }
+}
