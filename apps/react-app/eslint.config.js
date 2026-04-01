@@ -25,6 +25,7 @@ export default [
     },
     rules: {
       ...reactPlugin.configs.recommended.rules,
+      ...reactPlugin.configs['jsx-runtime'].rules,
       // React 17+ 不需要在每個檔案 import React，關閉此規則
       'react/react-in-jsx-scope': 'off',
       // 強制 hooks 使用規則（只能在元件頂層、只能在函數元件內呼叫）
