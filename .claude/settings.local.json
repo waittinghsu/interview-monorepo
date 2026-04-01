@@ -34,7 +34,29 @@
       "Bash(npx zeabur@latest deployment list:*)",
       "Bash(npx eslint:*)",
       "Read(//Users/waittinghsu/SpiderWork/side-project/interview-monorepo/apps/nuxt-app/**)",
-      "Bash(npx zeabur@latest variable list --id=699c39b846fe0965fb048116 -i=false)"
+      "Bash(npx zeabur@latest variable list --id=699c39b846fe0965fb048116 -i=false)",
+      "WebFetch(domain:status.zeabur.com)",
+      "WebFetch(domain:zeabur.com)",
+      "Bash(npx zeabur@latest variable create --id 69c66d86a972bb88a76276d4 --key \"ZBPACK_DOCKERFILE_NAME=apps/nuxt-app/Dockerfile\" -i=false -y)",
+      "Bash(grep -A2 '\"\"axios\"\"' apps/nuxt-app/package.json apps/vue-app/package.json)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm why:*)",
+      "Bash(npx zeabur@latest context set project --id 69c66d86a972bb88a76276cb -i=false -y)",
+      "Bash(npx zeabur@latest variable list --id 69c66d86a972bb88a76276d4 -i=false)",
+      "Bash(npx zeabur@latest variable list --id 69c66d86a972bb88a76276d6 -i=false)",
+      "Bash(npx zeabur@latest variable list --id 69c66d86a972bb88a762771c -i=false)",
+      "Bash(gh api:*)",
+      "Bash(npx zeabur@latest --help)",
+      "Bash(npx zeabur@latest deployment --help)",
+      "Bash(npx zeabur@latest deploy --help)",
+      "Bash(npx zeabur@latest deploy --project-id 69c66d86a972bb88a76276cb --service-id 69c66d86a972bb88a76276d4 --environment-id 69c66d8676bc68ba374cca4f -i=false)",
+      "Bash(pnpm --filter=@interview/nuxt-app add @vueuse/core)",
+      "Bash(npx zeabur@latest variable list --id 69c66d86a972bb88a76276d3 -i=false)",
+      "Bash(npx zeabur@latest variable create --id 69c66d86a972bb88a76276d3 --key \"ZBPACK_DOCKERFILE_NAME=Dockerfile\" -y -i=false)",
+      "Bash(npx zeabur@latest variable create --id 69c66d86a972bb88a76276d3 --key \"VITE_BASE_URL=https://api-server.zeabur.app\" -y -i=false)",
+      "Bash(npx zeabur@latest variable update --id 69c66d86a972bb88a76276d3 --key \"VITE_BASE_URL\" --value \"https://api-server.zeabur.app\" -y -i=false)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
