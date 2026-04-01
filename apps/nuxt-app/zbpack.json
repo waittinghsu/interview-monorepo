@@ -1,5 +1,5 @@
 {
   "dockerfile": {
-    "path": "apps/nuxt-app/Dockerfile.nuxt-app"
+    "path": "apps/nuxt-app/Dockerfile.nuxt-stage-app"
   }
 }
