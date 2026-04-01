@@ -13,7 +13,10 @@ RUN pnpm install --frozen-lockfile --filter=@interview/api-server...
 COPY apps/api-server/ ./apps/api-server/
 COPY packages/        ./packages/
 
-RUN cd apps/api-server && npx prisma generate && npx tsc
+# prisma generate 可能產生在 root 或 local node_modules
+RUN cd apps/api-server && npx prisma generate && npx tsc && \
+    mkdir -p node_modules/.prisma && \
+    cp -r /app/node_modules/.prisma/client node_modules/.prisma/client 2>/dev/null || true
 
 # ---- Production ----
 FROM node:22-slim
