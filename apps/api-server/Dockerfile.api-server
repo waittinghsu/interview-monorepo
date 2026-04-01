@@ -1,34 +1,35 @@
+# ---- Builder ----
 FROM node:22-slim AS builder
 WORKDIR /app
 
 RUN npm install -g pnpm@9 --force
 
-# Workspace manifest
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY apps/api-server/package.json ./apps/api-server/
 COPY packages/                    ./packages/
 
-# 只裝 api-server 及其 workspace dependencies
 RUN pnpm install --frozen-lockfile --filter=@interview/api-server...
 
-# 只複製 api-server source
 COPY apps/api-server/ ./apps/api-server/
 COPY packages/        ./packages/
 
-# 產生 Prisma client + 編譯 TypeScript
-RUN cd apps/api-server && npx prisma generate && npx tsc
+# prisma generate 可能產生在 root 或 local node_modules
+RUN cd apps/api-server && npx prisma generate && npx tsc && \
+    mkdir -p node_modules/.prisma && \
+    cp -r /app/node_modules/.prisma/client node_modules/.prisma/client 2>/dev/null || true
 
-# --- Production ---
+# ---- Production ----
 FROM node:22-slim
 WORKDIR /app
 
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 RUN npm install -g pnpm@9 --force
 
-# 只複製執行需要的東西
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY apps/api-server/package.json ./apps/api-server/
 COPY packages/                    ./packages/
 
+# prisma + tsx 已在 dependencies，--prod 會安裝
 RUN pnpm install --frozen-lockfile --filter=@interview/api-server... --prod
 
 COPY --from=builder /app/apps/api-server/dist    ./apps/api-server/dist
@@ -39,4 +40,5 @@ ENV PORT=8080
 EXPOSE 8080
 
 WORKDIR /app/apps/api-server
-CMD ["/bin/sh", "-c", "until npx prisma migrate deploy; do echo '[api-server] DB not ready, retrying in 5s...'; sleep 5; done && node dist/index.js"]
+
+CMD ["/bin/sh", "-c", "until npx prisma migrate deploy; do echo 'DB not ready, retrying in 5s...'; sleep 5; done && npx prisma generate && npx tsx prisma/seed.ts && exec node dist/index.js"]
