@@ -1,0 +1,69 @@
+<!--
+  公司篩選器模板
+
+  ============================================================
+  【Vue 對比】CSS class 綁定和事件綁定
+  ============================================================
+
+  條件 CSS class 的綁定方式：
+
+    Vue：
+    <div :class="{ active: company.id === activeId }">
+
+    Angular：
+    <div [ngClass]="{ 'active': company.id === activeId }">
+
+    或用三元運算子：
+    <div [class.active]="company.id === activeId">
+
+  Angular 的 [class.xxx] 語法更直覺（單一 class 時），
+  [ngClass] 更靈活（多個條件 class 時）。
+
+  Vue 的 :class 語法統一處理所有情況，更簡潔。
+
+  事件綁定攜帶參數：
+
+    Vue：@click="emit('companySelected', company.id)"
+    Angular：(click)="onCompanyClick(company.id)"
+
+  Angular 通常不在模板中直接呼叫 emit，
+  而是呼叫元件方法，在方法中 emit。
+  這讓邏輯集中在 .ts 檔案中，更容易測試和維護。
+  ============================================================
+-->
+
+<div class="company-filter scrollbar-hide">
+  <!--
+    公司篩選項目
+
+    【Vue 對比】
+    Vue 的列表渲染：
+      <div
+        v-for="company in companies"
+        :key="company.id"
+        :class="{ active: company.id === activeId }"
+        @click="emit('companySelected', company.id)"
+      >
+
+    Angular 的列表渲染：
+      <div
+        *ngFor="let company of companies"
+        [ngClass]="{ 'active': company.id === activeId }"
+        (click)="onCompanyClick(company.id)"
+      >
+  -->
+  <div
+    *ngFor="let company of companies"
+    class="company-item"
+    [ngClass]="{ 'active': company.id === activeId }"
+    (click)="onCompanyClick(company.id)"
+  >
+    <!-- 漸層色方塊（公司代表色） -->
+    <div class="company-icon" [ngStyle]="getGradientStyle(company)">
+      <span class="company-initials">{{ company.shortName }}</span>
+    </div>
+
+    <!-- 公司名稱 -->
+    <span class="company-label text-ellipsis">{{ company.name }}</span>
+  </div>
+</div>
