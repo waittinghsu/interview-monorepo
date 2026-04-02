@@ -37,8 +37,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-// TODO: Task 2 完成後引入 ThemeActions
-// import { ThemeActions } from './store/theme/theme.actions';
+import { ThemeActions } from './store/theme/theme.actions';
+import { KpopActions } from './store/kpop/kpop.actions';
 
 /**
  * @Component 裝飾器
@@ -110,7 +110,10 @@ export class AppComponent implements OnInit {
    * 對應 Vue 中 Pinia store 的 action 呼叫。
    */
   ngOnInit(): void {
-    // TODO: Task 2 完成後加入 ThemeActions.applyTheme()
-    // this.store.dispatch(ThemeActions.applyTheme());
+    // 套用主題 CSS 變數（透過 ThemeEffects 設定到 document.documentElement）
+    this.store.dispatch(ThemeActions.applyTheme());
+
+    // 載入所有 K-pop 資料（透過 KpopEffects 呼叫 KpopDataService）
+    this.store.dispatch(KpopActions.loadAllData());
   }
 }

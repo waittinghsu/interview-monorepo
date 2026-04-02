@@ -69,7 +69,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@env/environment';
 
-// TODO: Task 3 完成後引入 CoreModule（HTTP 攔截器、全域服務）
+import { CoreModule } from './core/core.module';
+import { reducers } from './store';
+import { KpopEffects } from './store/kpop/kpop.effects';
+import { ThemeEffects } from './store/theme/theme.effects';
+
 // TODO: Task 4 完成後引入 SharedModule（共用元件如 Header, Footer, LoadingBar）
 
 @NgModule({
@@ -104,7 +108,7 @@ import { environment } from '@env/environment';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    // CoreModule,   // TODO: Task 3 完成後取消註解
+    CoreModule,
     // SharedModule, // TODO: Task 4 完成後取消註解
 
     /**
@@ -113,8 +117,8 @@ import { environment } from '@env/environment';
      * forRoot({}) 傳入空的 reducers 物件，
      * Task 2 會加入實際的 theme reducer。
      */
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([KpopEffects, ThemeEffects]),
 
     /**
      * NgRx DevTools — 只在開發環境啟用
