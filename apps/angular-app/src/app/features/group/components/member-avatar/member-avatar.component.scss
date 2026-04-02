@@ -1,0 +1,118 @@
+/**
+ * 成員頭像元件樣式
+ *
+ * ============================================================
+ * 【Vue 對比】SCSS BEM vs UnoCSS utility class
+ * ============================================================
+ *
+ * Vue 版本用純 UnoCSS utility：
+ *   <div class="w-16 h-16 rounded-full overflow-hidden border-2">
+ *     <img class="w-full h-full object-cover" />
+ *   </div>
+ *   <p class="text-xs mt-1 text-center">{{ member.name }}</p>
+ *
+ * Angular 版本用 SCSS + BEM：
+ *   .member-avatar__circle { width: 64px; height: 64px; border-radius: 50%; }
+ *   .member-avatar__image { width: 100%; height: 100%; object-fit: cover; }
+ *
+ * 兩種方式各有優缺：
+ * - Utility：快速、直覺，但 HTML 較長
+ * - BEM：結構清晰、易維護，但需額外的 SCSS 檔案
+ * ============================================================
+ */
+
+/* Seoul Editorial 色彩 */
+$ink: #1a1a2e;
+$warm-gray: #8b8680;
+
+/**
+ * 主容器
+ *
+ * 【Vue 對比】
+ * Vue：class="text-center"
+ * Angular：.member-avatar { text-align: center; }
+ */
+.member-avatar {
+  text-align: center;
+
+  /**
+   * 可點擊狀態
+   *
+   * 【Vue 對比】
+   * Vue：:class="{ 'cursor-pointer': clickable }"
+   * Angular：[class.member-avatar--clickable]="clickable"
+   */
+  &--clickable {
+    cursor: pointer;
+
+    &:hover .member-avatar__circle {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/**
+ * 圓形頭像容器
+ *
+ * 【Vue 對比】
+ * Vue：class="w-16 h-16 rounded-full overflow-hidden border-2 mx-auto"
+ */
+.member-avatar__circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid;
+  margin: 0 auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 頭像圖片 */
+.member-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 備用（無照片）顯示 */
+.member-avatar__fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 姓名首字 */
+.member-avatar__initial {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+/**
+ * 成員姓名
+ *
+ * 【Vue 對比】
+ * Vue：class="text-xs mt-1 text-textBase"
+ */
+.member-avatar__name {
+  color: $ink;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 6px 0 0;
+  line-height: 1.2;
+}
+
+/* 韓文名 */
+.member-avatar__korean-name {
+  color: $warm-gray;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.625rem;
+  margin: 2px 0 0;
+  line-height: 1.2;
+}

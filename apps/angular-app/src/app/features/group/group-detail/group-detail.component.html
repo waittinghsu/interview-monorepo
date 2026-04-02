@@ -1,0 +1,153 @@
+<!--
+  團體詳情頁模板
+
+  ============================================================
+  【Vue 對比】Angular 模板語法 vs Vue 模板語法
+  ============================================================
+
+  主要語法對照：
+  ┌─────────────────┬──────────────────────┬──────────────────────┐
+  │ 功能            │ Vue                  │ Angular              │
+  ├─────────────────┼──────────────────────┼──────────────────────┤
+  │ 條件渲染        │ v-if="group"         │ *ngIf="group"        │
+  │ 列表渲染        │ v-for="m in members" │ *ngFor="let m of..." │
+  │ 事件綁定        │ @click="fn()"        │ (click)="fn()"       │
+  │ 屬性綁定        │ :src="url"           │ [src]="url"          │
+  │ 樣式綁定        │ :style="obj"         │ [ngStyle]="obj"      │
+  │ class 綁定      │ :class="{ active }"  │ [ngClass]="{ ... }"  │
+  │ 非同步資料      │ 不需要（ref 自動）    │ group$ | async       │
+  └─────────────────┴──────────────────────┴──────────────────────┘
+
+  async pipe 是 Angular 處理 Observable 的關鍵：
+  - 自動訂閱 Observable
+  - 元件銷毀時自動退訂（防止 memory leak）
+  - 等於 Vue 的 computed + watchEffect 組合
+
+  這裡用 *ngIf="group$ | async as group" 的模式：
+  1. 訂閱 group$ Observable
+  2. 將最新值賦給 group 區域變數
+  3. 如果 group 為 null/undefined，整個區塊不渲染
+  ============================================================
+-->
+
+<!-- 主容器 — 等待 group 和 members 資料載入 -->
+<div
+  *ngIf="group$ | async as group"
+  class="group-detail"
+>
+  <!-- 取得衍生資料 -->
+  <ng-container *ngIf="{ company: company$ | async, members: members$ | async, gridCols: gridCols$ | async } as vm">
+
+    <!--
+      Hero 封面圖區域
+
+      【Vue 對比】
+      Vue 用 v-if/v-else 切換圖片和漸層備用背景：
+        <img v-if="group.cover" :src="group.cover" />
+        <div v-else :style="gradientStyle" />
+
+      Angular 用 *ngIf/else 搭配 ng-template：
+        *ngIf="group.cover; else gradientFallback"
+    -->
+    <div class="hero">
+      <!-- 有封面圖時顯示圖片 -->
+      <img
+        *ngIf="group.cover; else gradientFallback"
+        [src]="group.cover"
+        [alt]="group.name"
+        class="hero__cover-image"
+      >
+      <!-- 無封面圖時的漸層備用背景 -->
+      <ng-template #gradientFallback>
+        <div
+          class="hero__cover-image hero__cover-gradient"
+          [ngStyle]="getHeroFallbackStyle(group)"
+        ></div>
+      </ng-template>
+
+      <!-- 漸層遮罩（讓底部文字可讀） -->
+      <div class="hero__overlay"></div>
+
+      <!-- 團體名稱覆蓋在 Hero 底部 -->
+      <div class="hero__content">
+        <p *ngIf="vm.company" class="hero__company-name">
+          {{ vm.company.name }}
+        </p>
+        <h1 class="hero__group-name">{{ group.name }}</h1>
+        <p class="hero__korean-name">{{ group.koreanName }}</p>
+      </div>
+    </div>
+
+    <!--
+      資訊標籤列
+
+      【Vue 對比】
+      Vue 用 :style 動態綁定顏色：
+        <span :style="{ background: `${group.color}22`, color: group.color }">
+
+      Angular 用 [ngStyle]：
+        [ngStyle]="getFandomChipStyle(group)"
+    -->
+    <div class="info-chips">
+      <!-- 粉絲團名稱（帶顏色） -->
+      <span class="info-chips__chip info-chips__chip--fandom" [ngStyle]="getFandomChipStyle(group)">
+        <mat-icon class="info-chips__icon">favorite</mat-icon>
+        {{ group.fandomName }}
+      </span>
+      <!-- 出道日期 -->
+      <span class="info-chips__chip info-chips__chip--default">
+        <mat-icon class="info-chips__icon">calendar_today</mat-icon>
+        出道 {{ group.debut }}
+      </span>
+      <!-- 成員數量 -->
+      <span class="info-chips__chip info-chips__chip--default">
+        <mat-icon class="info-chips__icon">group</mat-icon>
+        {{ vm.members?.length || 0 }} 位成員
+      </span>
+    </div>
+
+    <!--
+      團體簡介
+
+      【Vue 對比】
+      Vue：<p>{{ group.description }}</p>
+      Angular：完全相同的插值語法 {{ group.description }}
+      這是兩個框架語法最接近的部分。
+    -->
+    <div class="description">
+      <p class="description__text">{{ group.description }}</p>
+    </div>
+
+    <!--
+      成員列表
+
+      【Vue 對比】
+      Vue 用 v-for + 動態 grid class：
+        <div :class="members.length <= 4 ? 'grid-cols-4' : 'grid-cols-3'">
+          <MemberCard v-for="member in members" :key="member.id" />
+        </div>
+
+      Angular 用 *ngFor + trackBy + [ngClass]：
+        <div [ngClass]="'grid-cols-' + (gridCols$ | async)">
+          <app-member-avatar *ngFor="let member of members; trackBy: trackByMemberId" />
+        </div>
+
+      trackBy 等於 Vue 的 :key，告訴框架如何追蹤列表項目的身份。
+    -->
+    <div class="members-section">
+      <h2 class="members-section__title">成員</h2>
+      <div
+        class="members-section__grid"
+        [ngClass]="'members-section__grid--cols-' + vm.gridCols"
+      >
+        <app-member-avatar
+          *ngFor="let member of vm.members; trackBy: trackByMemberId"
+          [member]="member"
+          [clickable]="true"
+          (avatarClick)="onMemberClick($event)"
+        ></app-member-avatar>
+      </div>
+    </div>
+
+  </ng-container>
+</div>
