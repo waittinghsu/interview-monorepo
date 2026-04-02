@@ -74,7 +74,7 @@ import { reducers } from './store';
 import { KpopEffects } from './store/kpop/kpop.effects';
 import { ThemeEffects } from './store/theme/theme.effects';
 
-// TODO: Task 4 完成後引入 SharedModule（共用元件如 Header, Footer, LoadingBar）
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   /**
@@ -109,7 +109,7 @@ import { ThemeEffects } from './store/theme/theme.effects';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    // SharedModule, // TODO: Task 4 完成後取消註解
+    SharedModule,
 
     /**
      * NgRx Store 初始化

@@ -1,0 +1,32 @@
+<!--
+  LoadingBarComponent 模板 — 頂部不確定進度條
+
+  ============================================================
+  【Vue 對比】*ngIf="isLoading$ | async" vs v-if="isLoading"
+  ============================================================
+
+  Angular：
+    <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate" color="warn">
+    - *ngIf 是結構型指令，控制元素的建立/銷毀
+    - isLoading$ 是 Observable<boolean>
+    - async pipe 訂閱 Observable 並取得當前值
+    - mode="indeterminate" 表示不確定進度（持續動畫）
+    - color="warn" 使用 Material 的 warn 調色盤（對應我們的珊瑚色）
+
+  Vue：
+    <q-linear-progress v-if="isLoading" indeterminate color="warning" />
+    - v-if 控制元素的建立/銷毀（和 *ngIf 功能相同）
+    - isLoading 是 Ref<boolean>，Vue 自動解包 .value
+    - Quasar 的 q-linear-progress 對應 Angular Material 的 mat-progress-bar
+
+  關鍵差異在「響應式的訂閱方式」：
+  - Vue 的 v-if 直接讀取響應式變數，系統自動追蹤依賴
+  - Angular 的 *ngIf 需要 async pipe 來手動橋接 Observable 和模板
+  ============================================================
+-->
+
+<mat-progress-bar
+  *ngIf="isLoading$ | async"
+  mode="indeterminate"
+  color="warn"
+></mat-progress-bar>
