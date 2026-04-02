@@ -1,0 +1,19 @@
+/**
+ * 應用程式專用的 TypeScript 配置
+ *
+ * 繼承自 tsconfig.json，只編譯 src/ 下的應用程式碼。
+ * 排除測試檔案（**\/*.spec.ts），避免測試用的型別污染正式建置。
+ */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": []
+  },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}
