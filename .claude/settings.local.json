@@ -34,7 +34,10 @@
       "Bash(npx zeabur@latest deployment list:*)",
       "Bash(npx eslint:*)",
       "Read(//Users/waittinghsu/SpiderWork/side-project/interview-monorepo/apps/nuxt-app/**)",
-      "Bash(npx zeabur@latest variable list --id=699c39b846fe0965fb048116 -i=false)"
+      "Bash(npx zeabur@latest variable list --id=699c39b846fe0965fb048116 -i=false)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm --filter=@interview/react-app lint)",
+      "Bash(pnpm --filter=@interview/react-app add prop-types)"
     ]
   }
 }

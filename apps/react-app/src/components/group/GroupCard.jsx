@@ -14,6 +14,7 @@
  * @param {{ group: object, onClick: (id: string) => void }} props
  */
 
+import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 
 function GroupCard({ group, onClick }) {
@@ -65,6 +66,20 @@ function GroupCard({ group, onClick }) {
       </div>
     </motion.div>
   )
+}
+
+GroupCard.propTypes = {
+  group: PropTypes.shape({
+    id: PropTypes.string,
+    color: PropTypes.string,
+    cover: PropTypes.string,
+    name: PropTypes.string,
+    koreanName: PropTypes.string,
+    fandomName: PropTypes.string,
+    gradientFrom: PropTypes.string,
+    gradientTo: PropTypes.string,
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default GroupCard

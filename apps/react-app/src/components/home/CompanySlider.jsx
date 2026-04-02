@@ -12,6 +12,7 @@
  * @param {{ companies: Array, activeId: string, onSelect: (id: string) => void }} props
  */
 
+import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 
 function CompanySlider({ companies, activeId, onSelect }) {
@@ -59,6 +60,20 @@ function CompanySlider({ companies, activeId, onSelect }) {
       </div>
     </div>
   )
+}
+
+CompanySlider.propTypes = {
+  companies: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    shortName: PropTypes.string,
+    icon: PropTypes.string,
+    color: PropTypes.string,
+    gradientFrom: PropTypes.string,
+    gradientTo: PropTypes.string,
+  })).isRequired,
+  activeId: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
 }
 
 export default CompanySlider

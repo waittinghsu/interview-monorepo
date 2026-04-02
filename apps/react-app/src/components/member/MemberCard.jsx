@@ -10,6 +10,7 @@
  * @param {{ member: object, clickable?: boolean, onClick?: (id: string) => void }} props
  */
 
+import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 
 function MemberCard({ member, clickable = false, onClick }) {
@@ -55,6 +56,18 @@ function MemberCard({ member, clickable = false, onClick }) {
       </span>
     </motion.div>
   )
+}
+
+MemberCard.propTypes = {
+  member: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    koreanName: PropTypes.string,
+    photo: PropTypes.string,
+    color: PropTypes.string,
+  }).isRequired,
+  clickable: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 export default MemberCard

@@ -13,6 +13,7 @@
  * @param {{ messages: string[] }} props
  */
 
+import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
 const MARQUEE_STYLE = `
@@ -69,6 +70,10 @@ function MarqueeBanner({ messages }) {
       </div>
     </div>
   )
+}
+
+MarqueeBanner.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default MarqueeBanner

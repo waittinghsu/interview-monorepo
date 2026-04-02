@@ -15,6 +15,7 @@
  * @param {{ slides: Array<{ id, image, title, subtitle, colorFrom, colorTo }> }} props
  */
 
+import PropTypes from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -102,6 +103,17 @@ function CarouselBanner({ slides }) {
       </div>
     </div>
   )
+}
+
+CarouselBanner.propTypes = {
+  slides: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    image: PropTypes.string,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    colorFrom: PropTypes.string,
+    colorTo: PropTypes.string,
+  })).isRequired,
 }
 
 export default CarouselBanner
