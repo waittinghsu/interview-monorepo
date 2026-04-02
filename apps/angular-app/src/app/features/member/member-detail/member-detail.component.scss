@@ -1,0 +1,300 @@
+/**
+ * 成員詳情頁樣式
+ *
+ * 設計風格：Seoul Editorial
+ * - 奶油色背景、墨色文字、珊瑚色點綴
+ * - Cormorant Garamond 襯線字體（標題）
+ * - DM Sans 無襯線字體（內文、標籤）
+ *
+ * ============================================================
+ * 【Vue 對比】SCSS vs UnoCSS utility class
+ * ============================================================
+ *
+ * Vue MemberPage.vue 完全用 UnoCSS：
+ *   <div class="relative h-[300px] overflow-hidden">
+ *     <div class="absolute inset-0 bg-gradient-to-t from-black/90" />
+ *     <div class="absolute bottom-4 left-4 right-4">
+ *       <h1 class="text-white text-2xl font-bold">{{ member.name }}</h1>
+ *     </div>
+ *   </div>
+ *
+ * Angular 版本用 SCSS + BEM 命名：
+ *   .hero { position: relative; height: 300px; }
+ *   .hero__overlay { ... gradient ... }
+ *   .hero__name { color: #fff; font-size: 1.75rem; }
+ *
+ * 好處：樣式和結構分離，BEM 命名讓維護更清晰。
+ * 缺點：需要額外的 SCSS 檔案，修改時要切換檔案。
+ * ============================================================
+ */
+
+/* Seoul Editorial 色彩變數 */
+$cream: #f5f0e8;
+$ink: #1a1a2e;
+$coral: #e07a5f;
+$warm-gray: #8b8680;
+$border-color: rgba(#1a1a2e, 0.1);
+
+/* 主容器 */
+.member-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  margin: -16px -16px 0;
+  padding-bottom: 32px;
+}
+
+/**
+ * Hero 照片區域
+ *
+ * 【Vue 對比】
+ * Vue：class="relative h-[300px] overflow-hidden"
+ * Angular：.hero { height: 300px; overflow: hidden; }
+ */
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 300px;
+  overflow: hidden;
+
+  /* 成員照片 */
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /**
+   * 無照片備用背景
+   *
+   * 【Vue 對比】
+   * Vue 用 :style 動態設定 radial-gradient：
+   *   :style="{ background: `radial-gradient(circle at 50% 30%, ${member.color}66, ${member.color}22 70%)` }"
+   */
+  &__fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 備用背景的首字 */
+  &__initial {
+    color: rgba(255, 255, 255, 0.2);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 8rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  /**
+   * 漸層遮罩
+   *
+   * 【Vue 對比】
+   * Vue：class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+   */
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.2) 50%,
+      transparent 100%
+    );
+  }
+
+  /**
+   * 返回團體按鈕
+   *
+   * 【Vue 對比】
+   * Vue：class="absolute top-4 left-4 flex items-center gap-1 bg-transparent border-none cursor-pointer"
+   */
+  &__back-button {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+  }
+
+  &__back-icon {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem !important;
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+  }
+
+  &__back-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+  }
+
+  /* 底部姓名區域 */
+  &__content {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  &__name {
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__sub-name {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    margin: 4px 0 0;
+  }
+}
+
+/**
+ * 基本資料卡片
+ *
+ * 【Vue 對比】
+ * Vue：class="mx-4 mt-4 bg-sys-card rounded-2xl border border-sys-border p-4"
+ * Angular：用 SCSS 定義，Seoul Editorial 奶油色卡片
+ */
+.info-card {
+  width: 100%;
+  max-width: 480px;
+  margin: 16px 16px 0;
+  padding: 16px;
+  background-color: $cream;
+  border-radius: 16px;
+  border: 1px solid $border-color;
+  box-sizing: border-box;
+
+  /**
+   * 2 欄 grid
+   *
+   * 【Vue 對比】
+   * Vue：class="grid grid-cols-2 gap-4"
+   */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  &__item {
+    &--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /**
+   * 標籤文字
+   *
+   * 【Vue 對比】
+   * Vue：class="text-textMuted text-[10px] uppercase tracking-wider"
+   */
+  &__label {
+    color: $warm-gray;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 2px;
+  }
+
+  &__value {
+    color: $ink;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /**
+   * 團體連結按鈕
+   *
+   * 【Vue 對比】
+   * Vue：<button :style="{ color: group.color }" @click="goToGroup">
+   */
+  &__group-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  &__link-icon {
+    font-size: 0.75rem !important;
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+  }
+}
+
+/**
+ * 擔當（職位）區域
+ *
+ * 【Vue 對比】
+ * Vue：class="px-4 mt-4"
+ */
+.position-section {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 16px;
+  margin-top: 16px;
+
+  &__title {
+    color: $ink;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  /**
+   * 標籤容器
+   *
+   * 【Vue 對比】
+   * Vue：class="flex flex-wrap gap-2"
+   */
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /**
+   * 職位標籤
+   *
+   * 【Vue 對比】
+   * Vue：class="text-xs font-medium px-3 py-1.5 rounded-full"
+   *       :style="{ background: `${member.color}22`, color: member.color }"
+   */
+  &__chip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 9999px;
+  }
+}
