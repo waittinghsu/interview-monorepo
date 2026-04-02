@@ -1,3 +1,15 @@
+/**
+ * NotFoundPage — 404 頁面
+ *
+ * ── Vue 對比 ──────────────────────────────────────────────────
+ * Vue：<router-link to="/">回首頁</router-link>
+ * React：<Link to="/">回首頁</Link>（react-router 的 Link 元件）
+ *
+ * 兩者都是客戶端導航（不重新載入頁面），
+ * 差異在於 Vue 用 :to 物件或字串，React 用 to 字串 prop
+ * ──────────────────────────────────────────────────────────────
+ */
+
 import { Link } from 'react-router'
 
 function NotFoundPage() {
