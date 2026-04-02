@@ -1,0 +1,36 @@
+# .dockerignore — 排除不需要複製進 Docker build context 的檔案
+# 減少 build context 大小，加速 docker build
+
+# 依賴目錄（不需要，Docker 內會重新安裝）
+node_modules/
+**/node_modules/
+
+# build 產物（不需要，Docker 內會重新 build）
+dist/
+**/dist/
+
+# 開發工具設定（不需要帶入 production build）
+.git/
+.gitignore
+.eslintcache
+*.log
+npm-debug.log*
+
+# 環境變數（絕對不能帶入 image，應該透過 Zeabur 環境變數注入）
+.env
+.env.local
+.env.*.local
+
+# IDE 設定
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# CI/CD（不需要帶入 image）
+.github/
+
+# Claude 工作目錄（monorepo 特有）
+.claude/
