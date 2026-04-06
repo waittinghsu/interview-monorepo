@@ -53,8 +53,8 @@ COPY --from=builder /app/apps/react-app/dist /usr/share/nginx/html
 # 此設定會覆蓋 nginx:alpine 的預設設定
 COPY apps/react-app/nginx.conf /etc/nginx/conf.d/default.conf
 
-# nginx 預設監聽 80 port（Zeabur 會自動對應到外部 port）
-EXPOSE 80
+# nginx 監聽 8080 port（Zeabur WEB_PORT 預設 8080）
+EXPOSE 8080
 
 # nginx:alpine 的預設 CMD 已啟動 nginx，無需額外設定
 # CMD ["nginx", "-g", "daemon off;"]  <- 這是 nginx:alpine 的預設，不需要重複
