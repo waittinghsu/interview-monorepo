@@ -1,0 +1,53 @@
+<!--
+  跑馬燈模板
+
+  ============================================================
+  【Vue 對比】Angular getter vs Vue computed
+  ============================================================
+
+  這個模板使用了 Angular class 的 getter（get currentMessage()）：
+    {{ currentMessage }}
+
+  在 Vue 中，同樣的邏輯用 computed：
+    const currentMessage = computed(() => props.messages[currentIndex.value])
+    // 模板中：{{ currentMessage }}
+
+  兩者的效果完全相同：
+  - 都是「衍生值」，依賴其他狀態自動計算
+  - Angular getter 在每次變更偵測時都會重新呼叫
+  - Vue computed 有快取機制，依賴不變就不重算
+
+  Angular getter 沒有快取，但對於這種簡單的陣列取值，
+  效能影響可忽略不計。
+  ============================================================
+-->
+
+<div class="marquee-strip">
+  <!--
+    活動圖標區域
+
+    Seoul Editorial 風格：珊瑚色背景條上的白色圖標
+  -->
+  <div class="marquee-icon">
+    <mat-icon>campaign</mat-icon>
+  </div>
+
+  <!--
+    跑馬燈文字區域
+
+    用 CSS @keyframes 做橫向捲動動畫。
+    每次 currentIndex 改變時，animationKey 也會改變，
+    Angular 的變更偵測會觸發重新渲染，CSS 動畫自動重新開始。
+
+    【Vue 對比】
+    Vue 可以用 :key 強制重新渲染：
+      <span :key="currentIndex">{{ currentMessage }}</span>
+    Angular 沒有 :key 的概念（*ngFor 有 trackBy，但單個元素沒有），
+    這裡用 animationKey 變化來觸發重新渲染。
+  -->
+  <div class="marquee-content">
+    <span class="marquee-text" [style.animation-name]="'marquee-scroll'">
+      {{ currentMessage }}
+    </span>
+  </div>
+</div>

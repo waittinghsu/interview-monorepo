@@ -1,0 +1,74 @@
+/**
+ * TypeScript 根配置
+ *
+ * 【Vue 對比】
+ * Vue 專案通常只有一個 tsconfig.json（或搭配 tsconfig.node.json）。
+ * Angular 專案則分為多層：
+ *   - tsconfig.json：根配置，定義共用選項
+ *   - tsconfig.app.json：繼承根配置，專門給應用程式碼用
+ *   - tsconfig.spec.json：繼承根配置，專門給測試用
+ *
+ * 這種分層設計讓不同用途的 TS 編譯可以有不同的設定，
+ * 例如測試可以引入 jasmine 的型別，而應用程式碼不需要。
+ */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    /* ── 基礎選項 ── */
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* ── 編譯目標 ── */
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": ["es2020", "dom"],
+
+    /**
+     * 路徑別名
+     *
+     * 【Vue 對比】
+     * Vue + Vite 專案在 vite.config.js 設定 resolve.alias（例如 @ → src/）。
+     * Angular 則直接在 tsconfig.json 設定 paths，不需要額外的 bundler 設定。
+     *
+     * 用法：
+     *   import { AppComponent } from '@app/app.component';
+     *   import { environment } from '@env/environment';
+     */
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"]
+    }
+  },
+
+  /**
+   * Angular 編譯器選項
+   *
+   * 【Vue 對比】
+   * Vue 的模板編譯由 vue-loader 或 @vitejs/plugin-vue 處理，
+   * 沒有對應的 tsconfig 設定。
+   *
+   * Angular 的模板編譯器（ngc）有自己的嚴格模式：
+   * - strictTemplates：模板中的變數、管道、事件都會做型別檢查
+   * - strictInjectionParameters：依賴注入的參數必須有明確型別
+   *
+   * 這比 Vue 的模板檢查更嚴格，能在編譯時捕捉更多錯誤。
+   */
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

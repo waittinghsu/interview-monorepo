@@ -1,0 +1,91 @@
+/**
+ * 公司篩選器樣式 — Seoul Editorial 風格
+ *
+ * 【Vue 對比】
+ * Vue 版本使用 UnoCSS 的 overflow-x-auto 和 scrollbar-hide：
+ *   <div class="flex overflow-x-auto gap-4 scrollbar-hide">
+ *
+ * Angular 用 SCSS 實作相同效果。
+ * scrollbar-hide 使用全域定義的 .scrollbar-hide class（在 styles.scss 中）。
+ *
+ * 互動效果：
+ * - 選中的公司：珊瑚色邊框 + scale(1.05)
+ * - 未選中的公司：opacity 0.4（淡化）
+ */
+
+/* 水平捲動容器 */
+.company-filter {
+  display: flex;
+  gap: var(--space-lg);
+  overflow-x: auto;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+/* 公司項目（垂直排列：圖標 + 名稱） */
+.company-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: 64px;
+  transition: all var(--transition-base);
+
+  /* 未選中狀態：淡化 */
+  opacity: 0.4;
+
+  /* 選中狀態：完全不透明 + 放大 */
+  &.active {
+    opacity: 1;
+    transform: scale(1.05);
+
+    .company-icon {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 2px var(--coral-light);
+    }
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.active:hover {
+    opacity: 1;
+  }
+}
+
+/* 漸層色方塊 */
+.company-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  transition: all var(--transition-base);
+}
+
+/* 公司簡稱（方塊內的文字） */
+.company-initials {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 公司名稱 */
+.company-label {
+  font-size: 0.6875rem;
+  color: var(--ink-muted);
+  text-align: center;
+  max-width: 72px;
+  font-family: var(--font-body);
+
+  .active & {
+    color: var(--ink);
+    font-weight: 500;
+  }
+}

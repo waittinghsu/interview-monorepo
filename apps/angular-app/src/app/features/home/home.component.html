@@ -1,0 +1,146 @@
+<!--
+  首頁模板 — HomeComponent
+
+  ============================================================
+  【Vue 對比】Angular 模板語法 vs Vue 模板語法
+  ============================================================
+
+  Angular 和 Vue 的模板語法有許多相似之處，但細節不同：
+
+  ┌──────────────────┬────────────────────────┬────────────────────────┐
+  │ 功能             │ Vue                    │ Angular                │
+  ├──────────────────┼────────────────────────┼────────────────────────┤
+  │ 文字插值         │ {{ value }}            │ {{ value }}            │
+  │ 屬性綁定         │ :prop="value"          │ [prop]="value"         │
+  │ 事件綁定         │ @event="handler"       │ (event)="handler()"    │
+  │ 雙向綁定         │ v-model="value"        │ [(ngModel)]="value"    │
+  │ 條件渲染         │ v-if="condition"       │ *ngIf="condition"      │
+  │ 列表渲染         │ v-for="item in list"   │ *ngFor="let item of l" │
+  │ CSS class 綁定   │ :class="{ active: x }" │ [ngClass]="{ ... }"    │
+  │ 管道/過濾器      │ {{ val | filter }}(v2) │ {{ val | pipe }}       │
+  └──────────────────┴────────────────────────┴────────────────────────┘
+
+  重要差異：
+  1. async pipe（| async）
+     Angular 的 Observable 需要用 async pipe 來訂閱。
+     模板會自動在元件銷毀時退訂，避免記憶體洩漏。
+     Vue 的 ref/computed 不需要這個步驟。
+
+  2. *ngIf with as
+     *ngIf="companies$ | async as companies" 的意思是：
+     - 訂閱 companies$ Observable
+     - 將結果賦值給模板變數 companies
+     - 如果結果為 null/undefined/false 則不渲染
+
+     Vue 對應：v-if="companies?.length" + 直接用 companies
+  ============================================================
+-->
+
+<div class="home-page">
+  <!--
+    輪播圖區域
+
+    【Vue 對比】
+    Vue：<CarouselBanner :slides="carouselSlides" />
+    Angular：<app-carousel [slides]="carouselSlides">
+    - 屬性綁定：Vue 用 : 前綴，Angular 用 [] 包裹
+    - 元件命名：Vue 用 PascalCase，Angular 用 kebab-case（帶前綴）
+  -->
+  <app-carousel [slides]="carouselSlides"></app-carousel>
+
+  <!--
+    跑馬燈公告區域
+
+    【Vue 對比】
+    Vue：<MarqueeBanner :messages="marqueeMessages" />
+    Angular：<app-marquee [messages]="marqueeMessages">
+  -->
+  <app-marquee [messages]="marqueeMessages"></app-marquee>
+
+  <!--
+    公司篩選區域
+
+    【Vue 對比】
+    Vue 傳遞 store 資料：
+      <CompanyFilter
+        :companies="companies"
+        :activeId="selectedCompanyId"
+        @select="handleCompanySelect"
+      />
+
+    Angular 使用 async pipe 將 Observable 解包後傳入：
+      *ngIf="companies$ | async as companies"
+    這種「解包 + 條件渲染」的模式是 Angular 處理 Observable 的慣例。
+
+    事件綁定差異：
+    - Vue：@companySelected="onCompanySelect($event)"
+    - Angular：(companySelected)="onCompanySelect($event)"
+    兩者都用 $event 取得事件的 payload。
+  -->
+  <section class="section" *ngIf="companies$ | async as companies">
+    <div class="section-header">
+      <h2 class="section-title font-display">娛樂公司</h2>
+    </div>
+
+    <app-company-filter
+      [companies]="companies"
+      [activeId]="(selectedCompanyId$ | async) || ''"
+      (companySelected)="onCompanySelect($event)"
+    ></app-company-filter>
+  </section>
+
+  <!--
+    團體列表區域
+
+    【Vue 對比】
+    Vue 的列表渲染：
+      <div class="grid" v-if="filteredGroups.length">
+        <GroupCard
+          v-for="group in filteredGroups"
+          :key="group.id"
+          :group="group"
+          @click="handleGroupClick(group.id)"
+        />
+      </div>
+
+    Angular 的列表渲染：
+      <div class="grid" *ngIf="...">
+        <app-group-card
+          *ngFor="let group of groups; trackBy: trackByGroupId"
+          [group]="group"
+          (cardClick)="onGroupClick($event)"
+        />
+      </div>
+
+    差異重點：
+    - Vue 的 :key 對應 Angular 的 trackBy
+    - Vue 用 v-for="group in list"，Angular 用 *ngFor="let group of list"
+    - trackBy 是一個回傳唯一識別值的函式，幫助 Angular 追蹤列表項目
+  -->
+  <section class="section" *ngIf="filteredGroups$ | async as groups">
+    <div class="section-header">
+      <h2 class="section-title font-display">旗下團體</h2>
+      <span class="section-count">{{ groups.length }}</span>
+    </div>
+
+    <div class="group-grid">
+      <app-group-card
+        *ngFor="let group of groups; trackBy: trackByGroupId"
+        [group]="group"
+        (cardClick)="onGroupClick($event)"
+      ></app-group-card>
+    </div>
+
+    <!--
+      空狀態提示
+
+      【Vue 對比】
+      Vue：<div v-if="filteredGroups.length === 0">暫無資料</div>
+      Angular：<div *ngIf="groups.length === 0">暫無資料</div>
+    -->
+    <div class="empty-state" *ngIf="groups.length === 0">
+      <span class="empty-icon">🎵</span>
+      <p class="empty-text">目前沒有團體資料</p>
+    </div>
+  </section>
+</div>

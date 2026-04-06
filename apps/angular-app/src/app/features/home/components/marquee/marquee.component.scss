@@ -1,0 +1,79 @@
+/**
+ * 跑馬燈樣式 — Seoul Editorial 風格
+ *
+ * 【Vue 對比】
+ * Vue 版本（MarqueeBanner.vue）使用 UnoCSS：
+ *   <div class="bg-[#E8614A] text-white flex items-center h-8">
+ *
+ * Angular 版本用 SCSS + CSS 自訂屬性：
+ *   .marquee-strip { background-color: var(--coral); color: #fff; }
+ *
+ * CSS @keyframes 動畫在兩個框架中寫法完全相同，
+ * 因為這是純 CSS 功能，和框架無關。
+ */
+
+/* 跑馬燈容器 — 珊瑚色薄條 */
+.marquee-strip {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  background-color: var(--coral);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* 活動圖標 */
+.marquee-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-sm) 0 var(--space-md);
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* 跑馬燈內容區域 */
+.marquee-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* 跑馬燈文字 — CSS 動畫驅動 */
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+
+  /* 跑馬燈動畫：從右側滑入到左側滑出 */
+  animation: marquee-scroll 10s linear infinite;
+}
+
+/**
+ * @keyframes marquee-scroll
+ *
+ * 【Vue 對比】
+ * CSS @keyframes 是純 CSS 功能，在 Vue 和 Angular 中完全相同。
+ * Vue 的 <style scoped> 和 Angular 的 ViewEncapsulation 都不影響 @keyframes。
+ *
+ * 動畫效果：文字從容器右側（100%）滑動到左側超出（-100%）
+ * 10 秒一個循環，和訊息切換頻率同步。
+ */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

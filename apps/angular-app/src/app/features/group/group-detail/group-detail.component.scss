@@ -1,0 +1,227 @@
+/**
+ * 團體詳情頁樣式
+ *
+ * 設計風格：Seoul Editorial
+ * - 主色調：奶油色背景、墨色文字、珊瑚色點綴
+ * - 字體：Cormorant Garamond（襯線，標題）+ DM Sans（無襯線，內文）
+ *
+ * ============================================================
+ * 【Vue 對比】SCSS vs UnoCSS utility class
+ * ============================================================
+ *
+ * Vue 版本（vue-app）完全使用 UnoCSS utility class，
+ * 不寫任何 scoped CSS（除非動畫）：
+ *
+ *   <div class="relative h-[220px] overflow-hidden">
+ *     <div class="absolute inset-0 bg-gradient-to-t from-black/80" />
+ *   </div>
+ *
+ * Angular 版本使用 SCSS + BEM 命名：
+ *   .hero { position: relative; height: 220px; }
+ *   .hero__overlay { @include gradient-overlay; }
+ *
+ * 選擇 SCSS 的原因：
+ * 1. Angular Material 的主題系統基於 SCSS
+ * 2. Angular 的 ViewEncapsulation 提供元件級樣式隔離
+ * 3. BEM 命名讓樣式結構更清晰（適合教學對比）
+ *
+ * Seoul Editorial 色彩系統：
+ * - $cream: #f5f0e8（頁面背景）
+ * - $ink: #1a1a2e（主要文字）
+ * - $coral: #e07a5f（品牌強調色）
+ * - $warm-gray: #8b8680（次要文字）
+ * ============================================================
+ */
+
+/* Seoul Editorial 色彩變數 */
+$cream: #f5f0e8;
+$ink: #1a1a2e;
+$coral: #e07a5f;
+$warm-gray: #8b8680;
+$border-color: rgba(#1a1a2e, 0.1);
+
+/* 主容器 */
+.group-detail {
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  margin: -16px -16px 0;
+}
+
+/**
+ * Hero 封面圖區域
+ *
+ * 【Vue 對比】
+ * Vue：class="relative h-[220px] overflow-hidden"
+ * Angular：.hero { position: relative; height: 220px; overflow: hidden; }
+ */
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 220px;
+  overflow: hidden;
+
+  /* 封面圖片 */
+  &__cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 漸層備用背景 */
+  &__cover-gradient {
+    display: block;
+  }
+
+  /**
+   * 漸層遮罩
+   *
+   * 【Vue 對比】
+   * Vue：class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+   * Angular：用 SCSS linear-gradient
+   */
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.2) 50%,
+      transparent 100%
+    );
+  }
+
+  /**
+   * 底部文字內容
+   *
+   * 【Vue 對比】
+   * Vue：class="absolute bottom-4 left-4 right-4"
+   */
+  &__content {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  &__company-name {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    margin: 0 0 2px;
+  }
+
+  &__group-name {
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__korean-name {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    margin: 4px 0 0;
+  }
+}
+
+/**
+ * 資訊標籤列
+ *
+ * 【Vue 對比】
+ * Vue：class="flex flex-wrap gap-2 px-4 py-3 border-b border-sys-border"
+ * Angular：用 SCSS 定義 flexbox + border
+ */
+.info-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid $border-color;
+  max-width: 480px;
+  width: 100%;
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 9999px;
+
+    &--default {
+      background-color: rgba($ink, 0.05);
+      color: $warm-gray;
+    }
+  }
+
+  &__icon {
+    font-size: 0.75rem !important;
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+  }
+}
+
+/**
+ * 團體簡介
+ *
+ * 【Vue 對比】
+ * Vue：class="px-4 pt-3 pb-4 border-b border-sys-border"
+ */
+.description {
+  padding: 12px 16px 16px;
+  border-bottom: 1px solid $border-color;
+  max-width: 480px;
+  width: 100%;
+
+  &__text {
+    color: $warm-gray;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+/**
+ * 成員列表區域
+ *
+ * 【Vue 對比】
+ * Vue 用動態 grid class：
+ *   :class="members.length <= 4 ? 'grid-cols-4' : 'grid-cols-3'"
+ *
+ * Angular 用 BEM modifier + [ngClass]：
+ *   [ngClass]="'members-section__grid--cols-' + gridCols"
+ */
+.members-section {
+  padding: 16px;
+  max-width: 480px;
+  width: 100%;
+
+  &__title {
+    color: $ink;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 16px;
+
+    &--cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    &--cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

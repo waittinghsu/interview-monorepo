@@ -1,0 +1,88 @@
+<!--
+  團體卡片模板
+
+  ============================================================
+  【Vue 對比】模板中的方法呼叫 vs 內嵌表達式
+  ============================================================
+
+  Angular 的模板偏好呼叫元件方法來取得動態樣式：
+    [ngStyle]="getCoverStyle()"
+
+  Vue 的模板通常直接寫內嵌表達式：
+    :style="{
+      backgroundImage: group.cover ? `url(${group.cover})` : 'none',
+      background: !group.cover
+        ? `linear-gradient(135deg, ${group.gradientFrom}, ${group.gradientTo})`
+        : 'none'
+    }"
+
+  兩種方式都可以，但：
+  - Angular 方法呼叫讓模板更乾淨
+  - Vue 內嵌表達式減少一層跳轉
+
+  Angular 的 | pipe 語法用於資料轉換：
+    {{ group.debut | debutYear }}
+  Vue 2 也有類似語法（filter），但 Vue 3 已移除。
+  Vue 3 改用 computed 或工具函式。
+  ============================================================
+-->
+
+<!--
+  卡片容器
+
+  (click)="onCardClick()" — 監聽點擊事件
+  【Vue 對比】@click="emit('click', group.id)"
+-->
+<div class="group-card" (click)="onCardClick()">
+  <!--
+    封面圖片區域
+
+    aspect-ratio 3/4 確保所有卡片高度一致。
+    圖片用 background-image，方便做 object-fit 和漸層備用。
+  -->
+  <div class="card-cover" [ngStyle]="getCoverStyle()">
+    <!-- Hover 時的微妙遮罩效果 -->
+    <div class="cover-overlay"></div>
+  </div>
+
+  <!--
+    卡片資訊區域
+
+    Seoul Editorial 風格：
+    - 白色背景
+    - Cormorant Garamond 襯線字型的團體名稱
+    - 出道年份用 DebutYearPipe 轉換
+    - 粉絲名稱用團體代表色標籤
+
+    【Vue 對比】Pipe 語法
+    Angular：{{ group.debut | debutYear }}
+    Vue（用工具函式）：{{ getDebutYear(group.debut) }}
+    Vue 3 移除了 filter 語法，改用 computed 或函式呼叫。
+  -->
+  <div class="card-info">
+    <h3 class="card-name font-display">{{ group.name }}</h3>
+
+    <div class="card-meta">
+      <span class="card-year">{{ group.debut | debutYear }}</span>
+      <span class="meta-dot">&middot;</span>
+      <span class="card-korean">{{ group.koreanName }}</span>
+    </div>
+
+    <!--
+      粉絲名稱標籤
+
+      *ngIf 條件渲染 — 只有粉絲名稱存在時才顯示
+      【Vue 對比】v-if="group.fandomName"
+    -->
+    <span
+      *ngIf="group.fandomName"
+      class="fandom-chip"
+      [ngStyle]="getFandomChipStyle()"
+    >
+      {{ group.fandomName }}
+    </span>
+  </div>
+
+  <!-- 底部珊瑚色裝飾線（hover 時顯示） -->
+  <div class="card-accent"></div>
+</div>

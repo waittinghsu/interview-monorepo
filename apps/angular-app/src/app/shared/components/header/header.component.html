@@ -1,0 +1,66 @@
+<!--
+  HeaderComponent 模板 — Seoul Editorial 風格頂部導覽列
+
+  ============================================================
+  【Vue 對比】*ngIf + async pipe vs v-if + computed
+  ============================================================
+
+  Angular：
+    <button *ngIf="!(isHome$ | async)" (click)="goBack()">
+    - *ngIf 是結構型指令（Structural Directive），加了 * 前綴
+    - async pipe 將 Observable 轉為當前值
+    - (click) 是事件綁定語法
+
+  Vue：
+    <button v-if="!isHome" @click="goBack">
+    - v-if 是指令
+    - @click 是 v-on:click 的縮寫
+    - isHome 是 computed，自動追蹤 route 變化
+
+  Angular 的 async pipe 很像 Vue 的 computed + watch 的結合：
+  - 自動訂閱 Observable
+  - 值變化時自動更新視圖
+  - 元件銷毀時自動取消訂閱（防止記憶體洩漏）
+  ============================================================
+-->
+
+<header class="header">
+  <!--
+    返回按鈕 — 只在非首頁時顯示
+
+    mat-icon-button：Angular Material 的圖示按鈕樣式
+    【Vue 對比】Vue 用 Quasar 的 <q-btn icon="arrow_back_ios" flat round />
+
+    !(isHome$ | async)：
+    1. isHome$ 是 Observable<boolean>
+    2. async pipe 訂閱並取得當前值
+    3. ! 取反（不在首頁時顯示）
+  -->
+  <button
+    *ngIf="!(isHome$ | async)"
+    mat-icon-button
+    class="header__back-btn"
+    (click)="goBack()"
+    aria-label="返回上一頁"
+  >
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+
+  <!--
+    Logo — "K — HUB" Seoul Editorial 風格
+
+    【Vue 對比】
+    Vue 用 <router-link to="/">，Angular 用 routerLink="/"。
+    兩者功能相同：點擊後導覽到首頁，不會觸發整頁刷新。
+
+    routerLink 是 Angular Router 提供的指令（Directive），
+    需要在模組中引入 RouterModule 才能使用。
+    我們在 SharedModule 的 imports 和 exports 中已經包含了 RouterModule。
+  -->
+  <a routerLink="/" class="header__logo font-display">
+    K <span class="header__logo-dash">&mdash;</span> HUB
+  </a>
+
+  <!-- 右側裝飾圓點 — Seoul Editorial 的視覺細節 -->
+  <span class="header__dot"></span>
+</header>

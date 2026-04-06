@@ -1,0 +1,78 @@
+<!--
+  根元件模板 — App Shell
+
+  ============================================================
+  【Vue 對比】<router-outlet> vs <router-view>
+  ============================================================
+
+  Angular 和 Vue 都有「路由掛載點」的概念，
+  但使用不同的元素名稱：
+
+  Angular：<router-outlet></router-outlet>
+  Vue：    <router-view></router-view>
+
+  功能完全相同：根據當前 URL 顯示對應的元件。
+
+  Angular 的 <router-outlet> 是一個「指令」（Directive），
+  它會在自己的位置「之後」插入路由元件（不是替換自己）。
+  所以在 DOM 中你會看到 <router-outlet> 標籤仍然存在。
+
+  Vue 的 <router-view> 則是一個「元件」，
+  它會被路由元件完全替換。
+
+  另外，Angular 的 <router-outlet> 支援具名出口：
+    <router-outlet name="sidebar"></router-outlet>
+  Vue 也有對應功能：
+    <router-view name="sidebar"></router-view>
+  ============================================================
+-->
+
+<!--
+  App Shell 結構
+
+  【Vue 對比】
+  這個結構對應 vue-app 的 App.vue / DefaultLayout.vue：
+  - app-header ↔ AppHeader.vue
+  - router-outlet ↔ router-view
+  - app-footer ↔ AppFooter.vue
+
+  注意：app-loading-bar、app-header、app-footer 元件尚未建立（Task 4 會實作）。
+  Angular 不會因為使用了未宣告的元件而在編譯時報錯（會在執行時警告），
+  但在 strict 模式下可能會報錯。這些元件會在後續 Task 中建立。
+-->
+<div class="app-shell">
+  <!-- 頂部載入進度條 -->
+  <app-loading-bar></app-loading-bar>
+
+  <!-- 頁首導航 -->
+  <app-header></app-header>
+
+  <!--
+    主要內容區域
+
+    content-container 限制最大寬度為 480px（行動裝置優先設計），
+    並水平置中顯示。
+  -->
+  <main class="main-content">
+    <div class="content-container">
+      <!--
+        路由掛載點
+
+        【Vue 對比】
+        Vue：<router-view v-slot="{ Component }">
+               <transition name="fade">
+                 <component :is="Component" />
+               </transition>
+             </router-view>
+
+        Angular 的路由動畫需要在元件的 @Component 中設定 animations，
+        搭配 <router-outlet> 的 (activate) 事件來觸發。
+        這比 Vue 的 <Transition> 包裝方式更複雜。
+      -->
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <!-- 頁尾 -->
+  <app-footer></app-footer>
+</div>

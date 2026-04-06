@@ -1,0 +1,80 @@
+/**
+ * 首頁樣式 — Seoul Editorial 風格
+ *
+ * 【Vue 對比】Angular scoped styles vs Vue scoped styles
+ *
+ * Angular 預設啟用 ViewEncapsulation.Emulated：
+ * - 會為每個元件的 DOM 元素加上唯一屬性（如 _ngcontent-abc-1）
+ * - CSS 選擇器自動加上屬性選擇器，達到「範圍隔離」效果
+ * - 和 Vue 的 <style scoped> 原理完全相同
+ *
+ * Vue：<style scoped> → 加上 data-v-xxxx 屬性
+ * Angular：ViewEncapsulation.Emulated → 加上 _ngcontent-xxx 屬性
+ */
+
+/* 首頁容器 */
+.home-page {
+  padding-bottom: var(--space-2xl);
+}
+
+/* ── 區段 ── */
+.section {
+  padding: var(--space-lg) var(--space-md);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* 團體數量標記 */
+.section-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 var(--space-sm);
+  border-radius: var(--radius-full);
+  background-color: var(--coral);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+
+/* ── 團體網格（2 欄） ── */
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+/* ── 空狀態 ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-md);
+  color: var(--ink-muted);
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-text {
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+}

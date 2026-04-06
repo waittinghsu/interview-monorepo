@@ -1,0 +1,86 @@
+<!--
+  輪播圖模板
+
+  ============================================================
+  【Vue 對比】Angular 模板迴圈與條件渲染
+  ============================================================
+
+  Angular 的結構型指令（Structural Directives）用 * 前綴：
+  - *ngFor：列表渲染（Vue 的 v-for）
+  - *ngIf：條件渲染（Vue 的 v-if）
+
+  CSS class 綁定差異：
+  - Vue：:class="{ active: index === currentSlide }"
+  - Angular：[ngClass]="{ 'active': index === currentSlide }"
+
+  注意 Angular 的 [ngClass] 中，key 可以用引號也可以不用。
+  但如果 class 名稱含有 - 符號（如 'is-active'），就必須加引號。
+  ============================================================
+-->
+
+<div class="carousel">
+  <!--
+    幻燈片容器 — 所有幻燈片疊在一起，靠 opacity 控制顯示
+
+    【Vue 對比】
+    Vue 通常用 <Transition> 做切換動畫：
+      <Transition name="fade">
+        <div v-if="index === currentSlide" :key="slide.id" />
+      </Transition>
+
+    Angular 這裡用 CSS opacity + z-index 做切換（較簡單），
+    Angular 的動畫系統（@angular/animations）比較複雜，
+    但功能也更強大（支援 state 狀態機、平行動畫等）。
+  -->
+  <div class="carousel-track">
+    <div
+      *ngFor="let slide of slides; let i = index"
+      class="carousel-slide"
+      [ngClass]="{ 'active': i === currentSlide }"
+      [ngStyle]="getSlideBackground(slide)"
+    >
+      <!-- 漸層遮罩（讓底部文字可讀） -->
+      <div class="slide-overlay" [ngStyle]="getOverlayGradient(slide)"></div>
+
+      <!-- 幻燈片內容 -->
+      <div class="slide-content">
+        <h2 class="slide-title font-display">{{ slide.title }}</h2>
+        <p class="slide-subtitle">{{ slide.subtitle }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    指示器圓點
+
+    【Vue 對比】
+    Vue：
+      <button
+        v-for="(slide, index) in slides"
+        :key="slide.id"
+        :class="{ active: index === currentSlide }"
+        @click="goToSlide(index)"
+      />
+
+    Angular：
+      <button
+        *ngFor="let slide of slides; let i = index"
+        [ngClass]="{ 'active': i === currentSlide }"
+        (click)="goToSlide(i)"
+      />
+
+    差異：
+    - Vue 的 v-for 可以直接解構 (slide, index)
+    - Angular 的 *ngFor 用 let i = index 取得索引
+    - Vue 用 @click，Angular 用 (click)
+  -->
+  <div class="carousel-dots">
+    <button
+      *ngFor="let slide of slides; let i = index"
+      class="dot"
+      [ngClass]="{ 'active': i === currentSlide }"
+      (click)="goToSlide(i)"
+      [attr.aria-label]="'切換到第 ' + (i + 1) + ' 張幻燈片'"
+    ></button>
+  </div>
+</div>
