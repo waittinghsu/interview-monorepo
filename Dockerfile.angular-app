@@ -1,50 +1,40 @@
 # ============================================
 # Angular K-pop Hub — Multi-stage Docker Build
 # ============================================
-# 設計理念：
-#   Stage 1 (builder)：安裝依賴 + Angular AOT 編譯
-#   Stage 2 (serve)：只複製靜態檔案，用 nginx 提供服務
-#
-# Build Context：monorepo 根目錄
-# 使用方式：docker build -f apps/angular-app/Dockerfile.angular-app .
+# Build Context：monorepo 根目錄（Zeabur 預設從根目錄 build）
+# 使用 ZBPACK_DOCKERFILE_NAME=angular-app 觸發
 # ============================================
 
 # ---- Stage 1: Builder ----
-# 使用 Node 20（LTS）slim 版本，減少映像大小
 FROM node:20-slim AS builder
 
 WORKDIR /app
 
-# 先複製 package 檔案（利用 Docker layer cache）
-# 只要 package.json 沒變，npm ci 就不用重跑
-COPY apps/angular-app/package.json apps/angular-app/package-lock.json* ./
+# 安裝 pnpm（與 monorepo 的 packageManager 對齊）
+RUN npm install -g pnpm@9 --force
 
-# 安裝依賴（ci = clean install，確保與 lock 檔完全一致）
-RUN npm ci
+# 複製 workspace 設定檔（利用 Docker layer cache）
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 
-# 複製 Angular 原始碼
-COPY apps/angular-app/ ./
+# 複製 angular-app 的 package.json（供 pnpm 解析 workspace 依賴）
+COPY apps/angular-app/package.json ./apps/angular-app/
+
+# 安裝依賴（只安裝 angular-app 需要的部分）
+RUN pnpm install --filter=@interview/angular-app... --frozen-lockfile
+
+# 複製源碼
+COPY apps/angular-app/ ./apps/angular-app/
 
 # 執行 Angular AOT 編譯（production 模式）
-# --configuration production 會啟用：
-#   - Tree shaking（移除未使用的程式碼）
-#   - AOT 編譯（Ahead-of-Time，預先編譯模板）
-#   - Minification（壓縮 JS/CSS）
-#   - Output hashing（檔名加 hash，利於快取）
-RUN npx ng build --configuration production
+RUN pnpm --filter=@interview/angular-app build
 
 # ---- Stage 2: Serve ----
-# 使用 nginx alpine（僅 ~5MB），專門提供靜態檔案
-FROM nginx:alpine AS serve
+FROM nginx:alpine AS production
 
-# 複製自訂 nginx 設定（含 SPA routing 的 try_files）
+# 複製 builder stage 產生的靜態檔案
+COPY --from=builder /app/apps/angular-app/dist/angular-app /usr/share/nginx/html
+
+# 複製 nginx 設定（SPA routing 支援）
 COPY apps/angular-app/nginx.conf /etc/nginx/conf.d/default.conf
 
-# 從 builder stage 複製編譯好的靜態檔案
-COPY --from=builder /app/dist/angular-app /usr/share/nginx/html
-
-# nginx 預設監聽 80 port
 EXPOSE 80
-
-# 啟動 nginx（前景模式，讓 Docker 可以追蹤 process）
-CMD ["nginx", "-g", "daemon off;"]
