@@ -56,7 +56,9 @@
       "Bash(npx zeabur@latest variable create --id 69c66d86a972bb88a76276d3 --key \"VITE_BASE_URL=https://api-server.zeabur.app\" -y -i=false)",
       "Bash(npx zeabur@latest variable update --id 69c66d86a972bb88a76276d3 --key \"VITE_BASE_URL\" --value \"https://api-server.zeabur.app\" -y -i=false)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(pnpm --filter=@interview/react-app lint)",
+      "Bash(pnpm --filter=@interview/react-app add prop-types)"
     ]
   }
 }
