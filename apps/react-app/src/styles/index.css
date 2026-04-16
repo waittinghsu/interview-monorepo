@@ -1,0 +1,87 @@
+/* ===== Tailwind CSS v4 =====
+ * v4 改用 CSS-first 配置方式，不再需要 tailwind.config.js
+ * @import "tailwindcss" 取代 v3 的三行 @tailwind directives
+ */
+@import "tailwindcss";
+
+/* ===== Midnight Seoul 主題色彩系統 =====
+ * 使用 CSS 自訂屬性（Custom Properties）= CSS Variables
+ * 好處：可在 JS 中動態修改，也可用於 Tailwind 的 arbitrary values
+ *
+ * Vue 對應：shared-design-tokens 的 cyberpunkTheme.colors
+ */
+:root {
+  /* 背景層次 */
+  --bg-base: #0d0d12;          /* 主背景：深邃暖黑 */
+  --bg-card: #16161f;          /* 卡片背景 */
+  --bg-raised: #1e1e2e;        /* 浮起元素（hover 狀態等） */
+  --bg-overlay: rgba(13, 13, 18, 0.85); /* 遮罩層 */
+
+  /* 品牌色 */
+  --color-primary: #FF6B8A;    /* 玫瑰珊瑚，主色 */
+  --color-primary-dim: rgba(255, 107, 138, 0.15); /* 主色半透明，用於 badge 背景 */
+  --color-secondary: #A78BFA;  /* 柔紫，輔色 */
+  --color-secondary-dim: rgba(167, 139, 250, 0.15);
+
+  /* 文字層次 */
+  --text-base: #F0EEF8;        /* 主要文字，暖白 */
+  --text-secondary: #B8B7CC;   /* 次要文字 */
+  --text-muted: #8B8AA8;       /* 淡色文字 */
+
+  /* 邊框 */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  /* 字型 */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ===== 全域基礎樣式 ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-base);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* noise texture：增加質感，幾乎不可見但讓背景不死板 */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ===== 捲軸樣式 ===== */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+/* ===== Tailwind v4 自訂 utilities =====
+ * @layer utilities 讓這些 class 可以被 Tailwind 的 JIT 正確處理
+ */
+@layer utilities {
+  /* 隱藏捲軸（但可以捲動）*/
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Glassmorphism 卡片效果 */
+  .glass-card {
+    background: rgba(22, 22, 31, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+  }
+}

@@ -82,6 +82,48 @@ rules?: Array<[string, string | Record<string, string>] | [RegExp, Function]>
 - `no-console`：**允許**
 - 自動修復：`cd apps/nuxt-app && npx eslint --fix .`
 
+## Popup 系統（features/popup）
+
+### 顯示規則（DisplayRule）
+
+| 規則 | 說明 |
+|------|------|
+| `unlimited` | 無限顯示 |
+| `once_ever` | 只顯示一次（永久記錄） |
+| `once_daily` | 每日一次 |
+| `once_weekly` | 每週一次，週一 00:00 reset |
+| `once_per_login` | 每次真正重登才重置（guest 視為 unlimited） |
+
+### 儲存結構（user-scoped）
+
+```
+localStorage key: popup_state_{userId}     → UserPopupState JSON（once_ever/daily/weekly）
+localStorage key: popup_per_login_{userId} → string[] JSON（once_per_login 已顯示清單）
+userId = userStore.user?.memberId ?? 'guest'
+```
+
+### 使用方式
+
+```typescript
+// stores/popup.ts 已整合，直接用 usePopupStore
+const popupStore = usePopupStore()
+popupStore.insert(task)  // 加入佇列
+popupStore.dismiss()     // 關閉當前並標記已顯示
+```
+
+### 登入時重置 once_per_login
+
+`usePopupQueue` 會 watch userId 切換，新用戶登入時自動呼叫 `clearPerLoginRecord(uid)`，讓 once_per_login 彈窗可再次顯示。
+
+### 測試
+
+```bash
+pnpm --filter @interview/nuxt-app test
+# 12 個測試（含 once_weekly / once_per_login / guest / userId 切換）
+```
+
+---
+
 ## 禁止修改的設定檔
 
 - `nuxt.config.ts`
@@ -93,7 +135,10 @@ rules?: Array<[string, string | Record<string, string>] | [RegExp, Function]>
 |------|------|
 | Service ID | `69c66d86a972bb88a76276d3` |
 | Project ID | `69c66d86a972bb88a76276cb` |
-| 觸發分支 | `dev` |
-| ZBPACK_ROOT_DIRECTORY | 未設定（使用根目錄 zbpack.json） |
+| 觸發分支 | `dev`（nuxt-stage-app）/ `main`（nuxt-app） |
 | 類型 | Node.js SSR |
-| zbpack 設定 | `apps/nuxt-app/zbpack.json`（備用） |
+| Dockerfile | `apps/nuxt-app/Dockerfile.nuxt-app` |
+
+**Zeabur Dockerfile 設定方式（新版）：**
+後台服務設定 → Dockerfile 欄位 → 填入 `/apps/nuxt-app/Dockerfile.nuxt-app`
+（`ZBPACK_DOCKERFILE_NAME` 和 `ZBPACK_ROOT_DIRECTORY` 均已棄用，勿使用環境變數控制）

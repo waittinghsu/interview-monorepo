@@ -1,0 +1,30 @@
+/**
+ * FooterComponent 樣式 — Seoul Editorial 風格
+ *
+ * 【Vue 對比】
+ * Vue 版本用 UnoCSS：class="text-center border-t text-textMuted py-4"
+ * Angular 版本用 SCSS + CSS 自訂屬性，效果相同。
+ */
+
+:host {
+  display: block;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg) var(--space-md);
+  border-top: 1px solid var(--border);
+}
+
+.footer__text {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--ink-muted);
+}
+
+.footer__dash {
+  color: var(--coral);
+  margin: 0 1px;
+}

@@ -1,0 +1,110 @@
+/**
+ * HeaderComponent 樣式 — Seoul Editorial 風格
+ *
+ * 使用 styles.scss 中定義的 CSS 自訂屬性（設計 token）。
+ *
+ * 【Vue 對比】
+ * Vue 用 UnoCSS utility class 直接寫在 template 上：
+ *   <header class="sticky top-0 bg-white border-b flex items-center px-4">
+ *
+ * Angular 這裡用 SCSS + BEM 命名慣例：
+ *   .header { ... }
+ *   .header__logo { ... }
+ *   .header__back-btn { ... }
+ *
+ * 兩種風格各有優缺點：
+ * - UnoCSS：快速開發、不用取 class 名稱，但 template 會很長
+ * - SCSS/BEM：樣式和結構分離、可讀性好，但需要在兩個檔案間切換
+ */
+
+:host {
+  /**
+   * :host — Angular 元件的「宿主元素」選取器
+   *
+   * 【Vue 對比】
+   * Vue 沒有 :host 的概念，因為 Vue 元件的根元素就是 template 的第一個元素。
+   * Angular 的元件會產生一個「宿主元素」（例如 <app-header>），
+   * :host 就是用來設定這個宿主元素的樣式。
+   *
+   * display: block 確保宿主元素佔滿整行。
+   * Angular 元件的宿主元素預設是 inline，需要手動設為 block。
+   */
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 var(--space-md);
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.header__back-btn {
+  /**
+   * 返回按鈕 — 絕對定位在左側
+   *
+   * 用絕對定位讓 Logo 保持置中，不受按鈕的影響。
+   */
+  position: absolute;
+  left: var(--space-xs);
+  color: var(--ink);
+
+  // Angular Material 圖示按鈕的尺寸微調
+  .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.header__logo {
+  /**
+   * Logo 文字 — Cormorant Garamond 字型
+   *
+   * font-display 是在 styles.scss 中定義的全域 class，
+   * 設定 font-family: var(--font-display)。
+   */
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.header__logo-dash {
+  /**
+   * Logo 中的破折號 — 珊瑚色強調
+   *
+   * Seoul Editorial 風格的特色：用珊瑚色作為點綴色，
+   * 在大面積的黑白設計中注入溫度。
+   */
+  color: var(--coral);
+  margin: 0 2px;
+}
+
+.header__dot {
+  /**
+   * 右側裝飾圓點 — Seoul Editorial 視覺細節
+   *
+   * 小巧的珊瑚色圓點，放在右上角作為裝飾元素，
+   * 呼應 Logo 中的珊瑚色破折號。
+   */
+  position: absolute;
+  right: var(--space-md);
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--coral);
+}

@@ -1,0 +1,63 @@
+/**
+ * 根元件樣式 — App Shell Layout
+ *
+ * 【Vue 對比】
+ * Vue 的 <style scoped> 會自動加上 data-v-xxxx 屬性來隔離樣式。
+ * Angular 預設使用 ViewEncapsulation.Emulated，效果類似：
+ * 會在選擇器上加上 _nghost-xxx / _ngcontent-xxx 屬性。
+ *
+ * 兩者的目的相同：防止元件樣式洩漏到其他元件。
+ *
+ * Angular 還支援其他封裝模式：
+ * - ViewEncapsulation.None：不封裝（全域樣式）
+ * - ViewEncapsulation.ShadowDom：使用原生 Shadow DOM
+ */
+
+/**
+ * App Shell — Flexbox 垂直佈局
+ *
+ * 使用 min-height: 100vh 確保頁面至少填滿整個視窗。
+ * Flexbox column 佈局讓 header 和 footer 固定，
+ * main 區域自動填滿剩餘空間（flex: 1）。
+ *
+ * 【Vue 對比】
+ * 這個佈局結構和 vue-app 的 DefaultLayout.vue 完全相同，
+ * 只是 Vue 用 UnoCSS utility class（min-h-screen flex flex-col），
+ * Angular 這裡用傳統的 SCSS。
+ */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--cream);
+}
+
+/**
+ * 主要內容區域
+ *
+ * flex: 1 讓它佔滿 header 和 footer 之間的所有空間。
+ * 即使內容不夠多，footer 也會被推到頁面底部。
+ */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * 內容容器 — 限制最大寬度
+ *
+ * max-width: 480px 是行動裝置優先的設計，
+ * 搭配 margin: 0 auto 水平置中。
+ *
+ * 【Vue 對比】
+ * vue-app 也使用類似的 max-width 容器，
+ * 但透過 UnoCSS 的 max-w-[480px] mx-auto 來實現。
+ */
+.content-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-md);
+  flex: 1;
+}

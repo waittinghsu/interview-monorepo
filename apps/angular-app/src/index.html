@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Angular 應用的入口 HTML
+
+  【Vue 對比】
+  Vue + Vite 的入口是 index.html，裡面放 <div id="app"></div>。
+  Angular 則使用自訂元素 <app-root>，由 Angular 編譯器自動替換。
+
+  兩者都需要在 HTML 中預留一個掛載點，但：
+  - Vue：透過 createApp(App).mount('#app') 掛載
+  - Angular：透過 platformBrowserDynamic().bootstrapModule(AppModule) 啟動，
+             自動尋找 AppComponent 的 selector（'app-root'）並掛載
+-->
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <title>Angular K-Pop App</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Google Fonts：Seoul Editorial 主題字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Material Icons -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  >
+</head>
+<body>
+  <!--
+    <app-root> 是 Angular 的掛載點
+
+    【Vue 對比】
+    Vue：<div id="app"></div> — 用 CSS id 選擇器
+    Angular：<app-root></app-root> — 用自訂 HTML 元素（Web Component 風格）
+
+    Angular 的做法更接近 Web Components 標準，
+    每個元件都是一個自訂 HTML 標籤。
+  -->
+  <app-root></app-root>
+</body>
+</html>

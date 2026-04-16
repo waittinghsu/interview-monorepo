@@ -1,0 +1,179 @@
+<!--
+  成員詳情頁模板
+
+  ============================================================
+  【Vue 對比】Angular 模板語法 vs Vue 模板語法
+  ============================================================
+
+  Vue MemberPage.vue 的結構：
+  1. v-if="member" 確認資料載入
+  2. Hero 區域（照片 + 漸層遮罩 + 返回按鈕 + 姓名）
+  3. 基本資料卡片（生日、國籍、所屬團體）
+  4. 擔當標籤列表
+
+  Angular 版本對應：
+  1. *ngIf="member$ | async as member" — Observable 訂閱 + 條件渲染
+  2. Hero 區域 — 同樣結構，語法不同
+  3. 資訊卡片 — [ngStyle] 取代 :style
+  4. 職位標籤 — *ngFor 取代 v-for
+
+  async pipe 的 as 語法：
+    *ngIf="member$ | async as member"
+  等同於訂閱 member$ Observable，並將最新值存到 member 區域變數。
+  ============================================================
+-->
+
+<!-- 主容器 — 等待成員資料載入 -->
+<div
+  *ngIf="member$ | async as member"
+  class="member-detail"
+>
+  <!-- 同時取得所屬團體資料 -->
+  <ng-container *ngIf="{ group: group$ | async } as vm">
+
+    <!--
+      Hero 照片區域
+
+      【Vue 對比】
+      Vue：<div class="relative h-[300px] overflow-hidden">
+      Angular：<div class="hero">（SCSS 定義高度 300px）
+
+      Vue 用 v-if/v-else 切換照片和備用背景：
+        <img v-if="member.photo" :src="member.photo" />
+        <div v-else :style="fallbackStyle">{{ member.name.charAt(0) }}</div>
+
+      Angular 用 *ngIf/else + ng-template：
+    -->
+    <div class="hero">
+      <!-- 有照片時顯示圖片 -->
+      <img
+        *ngIf="member.photo; else photoFallback"
+        [src]="member.photo"
+        [alt]="member.name"
+        class="hero__photo"
+      >
+      <!-- 無照片時的備用背景 + 首字 -->
+      <ng-template #photoFallback>
+        <div
+          class="hero__fallback"
+          [ngStyle]="getHeroFallbackStyle(member)"
+        >
+          <span class="hero__initial">{{ getInitial(member) }}</span>
+        </div>
+      </ng-template>
+
+      <!-- 漸層遮罩 -->
+      <div class="hero__overlay"></div>
+
+      <!--
+        返回團體連結
+
+        【Vue 對比】
+        Vue：
+          <button @click="goToGroup" class="absolute top-4 left-4">
+            <q-icon name="arrow_back_ios" />
+            <span>{{ group?.name }}</span>
+          </button>
+
+        Angular：
+          (click)="goToGroup(vm.group.id)"
+          用 mat-icon 取代 q-icon
+      -->
+      <button
+        *ngIf="vm.group"
+        class="hero__back-button"
+        (click)="goToGroup(vm.group.id)"
+      >
+        <mat-icon class="hero__back-icon">arrow_back_ios</mat-icon>
+        <span class="hero__back-text">{{ vm.group.name }}</span>
+      </button>
+
+      <!-- 姓名覆蓋在底部 -->
+      <div class="hero__content">
+        <h1 class="hero__name">{{ member.name }}</h1>
+        <p class="hero__sub-name">
+          {{ member.koreanName }} · {{ member.englishName }}
+        </p>
+      </div>
+    </div>
+
+    <!--
+      基本資料卡片
+
+      【Vue 對比】
+      Vue：class="mx-4 mt-4 bg-sys-card rounded-2xl border border-sys-border p-4"
+      Angular：.info-card（SCSS 定義，Seoul Editorial 風格）
+
+      Vue 用 class="grid grid-cols-2 gap-4" 做 2 欄 grid
+      Angular 用 .info-card__grid（SCSS grid）
+    -->
+    <div class="info-card">
+      <div class="info-card__grid">
+        <!-- 生日 -->
+        <div class="info-card__item">
+          <p class="info-card__label">生日</p>
+          <p class="info-card__value">{{ member.birthday }}</p>
+        </div>
+        <!-- 國籍 -->
+        <div class="info-card__item">
+          <p class="info-card__label">國籍</p>
+          <p class="info-card__value">{{ member.nationality }}</p>
+        </div>
+        <!--
+          所屬團體（可點擊連結）
+
+          【Vue 對比】
+          Vue：
+            <button :style="{ color: group.color }" @click="goToGroup">
+              {{ group.name }}
+              <q-icon name="open_in_new" />
+            </button>
+
+          Angular：
+            (click)="goToGroup(vm.group.id)"
+            [ngStyle]="getGroupLinkStyle(vm.group)"
+        -->
+        <div *ngIf="vm.group" class="info-card__item info-card__item--full">
+          <p class="info-card__label">所屬團體</p>
+          <button
+            class="info-card__group-link"
+            [ngStyle]="getGroupLinkStyle(vm.group)"
+            (click)="goToGroup(vm.group.id)"
+          >
+            {{ vm.group.name }}
+            <mat-icon class="info-card__link-icon">open_in_new</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      擔當（職位標籤）
+
+      【Vue 對比】
+      Vue：
+        <div v-for="pos in member.position" :key="pos">
+          <span :style="{ background: `${member.color}22`, color: member.color }">
+            {{ pos }}
+          </span>
+        </div>
+
+      Angular：
+        *ngFor="let pos of member.position"
+        [ngStyle]="getPositionChipStyle(member)"
+    -->
+    <div class="position-section">
+      <h2 class="position-section__title">擔當</h2>
+      <div class="position-section__tags">
+        <span
+          *ngFor="let pos of member.position"
+          class="position-section__chip"
+          [ngStyle]="getPositionChipStyle(member)"
+        >
+          {{ pos }}
+        </span>
+      </div>
+    </div>
+
+  </ng-container>
+</div>

@@ -2,13 +2,15 @@
 
 ## 專案概覽 
 
-pnpm + Turborepo monorepo，包含兩個前端 App、一個 API Server 與共用套件。
+pnpm + Turborepo monorepo，包含多個前端 App、一個 API Server 與共用套件。
 
-| App | 框架 | Port | 類型 | 觸發分支 |
-|-----|------|------|------|---------|
-| `apps/vue-app` | Vue 3 + Vite | 9527 | SPA | `main` |
-| `apps/nuxt-app` | Nuxt 3 | 30678 | SSR | `dev` |
-| `apps/api-server` | Fastify v5 | 3001 | API | `dev` |
+| App | 框架 | Port | 類型 | 觸發分支 | 備註 |
+|-----|------|------|------|---------|------|
+| `apps/vue-app` | Vue 3 + Vite | 9527 | SPA | `main` | JavaScript，Quasar UI |
+| `apps/nuxt-app` | Nuxt 3 | 30678 | SSR | `dev` | TypeScript 嚴格模式 |
+| `apps/api-server` | Fastify v5 | 3001 | API | `dev` | Prisma + PostgreSQL |
+| `apps/angular-app` | Angular 13+ | 4200 | SPA | — | 學習用，NgModule + NgRx + Angular Material |
+| `apps/react-app` | React | — | SPA | — | 學習用 |
 
 共用套件：`packages/shared-design-tokens`（三主題 + 型別定義）
 
@@ -23,6 +25,8 @@ pnpm + Turborepo monorepo，包含兩個前端 App、一個 API Server 與共用
 @apps/nuxt-app/CLAUDE.md
 
 @apps/api-server/CLAUDE.md
+
+> `apps/angular-app` 和 `apps/react-app` 為學習用專案，尚無獨立 CLAUDE.md。
 
 ---
 
